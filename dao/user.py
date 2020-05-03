@@ -1,11 +1,14 @@
 import bcrypt as bcrypt
 
 from config import db
+from dao.mixin import OutputMixin
 from dao.request import Request
 from dao.donation import Donation
 
 
-class User(db.Model):
+class User(OutputMixin, db.Model):
+    USER_REQUIRED_PARAMETERS = ['firstName', 'lastName', 'email', 'phone', 'dateOfBirth', 'address', 'city',
+                                'zipCode', 'country', 'username', 'password']
 
     uid = db.Column(db.Integer, primary_key=True)
     firstName = db.Column(db.String(30), nullable=False)
@@ -24,11 +27,11 @@ class User(db.Model):
 
     # user = id, firstname, lastname, email, phone, date_birth, address, city, zipcode, country
 
-    def getAllUsers(self):
+    def get_all_users(self):
         return self.query.all()
 
     @staticmethod
-    def getUserById(user_id):
+    def get_user_by_id(user_id):
         return User.query.filter_by(uid=user_id)
 
     def create(self):
