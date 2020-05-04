@@ -7,21 +7,21 @@ from handler.user import UserHandler
 
 
 @app.route('/')
-def hello_world():
+def index():
     return 'Welcome to Disaster Aid Distribution App!'
 
 
-@app.route("/DAD/register", methods=['POST'])
-def register_user():
-    return UserHandler().create_user(request.json)
+@app.route("/DAD/users", methods=['GET', 'POST'])
+def getall_or_create_users():
+    if request.method == 'GET':
+        return UserHandler().get_all_users()
+    elif request.method == 'POST':
+        return UserHandler().create_user(request.json)
+    else:
+        return jsonify(message="Method not allowed."), 405
 
 
-@app.route("/DAD/user", methods=['GET'])
-def get_all_users():
-    return UserHandler().get_all_users()
-
-
-@app.route('/DAD/user/<int:uid>', methods=['GET', 'PUT', 'DELETE'])
+@app.route('/DAD/users/<int:uid>', methods=['GET', 'PUT', 'DELETE'])
 def get_user_by_id(uid):
     if request.method == 'GET':
         return UserHandler().get_user_by_id(uid)
@@ -30,8 +30,8 @@ def get_user_by_id(uid):
     elif request.method == 'DELETE':
         return UserHandler().delete_user(uid)
     else:
-        return jsonify(Error="Method not allowed."), 405
+        return jsonify(message="Method not allowed."), 405
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
