@@ -1,11 +1,15 @@
 import bcrypt as bcrypt
 
 from config import db
+from dao.mixin import OutputMixin
 from dao.request import Request
 from dao.donation import Donation
 
 
-class User(db.Model):
+class User(OutputMixin, db.Model):
+    RELATIONSHIPS_TO_DICT = True
+    USER_REQUIRED_PARAMETERS = ['firstName', 'lastName', 'email', 'phone', 'dateOfBirth', 'address', 'city',
+                                'zipCode', 'country', 'username', 'password']
 
     uid = db.Column(db.Integer, primary_key=True)
     firstName = db.Column(db.String(30), nullable=False)
@@ -17,19 +21,23 @@ class User(db.Model):
     city = db.Column(db.String(20), nullable=False)
     zipCode = db.Column(db.String(10), nullable=False)
     country = db.Column(db.String(20), nullable=False)
-    requests = db.relationship('Request', backref='user', lazy=True)
-    donations = db.relationship('Donation', backref='user', lazy=True)
+    requests = db.relationship('Request', backref=db.backref('user', lazy='subquery'), lazy=True)
+    donations = db.relationship('Donation', backref=db.backref('user', lazy='subquery'), lazy=True)
     username = db.Column(db.String(20), nullable=False)
     password = db.Column(db.String(100), nullable=False)
 
-    # user = id, firstname, lastname, email, phone, date_birth, address, city, zipcode, country
+    def __repr__(self):
+        return self.full_name
 
-    def getAllUsers(self):
+    @property
+    def full_name(self):
+        return "%s %s" % (self.firstName, self.lastName)
+
+    def get_all_users(self):
         return self.query.all()
 
-    @staticmethod
-    def getUserById(user_id):
-        return User.query.filter_by(uid=user_id)
+    def get_user_by_id(self, user_id):
+        return self.query.filter_by(uid=user_id).first()
 
     def create(self):
         self.password = bcrypt.hashpw(self.password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
