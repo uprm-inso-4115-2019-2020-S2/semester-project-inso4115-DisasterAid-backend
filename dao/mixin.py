@@ -17,9 +17,10 @@ class OutputMixin:
         res = {column.key: getattr(self, attr)
                for attr, column in self.__mapper__.c.items()}
         if rel:
+            # TODO: Refactor this for better serialization
             for attr, relation in self.__mapper__.relationships.items():
                 # Avoid recursive loop between to tables.
-                if backref == relation.table:
+                if backref and backref == relation.table:
                     continue
                 value = getattr(self, attr)
                 if value is None:

@@ -17,52 +17,38 @@ class BaseHandler:
 
 
 class UserHandler(BaseHandler):
-
-    def build_user_dict(self, row):
-        result = {}
-        result['uid'] = row[0]
-        result['ufirstname'] = row[1]
-        result['ulastname'] = row[2]
-        result['uemail'] = row[3]
-        result['uphone'] = row[4]
-        result['udate_birth'] = row[5]
-        result['uaddress'] = row[6]
-        result['ucity'] = row[7]
-        result['uzipcode'] = row[8]
-        result['ucountry'] = row[9]
-        return result
-
-    def build_user_attributes(self, uid, ufirstname, ulastname, uemail, uphone, udate_birth, uaddress, ucity, uzipcode, ucountry):
-        result = {}
-        result['uid'] = uid
-        result['ufirstname'] = ufirstname
-        result['ulastname'] = ulastname
-        result['uemail'] = uemail
-        result['uphone'] = uphone
-        result['udate_birth'] = udate_birth
-        result['uaddress'] = uaddress
-        result['ucity'] = ucity
-        result['uzipcode'] = uzipcode
-        result['ucountry'] = ucountry
-        return result 
+    dao = User()
 
     def get_all_users(self):
-        dao = User()
-        result = dao.get_all_users()
-        result_list = []
-        for row in result:
-            result = self.build_user_dict(row)
-            result_list.append(result)
-        return jsonify(Users=result_list)
+        try:
+            users = self.dao.get_all_users()
+            result_list = []
+            for user in users:
+                result_list.append(user.to_dict())
+            result = {
+                "message": "Success!",
+                "users": result_list,
+            }
+            return jsonify(result), 200
+        except:
+            return jsonify(message="Server error!"), 500
 
     def get_user_by_id(self, uid):
-        dao = User()
-        row = dao.get_user_by_id(uid)
-        if not row:
-            return jsonify(Error="User Not Found"), 404
+        if uid:
+            try:
+                user = self.dao.get_user_by_id(uid)
+                if not user:
+                    return jsonify(Error="User Not Found"), 404
+                else:
+                    result = {
+                        "message": "Success!",
+                        "user": user.to_dict(),
+                    }
+                    return jsonify(result), 200
+            except:
+                return jsonify(message="Server Error!"), 500
         else:
-            user = self.build_user_dict(row)
-            return jsonify(User=user)
+            return jsonify(message="Bad request!"), 400
 
     def create_user(self, json):
         valid_params = self.verify_params(json, User.USER_REQUIRED_PARAMETERS)
@@ -70,39 +56,50 @@ class UserHandler(BaseHandler):
             try:
                 new_user = User(**valid_params)
                 created_user = new_user.create()
-                return created_user.to_json(), 201
+                result = {
+                    "message": "Success!",
+                    "user": created_user.to_dict(),
+                }
+                return jsonify(result), 201
             except:
-                return "Server error!", 500
+                return jsonify(message="Server error!"), 500
         else:
-            return "Bad Request!", 400
+            return jsonify(message="Bad Request!"), 400
 
     def update_user(self, uid, json):
-        dao = User()
-        if not dao.get_user_by_id(uid):
-            return jsonify(Error="User not found."), 404
+        if uid:
+            try:
+                user_to_update = self.dao.get_user_by_id(uid)
+                if user_to_update:
+                    valid_params = self.verify_params(json, User.USER_REQUIRED_PARAMETERS)
+                    for key, value in valid_params.items():
+                        if key == "password":
+                            user_to_update.update_password(value)
+                        else:
+                            setattr(user_to_update, key, value)
+                    user_to_update.update()
+                    result = {
+                        "message": "Success!",
+                        "user": user_to_update.to_dict(),
+                    }
+                    return jsonify(result), 200
+                else:
+                    return jsonify(message="Not Found!"), 404
+            except:
+                return jsonify(message="Server Error!"), 500
         else:
-            ufirstname = json['ufirstname']
-            ulastname = json['ulastname']
-            uemail = json['uemail']
-            uphone = json['uphone']
-            udate_birth = json['udate_birth']
-            uaddress = json['uaddress']
-            ucity = json['ucity']
-            uzipcode = json['uzipcode']
-            ucountry = json['ucountry']
-
-            if ufirstname and ulastname and uemail and uphone and udate_birth and uaddress and ucity and uzipcode and ucountry:
-                dao = User()
-                dao.update(uid, ufirstname, ulastname, uemail, uphone, udate_birth, uaddress, ucity, uzipcode, ucountry)
-                result = self.build_user_attributes(uid, ufirstname, ulastname, uemail, uphone, udate_birth, uaddress, ucity, uzipcode, ucountry)
-                return jsonify(User=result), 200
-            else:
-                return jsonify(Error="Unexpected attributes in update request"), 400
+            return jsonify(message="Bad Request!"), 400
 
     def delete_user(self, uid):
-        dao = User()
-        if not dao.get_user_by_id(uid):
-            return jsonify(Error="User not found."), 404
+        if uid:
+            try:
+                user_to_delete = self.dao.get_user_by_id(uid)
+                if user_to_delete:
+                    user_to_delete.delete()
+                    return jsonify(message="Success!"), 200
+                else:
+                    return jsonify(message="Not Found!"), 404
+            except:
+                return jsonify(message="Server Error!"), 500
         else:
-            dao.delete(uid)
-            return jsonify(DeleteStatus="OK"), 200
+            return jsonify(message="Bad Request!"), 400
