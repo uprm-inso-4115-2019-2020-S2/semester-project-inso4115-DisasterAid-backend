@@ -23,11 +23,11 @@ Activate virtual environment by running the following command:
 
 * Windows: 
 ```bash
-> source \env\Scripts\activate.bat
+> source \venv\Scripts\activate.bat
 ```
 * Linux/MAC OS: 
 ```bash
-$ source env/bin/activate
+$ source venv/bin/activate
 ```
 
 Install project dependencies in the virtual environment:
