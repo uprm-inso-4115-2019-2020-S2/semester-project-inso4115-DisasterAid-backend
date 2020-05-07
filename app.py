@@ -1,9 +1,10 @@
-from flask import Flask, request, jsonify, redirect
+from flask import Flask, request, jsonify, redirect, render_template
 from flask_cors import CORS, cross_origin
 from flask_sqlalchemy import SQLAlchemy
 
 from config import app
 from handler.user import UserHandler
+from handler.donation import DonationHandler
 
 
 @app.route('/')
@@ -29,6 +30,28 @@ def get_user_by_id(uid):
         return UserHandler().update_user(uid, request.json)
     elif request.method == 'DELETE':
         return UserHandler().delete_user(uid)
+    else:
+        return jsonify(message="Method not allowed."), 405
+
+
+@app.route("/DAD/donations", methods=['GET', 'POST'])
+def getall_or_create_donations():
+    if request.method == 'GET':
+        return DonationHandler().get_all_donations()
+    elif request.method == 'POST':
+        return DonationHandler().create_donation(request.json)
+    else:
+        return jsonify(message="Method not allowed."), 405
+
+
+@app.route('/DAD/donations/<int:did>', methods=['GET', 'PUT', 'DELETE'])
+def get_donation_by_id(did):
+    if request.method == 'GET':
+        return DonationHandler().get_donation_by_id(did)
+    elif request.method == 'PUT':
+        return DonationHandler().update_donation(did, request.json)
+    elif request.method == 'DELETE':
+        return DonationHandler().delete_donation(did)
     else:
         return jsonify(message="Method not allowed."), 405
 
