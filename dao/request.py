@@ -24,4 +24,6 @@ class Request(OutputMixin, db.Model):
 
     def create(self, user):
         user.requests.append(self)
+        db.session.add(self)
         db.session.commit()
+        return self
