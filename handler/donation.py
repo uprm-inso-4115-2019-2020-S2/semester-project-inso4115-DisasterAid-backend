@@ -1,6 +1,6 @@
 from flask import jsonify
 from dao.donation import Donation
-
+from dao.user import User
 
 class BaseHandler:
     def verify_params(self, params, required_params):
@@ -19,12 +19,21 @@ class BaseHandler:
 class DonationHandler(BaseHandler):
     dao = Donation()
 
+    def build_donation_dict(self, donation):
+        result = {}
+        result['supplyName'] = getattr(donation, 'supplyName')
+        result['quantity'] = getattr(donation, 'quantity')
+        result['createdAt'] = getattr(donation, 'createdAt')
+        result['unit'] = getattr(donation, 'unit')
+        result['uid'] = getattr(donation, 'uid')
+        return result
+
     def get_all_donations(self):
         try:
             donations = self.dao.get_all_donations()
             result_list = []
             for d in donations:
-                result_list.append(d.to_dict())
+                result_list.append(self.build_donation_dict(d))
             result = {
                 "message": "Success!",
                 "donations": result_list,
@@ -42,7 +51,7 @@ class DonationHandler(BaseHandler):
                 else:
                     result = {
                         "message": "Success!",
-                        "donation": donation.to_dict(),
+                        "donation": self.build_donation_dict(donation),
                     }
                     return jsonify(result), 200
             except:
@@ -54,52 +63,15 @@ class DonationHandler(BaseHandler):
         valid_params = self.verify_params(json, Donation.DONATION_REQUIRED_PARAMETERS)
         if valid_params:
             try:
-                new_donation = Donation(**valid_params)
-                created_donation = new_donation.create()
+                user = User().get_user_by_id(valid_params["uid"])
+                new_donation = Donation(supplyName=valid_params["supplyName"], quantity=valid_params["quantity"], createdAt=valid_params["createdAt"], unit=valid_params["unit"])
+                created_donation = new_donation.create(user)
                 result = {
                     "message": "Success!",
-                    "donation": created_donation.to_dict(),
+                    "donation": "",
                 }
                 return jsonify(result), 201
             except:
                 return jsonify(message="Server error!"), 500
-        else:
-            return jsonify(message="Bad Request!"), 400
-
-    def update_donation(self, did, json):
-        if did:
-            try:
-                donation_to_update = self.dao.get_donation_by_id(did)
-                if donation_to_update:
-                    valid_params = self.verify_params(json, Donation.DONATION_REQUIRED_PARAMETERS)
-                    for key, value in valid_params.items():
-                        if key == "password":
-                            donation_to_update.update_password(value)
-                        else:
-                            setattr(donation_to_update, key, value)
-                    donation_to_update.update()
-                    result = {
-                        "message": "Success!",
-                        "donation": donation_to_update.to_dict(),
-                    }
-                    return jsonify(result), 200
-                else:
-                    return jsonify(message="Not Found!"), 404
-            except:
-                return jsonify(message="Server Error!"), 500
-        else:
-            return jsonify(message="Bad Request!"), 400
-
-    def delete_donation(self, did):
-        if did:
-            try:
-                donation_to_delete = self.dao.get_donation_by_id(did)
-                if donation_to_delete:
-                    donation_to_delete.delete()
-                    return jsonify(message="Success!"), 200
-                else:
-                    return jsonify(message="Not Found!"), 404
-            except:
-                return jsonify(message="Server Error!"), 500
         else:
             return jsonify(message="Bad Request!"), 400
