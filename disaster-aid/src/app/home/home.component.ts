@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FlaskapiService } from '../flaskapi.service';
+import { UserApiService } from '../userapi.service';
 import {Subscription} from 'rxjs/Subscription';
 import { User } from '../user';
 
@@ -14,11 +14,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   userListSubs: Subscription;
   userList : User[];
 
-  constructor(private flaskApi: FlaskapiService) { }
+  constructor(private userApi: UserApiService) { }
   
   ngOnInit(): void {
 
-    this.flaskApi
+    this.userApi
       .getUsers().subscribe(res => {
         this.userList = res;
       },

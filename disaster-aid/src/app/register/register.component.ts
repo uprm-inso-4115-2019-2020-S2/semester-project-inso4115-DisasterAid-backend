@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {  FormBuilder, FormGroup, FormControl } from '@angular/forms';
-import { FlaskapiService } from '../flaskapi.service';
+import { UserApiService } from '../userapi.service';
 import { Router } from '@angular/router';
 import { User } from '../user';
 
@@ -13,7 +13,7 @@ export class RegisterComponent implements OnInit {
   registerForm : FormGroup;
 
   constructor(
-    private formBuilder: FormBuilder, private flaskApi: FlaskapiService, private router: Router
+    private formBuilder: FormBuilder, private flaskApi: UserApiService, private router: Router
   ) {
     this.registerForm = this.formBuilder.group({
       firstName:'',

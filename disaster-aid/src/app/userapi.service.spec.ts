@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { FlaskapiService } from './flaskapi.service';
+import { UserApiService } from './userapi.service';
 
-describe('FlaskapiService', () => {
-  let service: FlaskapiService;
+describe('UserApiService', () => {
+  let service: UserApiService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(FlaskapiService);
+    service = TestBed.inject(UserApiService);
   });
 
   it('should be created', () => {

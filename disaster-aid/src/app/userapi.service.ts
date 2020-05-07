@@ -8,7 +8,7 @@ import { catchError } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class FlaskapiService {
+export class UserApiService {
 
   constructor(private httpClient:HttpClient) { }
 

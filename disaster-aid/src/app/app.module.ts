@@ -10,7 +10,7 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component'
-import { FlaskapiService } from './flaskapi.service';
+import { UserApiService } from './userapi.service';
 
 @NgModule({
   declarations: [
@@ -26,7 +26,7 @@ import { FlaskapiService } from './flaskapi.service';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [FlaskapiService],
+  providers: [UserApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

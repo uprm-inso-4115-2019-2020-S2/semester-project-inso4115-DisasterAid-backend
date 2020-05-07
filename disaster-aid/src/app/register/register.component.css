@@ -24,9 +24,9 @@ a.menuItem:hover {
 .registerBox {
     position: absolute;
     width: 370px;
-    height: 440px;
+    height: 580px;
     left: 66%;
-    top: 97px;
+    top: 87px;
     background: rgba(2, 163, 232, 0.4);
     border: 10px solid #02A3E8;
     border-radius: 30px;
