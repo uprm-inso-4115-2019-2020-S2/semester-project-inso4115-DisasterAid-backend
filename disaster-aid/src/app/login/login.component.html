@@ -1,63 +1,25 @@
 <!DOCTYPE html>
 <html>
-
 <head>
+    <title>Login</title>
+    <link rel='stylesheet' media="screen" href='login.component.css'>
+   
 </head>
-
 <body>
-        <nav class="navbar navbar-light" style="background-color: rgba(2, 163, 232, 0.4);">
-        <a class="navbar-brand mr-1" href="#"><img src="/assets/DAD_logo.png" style="width: 50%;"></a>
-        <ul class="nav navbar-justified navbar-right ml-auto" style="margin-right: 3%;">
-            <li class="nav-item">
-                <a class="nav-link menuItem" href="#">DONATE</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link menuItem" href="#">LOCATE HELP</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link menuItem" href="#">SEEK DONATIONS</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link menuItem"  routerLink="/register" routerLinkActive="active">SIGN-UP</a>
-            </li>
-        </ul>
-    </nav>
+    <header>
+        <nav>
+            <ul>
+                <div><a href="/">Home Page</a></div> 
+            </ul>
+        </nav>
+    
+</header>
 
-    <section>
-
-        <div class="pin">
-            <img src="/assets/LOGO.png" style="width: 45%;">
-        </div>
-        <div class="boxes">
-            <img src="/assets/Stop-Sending-Food-2.png" style="width: 65%;">
-        </div>
-        <div class="loginBox">
-            <p style="font-size: xx-large; text-align: center; padding-top: 3%; color: white;">Sign In</p>
-            <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
-                <div style="text-align: right; padding-right: 22px;">
-                    <div>
-                        <label for="email" style="padding-right: 7px;">Email</label>
-                        <input class="input" id="email" type="email" formControlName="email">
-                    </div>
-                    <div>
-                        <label for="password" style="padding-right: 7px;">Password</label>
-                        <input class="input" id="password" type="password" formControlName="password">
-                    </div>
-                </div>
-
-                <div style="text-align: center; padding-top: 7px;">
-                    <button class="button" type="submit">Sign in</button>
-                </div>
-            </form>
-
-            <div style="text-align: center; padding-top: 5px; font-size: large;">
-                <label style="color: white; padding-right: 5px;">Don't have an account?</label>
-                <a routerLink="/register" routerLinkActive="active" style="color:#FFBC40 ;">Sign up</a>
-            </div>
-
-        </div>
-    </section>
-
+    <form class="box" action="index.html" method="post">
+        <h1>Enter your username and password</h1>
+        <input type="text" name="username" placeholder="john.doe1234">
+        <input type="text" name="password" >
+        <input type="submit" name="" value="Enter">
+    </form>
 </body>
-
 </html>
