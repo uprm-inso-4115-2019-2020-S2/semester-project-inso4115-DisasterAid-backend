@@ -56,5 +56,21 @@ def get_donation_by_id(did):
         return jsonify(message="Method not allowed."), 405
 
 
+@app.route('/DAD/donations/available', methods=['GET'])
+def get_available_donations():
+    if request.method == 'GET':
+        return DonationHandler().get_available_donations()
+    else:
+        return jsonify(message="Method not allowed."), 405
+
+
+@app.route('/DAD/donations/byUser/<int:uid>', methods=['GET'])
+def get_donations_by_user(uid):
+    if request.method == 'GET':
+        return DonationHandler().get_donations_by_user(uid)
+    else:
+        return jsonify(message="Method not allowed."), 405
+
+
 if __name__ == '__main__':
     app.run()
