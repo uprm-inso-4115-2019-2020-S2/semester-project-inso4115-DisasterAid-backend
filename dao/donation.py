@@ -15,3 +15,19 @@ class Donation(OutputMixin, db.Model):
     unit = db.Column(db.String(30), nullable=False)
     uid = db.Column(db.Integer, db.ForeignKey('user.uid'), nullable=False)
     rid = db.Column(db.Integer, db.ForeignKey('request.rid'))
+
+    def __repr__(self):
+        return self.supplyName
+
+    def get_all_donations(self):
+        return self.query.all()
+
+    def get_donation_by_id(self, donation_id):
+        return self.query.filter_by(uid=donation_id).first()
+
+    def create(self, user, request):
+        user.donations.append(self)
+        request.donation.append(self)
+        db.session.add(self)
+        db.session.commit()
+        return self
