@@ -1,15 +1,19 @@
 import datetime
 
 from config import db
+from dao.mixin import OutputMixin
 
 
-class Request(db.Model):
+class Request(OutputMixin, db.Model):
+    RELATIONSHIPS_TO_DICT = True
+
     rid = db.Column(db.Integer, primary_key=True)
     supplyName = db.Column(db.String(50), nullable=False)
     time = db.Column(db.DateTime, default=datetime.datetime.utcnow())
     status = db.Column(db.Boolean, nullable=False)
     description = db.Column(db.String(100))
     uid = db.Column(db.Integer, db.ForeignKey('user.uid'), nullable=False)
+    donation = db.relationship('Donation', backref=db.backref('request'), lazy=True)
 
     def getAllRequests(self):
         return self.query.all()

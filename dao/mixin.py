@@ -20,16 +20,17 @@ class OutputMixin:
             # TODO: Refactor this for better serialization
             for attr, relation in self.__mapper__.relationships.items():
                 # Avoid recursive loop between to tables.
-                if backref and backref == relation.table:
-                    continue
-                value = getattr(self, attr)
-                if value is None:
-                    res[relation.key] = None
-                elif isinstance(value.__class__, DeclarativeMeta):
-                    res[relation.key] = value.to_dict(backref=self.__table__)
-                else:
-                    res[relation.key] = [i.to_dict(backref=self.__table__)
-                                         for i in value]
+                res[relation.key] = getattr(self, attr)
+                # if backref and backref == relation.table:
+                #     continue
+                # value = getattr(self, attr)
+                # if value is None:
+                #     res[relation.key] = None
+                # elif isinstance(value.__class__, DeclarativeMeta):
+                #     res[relation.key] = value.to_dict(backref=self.__table__)
+                # else:
+                #     res[relation.key] = [i.to_dict(backref=self.__table__)
+                #                          for i in value]
         return res
 
     def to_json(self, rel=None):
