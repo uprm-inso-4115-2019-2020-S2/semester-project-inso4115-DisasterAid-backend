@@ -1,0 +1,10 @@
+<h2>My Donations:</h2>
+<button id="add-new">Add New Donation</button>
+<ul id="donations-list">
+    <div class="donation-box" *ngFor="let donation of mockDonationsList">
+        <span>Supply: {{donation.supplyName}}</span>
+        <span>Quantity: {{donation.quantity}} {{donation.unit}}</span>
+        <span>Location: {{location}}</span>
+        <span><button id="edit-btn">Edit</button></span>
+    </div>
+</ul>

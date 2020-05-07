@@ -4,6 +4,7 @@ import {LoginComponent} from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
+import { DonationsComponent } from './donations/donations.component';
 
 
 const routes: Routes = [
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent},
   { path: 'landing_page', component: LandingPageComponent },
+  { path: 'my-donations', component: DonationsComponent },
 
 ];
 
