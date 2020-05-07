@@ -32,24 +32,32 @@
             <img src="/assets/Stop-Sending-Food-2.png" style="width: 65%;">
         </div>
         <div class="registerBox">
-            <p style="font-size: xx-large; text-align: center; padding-top: 3%; color: white;">Create Account</p>
+            <p style="font-size: xx-large; text-align: center; padding-top: 2%; color: white;">Create Account</p>
             <form [formGroup]="registerForm" (ngSubmit)="onSubmit(registerForm.value)">
                 <div style="text-align: right; padding-right: 22px;">
                     <div>
                         <label for="first_name" style="padding-right: 7px;">First Name</label>
-                        <input class="input" id="first_name" type="text" formControlName="first_name">
+                        <input class="input" id="first_name" type="text" formControlName="firstName">
                     </div>
                     <div>
                         <label for="last_name" style="padding-right: 7px;">Last Name</label>
-                        <input class="input" id="last_name" type="text" formControlName="last_name">
+                        <input class="input" id="last_name" type="text" formControlName="lastName">
                     </div>
                     <div>
                         <label for="email" style="padding-right: 7px;">Email</label>
                         <input class="input" id="email" type="email" formControlName="email">
                     </div>
                     <div>
+                        <label for="phone" style="padding-right: 7px;">Phone</label>
+                        <input class="input" id="phone" type="text" formControlName="phone">
+                    </div>
+                    <div>
                         <label for="date_of_birth" style="padding-right: 7px;">Date of Birth</label>
-                        <input class="input" id="date_of_birth" type="date" formControlName="date_of_birth">
+                        <input class="input" id="date_of_birth" type="date" formControlName="dateOfBirth">
+                    </div>
+                    <div>
+                        <label for="username" style="padding-right: 7px;">Username</label>
+                        <input class="input" id="username" type="text" formControlName="username">
                     </div>
                     <div>
                         <label for="password" style="padding-right: 7px;">Password</label>
@@ -62,6 +70,14 @@
                     <div>
                         <label for="address" style="padding-right: 7px;">Address</label>
                         <input class="input" id="address" type="text" formControlName="address">
+                    </div>
+                    <div>
+                        <label for="city" style="padding-right: 7px;">City</label>
+                        <input class="input" id="city" type="text" formControlName="city">
+                    </div>
+                    <div>
+                        <label for="zipCode" style="padding-right: 7px;">Zip Code</label>
+                        <input class="input" id="zipCode" type="text" formControlName="zipCode">
                     </div>
                 </div>
 
