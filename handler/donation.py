@@ -1,77 +1,41 @@
 from flask import jsonify
-from dao.donation import Donation
-from dao.user import User
 
-class BaseHandler:
-    def verify_params(self, params, required_params):
-        """
-        Verify the validity of submitted parameter.
-        :param params: submitted params
-        :param required_params: list of required parameters
-        :return: params, otherwise none
-        """
-        for param, value in params.items():
-            if param in required_params and not value:
-                return None
-        return params
+from dao.donation import Donation
+from handler.user import BaseHandler
 
 
 class DonationHandler(BaseHandler):
-    dao = Donation()
-
-    def build_donation_dict(self, donation):
-        result = {}
-        result['supplyName'] = getattr(donation, 'supplyName')
-        result['quantity'] = getattr(donation, 'quantity')
-        result['createdAt'] = getattr(donation, 'createdAt')
-        result['unit'] = getattr(donation, 'unit')
-        result['uid'] = getattr(donation, 'uid')
-        return result
-
-    def get_all_donations(self):
+    @staticmethod
+    def get_all_donations(available=None):
         try:
-            donations = self.dao.get_all_donations()
-            result_list = []
-            for d in donations:
-                result_list.append(self.build_donation_dict(d))
+            donations = Donation.get_all_donations() if not available else Donation.get_available_donations()
+            donation_list = [donation.to_dict() for donation in donations]
             result = {
                 "message": "Success!",
-                "donations": result_list,
+                "donations": donation_list,
             }
             return jsonify(result), 200
         except:
             return jsonify(message="Server error!"), 500
 
-    def get_donation_by_id(self, did):
+    @staticmethod
+    def get_donation_by_id(did, relationship=None):
         if did:
             try:
-                donation = self.dao.get_donation_by_id(did)
+                donation = Donation.get_donation_by_id(donation_id=did)
                 if not donation:
-                    return jsonify(Error="donation Not Found"), 404
+                    return jsonify(message="Not Found!"), 404
                 else:
-                    result = {
-                        "message": "Success!",
-                        "donation": self.build_donation_dict(donation),
-                    }
+                    result = {"message": "Success!"}
+                    if relationship:
+                        result['requsts'] = donation.get_all_donation_requests()
+                    else:
+                        result['donation'] = donation.to_dict()
                     return jsonify(result), 200
             except:
                 return jsonify(message="Server Error!"), 500
         else:
             return jsonify(message="Bad request!"), 400
-
-    def get_available_donations(self):
-        try:
-            donations = self.dao.get_available_donations()
-            result_list = []
-            for d in donations:
-                result_list.append(self.build_donation_dict(d))
-            result = {
-                "message": "Success!",
-                "donations": result_list,
-            }
-            return jsonify(result), 200
-        except:
-            return jsonify(message="Server error!"), 500
 
     def get_donations_by_user(self, uid):
         if uid:
@@ -90,17 +54,17 @@ class DonationHandler(BaseHandler):
                 return jsonify(message="Server Error!"), 500
         else:
             return jsonify(message="Bad request!"), 400
-            
-    def create_donation(self, json):
-        valid_params = self.verify_params(json, Donation.DONATION_REQUIRED_PARAMETERS)
+
+    @staticmethod
+    def create_donation(json):
+        valid_params = DonationHandler.verify_params(json, Donation.DONATION_REQUIRED_PARAMS)
         if valid_params:
             try:
-                user = User().get_user_by_id(valid_params["uid"])
-                new_donation = Donation(supplyName=valid_params["supplyName"], quantity=valid_params["quantity"], createdAt=valid_params["createdAt"], unit=valid_params["unit"])
-                created_donation = new_donation.create(user)
+                new_donation = Donation(**valid_params)
+                created_donation = new_donation.create()
                 result = {
                     "message": "Success!",
-                    "donation": "",
+                    "donation": created_donation.to_dict(),
                 }
                 return jsonify(result), 201
             except:
@@ -108,41 +72,39 @@ class DonationHandler(BaseHandler):
         else:
             return jsonify(message="Bad Request!"), 400
 
-    def update_donation(self, did, json):
+    @staticmethod
+    def update_donation(did, json):
         if did:
             try:
-                donation_to_update = self.dao.get_donation_by_id(did)
-                #If parameter is defined in update json, change it
-                if json.get("supplyName"): donation_to_update.supplyName = json.get("supplyName")
-                if json.get("quantity"): donation_to_update.quantity = json.get("quantity")
-                if json.get("createdAt"): donation_to_update.createdAt = json.get("createdAt")
-                if json.get("unit"): donation_to_update.unit = json.get("unit")
-                #add updated donation
-                donation_to_update.update()
-                result = {
-                    "message": "Success!",
-                    "donation": "",
-                }
-                return jsonify(result), 201
-            except:
-                return jsonify(message="Server error!"), 500
-        else:
-            return jsonify(message="Bad Request!"), 400
-    
-    def delete_donation(self, did):
-        if did:
-            try:
-                donation = self.dao.get_donation_by_id(did)
-                if not donation:
-                    return jsonify(Error="donation Not Found"), 404
-                else:
-                    self.dao.delete(did)
+                donation_to_update = Donation.get_donation_by_id(did)
+                if donation_to_update:
+                    valid_params = DonationHandler.verify_params(json, Donation.DONATION_REQUIRED_PARAMS)
+                    for key, value in valid_params.items():
+                        setattr(donation_to_update, key, value)
+                    donation_to_update.update()
                     result = {
                         "message": "Success!",
-                        "donation": "",
+                        "donation": donation_to_update.to_dict(),
                     }
                     return jsonify(result), 200
+                else:
+                    return jsonify(message="Not Found!"), 404
             except:
                 return jsonify(message="Server Error!"), 500
         else:
-            return jsonify(message="Bad request!"), 400
+            return jsonify(message="Bad Request!"), 400
+
+    @staticmethod
+    def delete_donation(did):
+        if did:
+            try:
+                donation_to_delete = Donation.get_donation_by_id(did)
+                if donation_to_delete:
+                    donation_to_delete.delete()
+                    return jsonify(message="Success!"), 200
+                else:
+                    return jsonify(message="Not Found!"), 404
+            except:
+                return jsonify(message="Sever Error!"), 500
+        else:
+            return jsonify(message="Bad Request!"), 400
