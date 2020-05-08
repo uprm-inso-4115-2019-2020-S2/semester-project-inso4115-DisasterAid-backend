@@ -1,0 +1,19 @@
+.map {
+    position: absolute;
+    width: 1450px;
+    height: 500px;
+    left: 300px;
+    top: 90px;
+}
+
+.top-bar {
+    position: absolute;
+    width: 1920px;
+    height: 226px;
+    left: 0px;
+    top: 0px;
+}
+
+.home-page {
+    background: #8ACAE6;
+}
