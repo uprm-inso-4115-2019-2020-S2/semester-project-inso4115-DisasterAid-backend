@@ -50,17 +50,17 @@ class User(OutputMixin, db.Model):
     def pk(self):
         return self.uid
 
-    @classmethod
-    def get_all_users(cls):
-        return cls.query.all()
+    @staticmethod
+    def get_all_users():
+        return User.query.all()
 
     def get_all_user_relationship_values(self, rel):
         user = self.get_user_by_id(user_id=self.uid)
         return [val.to_dict(rel=False) for val in getattr(user, rel)]
 
-    @classmethod
-    def get_user_by_id(cls, user_id):
-        return cls.query.filter_by(uid=user_id).first()
+    @staticmethod
+    def get_user_by_id(user_id):
+        return User.query.filter_by(uid=user_id).first()
 
     def create(self):
         self.password = bcrypt.hashpw(self.password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')

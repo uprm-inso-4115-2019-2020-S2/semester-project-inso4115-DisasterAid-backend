@@ -29,11 +29,17 @@ class Donation(OutputMixin, db.Model):
     def pk(self):
         return self.did
 
-    def get_all_donations(self):
-        return self.query.all()
+    @staticmethod
+    def get_all_donations():
+        return Donation.query.all()
 
-    def get_donation_by_id(self, donation_id):
-        return self.query.filter_by(uid=donation_id).first()
+    @staticmethod
+    def get_donation_by_id(donation_id):
+        return Donation.query.filter_by(did=donation_id).first()
+
+    # @staticmethod
+    # def get_supply_count(supply):
+    #     pass
 
     def create(self, user):
         user.donations.append(self)

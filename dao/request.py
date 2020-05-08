@@ -30,12 +30,13 @@ class Request(OutputMixin, db.Model):
     def pk(self):
         return self.rid
 
-    def get_all_requests(self):
-        return self.query.all()
+    @staticmethod
+    def get_all_requests():
+        return Request.query.all()
 
     @staticmethod
     def get_request_by_id(request_id):
-        return Request.query.filter_by(rid=request_id)
+        return Request.query.filter_by(rid=request_id).first()
 
     def create(self, user, donation):
         user.requests.append(self)
