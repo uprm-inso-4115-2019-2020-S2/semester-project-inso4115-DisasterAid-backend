@@ -1,0 +1,25 @@
+<div class="donateBox">
+    <p style="font-size: xx-large; text-align: center; padding-top: 3%; color: white;">Sign In</p>
+    <!-- <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)"> -->
+        <div style="text-align: right; padding-right: 22px;">
+            <div>
+                <label for="email" style="padding-right: 7px;">Email</label>
+                <input class="input" id="email" type="email" formControlName="email">
+            </div>
+            <div>
+                <label for="password" style="padding-right: 7px;">Password</label>
+                <input class="input" id="password" type="password" formControlName="password">
+            </div>
+        </div>
+
+        <div style="text-align: center; padding-top: 7px;">
+            <button class="button" type="submit">Sign in</button>
+        </div>
+    <!-- </form> -->
+
+    <div style="text-align: center; padding-top: 5px; font-size: large;">
+        <label style="color: white; padding-right: 5px;">Don't have an account?</label>
+        <a routerLink="/register" routerLinkActive="active" style="color:#FFBC40 ;">Sign up</a>
+    </div>
+
+</div>

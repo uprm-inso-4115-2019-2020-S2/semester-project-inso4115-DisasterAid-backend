@@ -13,6 +13,7 @@ import { HomeComponent } from './home/home.component'
 import { UserApiService } from './userapi.service';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { DonationsComponent } from './donations/donations.component';
+import { DonateModalComponent } from './donate-modal/donate-modal.component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { DonationsComponent } from './donations/donations.component';
     HomeComponent,
     LandingPageComponent,
     DonationsComponent,
+    DonateModalComponent,
   ],
   imports: [
     BrowserModule,

@@ -5,7 +5,6 @@ import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { DonationsComponent } from './donations/donations.component';
-import { DonateModalComponent} from './donate-modal/donate-modal.component';
 
 
 const routes: Routes = [
@@ -15,7 +14,6 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent},
   { path: 'landing_page', component: LandingPageComponent },
   { path: 'my-donations', component: DonationsComponent },
-  { path: 'donate-modal', component: DonateModalComponent},
 
 ];
 
