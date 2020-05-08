@@ -11,7 +11,7 @@ class OutputMixin:
     def __iter__(self):
         return self.to_dict().iteritems()
 
-    def to_dict(self, rel=None, backref=None):
+    def to_dict(self, rel=None):
         if rel is None:
             rel = self.RELATIONSHIPS_TO_DICT
         res = {column.key: getattr(self, attr)
@@ -20,7 +20,7 @@ class OutputMixin:
             # TODO: Refactor this for better serialization
             for attr, relation in self.__mapper__.relationships.items():
                 # Avoid recursive loop between to tables.
-                res[relation.key] = getattr(self, attr)
+                res[relation.key] = [obj.pk for obj in getattr(self, attr)]
                 # if backref and backref == relation.table:
                 #     continue
                 # value = getattr(self, attr)

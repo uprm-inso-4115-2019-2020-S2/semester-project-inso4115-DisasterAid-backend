@@ -33,6 +33,10 @@ class User(OutputMixin, db.Model):
     def full_name(self):
         return "%s %s" % (self.firstName, self.lastName)
 
+    @property
+    def pk(self):
+        return self.uid
+
     def get_all_users(self):
         return self.query.all()
 

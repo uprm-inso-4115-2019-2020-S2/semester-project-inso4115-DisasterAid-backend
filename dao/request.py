@@ -6,6 +6,7 @@ from dao.mixin import OutputMixin
 
 class Request(OutputMixin, db.Model):
     RELATIONSHIPS_TO_DICT = True
+    REQUEST_REQUIRED_PARAMS = ['supplyName', 'time', 'status', 'description', 'uid', 'did']
 
     rid = db.Column(db.Integer, primary_key=True)
     supplyName = db.Column(db.String(50), nullable=False)
@@ -13,13 +14,20 @@ class Request(OutputMixin, db.Model):
     status = db.Column(db.Boolean, nullable=False)
     description = db.Column(db.String(100))
     uid = db.Column(db.Integer, db.ForeignKey('user.uid'), nullable=False)
-    donation = db.relationship('Donation', backref=db.backref('request'), lazy=True)
+    did = db.Column(db.Integer, db.ForeignKey('donation.did'), nullable=False)
 
-    def getAllRequests(self):
+    def __repr__(self):
+        return self.supplyName
+
+    @property
+    def pk(self):
+        return self.rid
+
+    def get_all_requests(self):
         return self.query.all()
 
     @staticmethod
-    def getRequestById(request_id):
+    def get_request_by_id(request_id):
         return Request.query.filter_by(rid=request_id)
 
     def create(self, user):
