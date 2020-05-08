@@ -19,6 +19,19 @@ class DonationHandler(BaseHandler):
             return jsonify(message="Server error!"), 500
 
     @staticmethod
+    def get_all_donations_without_request():
+        try:
+            donations = Donation.get_all_donations_without_request()
+            donation_list = [donation.to_dict() for donation in donations]
+            result = {
+                "message": "Success!",
+                "donations": donation_list,
+            }
+            return jsonify(result), 200
+        except:
+            return jsonify(message="Server error!"), 500
+
+    @staticmethod
     def get_donation_by_id(did, relationship=None):
         if did:
             try:

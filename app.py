@@ -48,6 +48,8 @@ def get_all_or_create_donations():
         search = request.args.get('search', None)
         if search in ['available']:
             return DonationHandler.get_all_donations(search)
+        elif search in ['no_request']:
+            return DonationHandler.get_all_donations_without_request()
         else:
             return DonationHandler.get_all_donations()
     elif request.method == 'POST':
