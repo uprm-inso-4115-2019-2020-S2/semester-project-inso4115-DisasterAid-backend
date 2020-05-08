@@ -12,7 +12,7 @@ class BaseHandler:
         :return: params, otherwise none
         """
         for param, value in params.items():
-            if param in required_params and not value:
+            if param in required_params and value is None:
                 return None
         return params
 

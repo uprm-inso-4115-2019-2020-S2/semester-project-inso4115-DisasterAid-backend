@@ -37,12 +37,19 @@ class Donation(OutputMixin, db.Model):
     def get_donation_by_id(donation_id):
         return Donation.query.filter_by(did=donation_id).first()
 
+    @staticmethod
+    def get_available_donations():
+        return Donation.query.filter(Donation.quantity != 0)
+
+    def get_all_donation_requests(self):
+        donation = self.get_donation_by_id(self.did)
+        return [req.to_dict(rel=False) for req in donation.requests]
+
     # @staticmethod
     # def get_supply_count(supply):
     #     pass
 
-    def create(self, user):
-        user.donations.append(self)
+    def create(self):
         db.session.add(self)
         db.session.commit()
         return self
