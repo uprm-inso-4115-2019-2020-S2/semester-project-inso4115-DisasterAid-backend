@@ -32,11 +32,11 @@ class Donation(OutputMixin, db.Model):
         db.session.commit()
         return self
 
-    def update():
+    def update(self):
         db.session.add(self)
         db.session.commit()
         return self
 
-    def delete():
+    def delete(self):
         db.session.delete(self)
         db.session.commit()
