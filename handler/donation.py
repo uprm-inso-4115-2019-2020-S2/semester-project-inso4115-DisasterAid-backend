@@ -90,7 +90,24 @@ class DonationHandler(BaseHandler):
                 return jsonify(message="Server Error!"), 500
         else:
             return jsonify(message="Bad request!"), 400
-            
+
+    def get_donation_address(self, did):
+        if did:
+            try:
+                address = self.dao.get_donation_address(did)
+                if not address:
+                    return jsonify(message="Address Not Found!"), 404
+                else:
+                    result = {
+                       "message": "Success!",
+                        "address": address.to_dict()
+                    }  
+                    return jsonify(result), 200
+            except:
+                return jsonify(message="Server Error!"), 500
+        else:
+            return jsonify(message="Bad request!"), 400            
+
     def create_donation(self, json):
         valid_params = self.verify_params(json, Donation.DONATION_REQUIRED_PARAMETERS)
         if valid_params:
@@ -146,3 +163,4 @@ class DonationHandler(BaseHandler):
                 return jsonify(message="Server Error!"), 500
         else:
             return jsonify(message="Bad request!"), 400
+
