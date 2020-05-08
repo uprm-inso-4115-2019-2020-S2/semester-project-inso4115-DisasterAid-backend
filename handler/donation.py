@@ -37,19 +37,17 @@ class DonationHandler(BaseHandler):
         else:
             return jsonify(message="Bad request!"), 400
 
-    def get_donations_by_user(self, uid):
+    @staticmethod
+    def get_donations_by_user(uid):
         if uid:
             try:
-                donations = self.dao.get_donations_by_user(uid)
-                result_list = []
-                for d in donations:
-                    result_list.append(self.build_donation_dict(d))
-                else:
-                    result = {
-                        "message": "Success!",
-                        "donation": result_list
-                    }
-                    return jsonify(result), 200
+                donations = Donation.get_donations_by_user(uid)
+                result_list = [donation.to_dict() for donation in donations]
+                result = {
+                    "message": "Success!",
+                    "donation": result_list
+                }
+                return jsonify(result), 200
             except:
                 return jsonify(message="Server Error!"), 500
         else:

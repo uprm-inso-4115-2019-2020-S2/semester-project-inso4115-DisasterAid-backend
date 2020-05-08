@@ -44,8 +44,9 @@ class Donation(OutputMixin, db.Model):
         donation = self.get_donation_by_id(self.did)
         return [req.to_dict(rel=False) for req in donation.requests]
 
-    def get_donations_by_user(self, user_id):
-        return self.query.filter_by(uid=user_id)
+    @staticmethod
+    def get_donations_by_user(user_id):
+        return Donation.query.filter_by(uid=user_id)
 
     # @staticmethod
     # def get_supply_count(supply):
