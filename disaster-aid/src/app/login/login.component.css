@@ -1,27 +1,45 @@
+/* Nav bar  */
+ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Nav bar links */
+li{
+    padding: 10px;
+    display: inline;
+    
+
+}
+
+/* Link text properties */
+li a{
+    color: #ffffff;
+    font-family: Helvetica;
+    font-weight: 900;
+    font-size: 35px;
+    text-decoration: none;
+}
+
+li a:hover{
+    color:  #cecece;
+}
+
+/* Overall body of the page */
 body{
     margin: 0;
     padding: 0;
     font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
     background-color: rgba(0, 124, 177, 0.856);
 }
-a{
-    color: #d8d8d8;
-    font-family: Helvetica;
-    font-weight: 500;
-    font-size: 45px;
-    text-decoration: none;
-    position: absolute;
-    text-align: center;
-    left: 50%;
-    top: 5%;
-    transform: translate(-50%, -40%);
-}
+
 
 /* Login Box*/
 .box{
     width: 400px;
     padding: 10px;
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -57,6 +75,7 @@ a{
     width: 80%;
 }
 
+/* Submit button properties */
 .box input[type = 'submit']{
     border: 0;
     background: none;
