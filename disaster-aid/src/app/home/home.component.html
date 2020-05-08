@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
   <title></title>
-  <head></head>
+  <head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  </head>
   <body class="home-page">
     <nav class="navbar navbar-light" style="background-color: rgba(2, 163, 232, 0.4);">
       <a class="navbar-brand mr-1" href="#"><img src="/assets/DAD_logo.png" style="width: 50%;"></a>
@@ -16,12 +18,116 @@
               <a class="nav-link menuItem" href="#">SEEK DONATIONS</a>
           </li>
           <li>
-            <a class="nav-link menuItem" href="#">Notifications</a>
+            <input type="text" class="search-input" placeholder="Search">
           </li>
           <li>
-            <a class="nav-link menuItem" href="#">Settings</a>
+            <span class="material-icons">
+              notifications_none
+            </span>
+          </li>
+          <li>
+            <span class="material-icons">
+              settings
+            </span>
           </li>
       </ul>
   </nav>
+
+  <section>
+    <div class="map" >
+        <img src="/assets/MAP-HOME.png" style="width: 50%;">
+    </div>
+  </section>
+  <section>
+    <!-- <div class="places" style="font-size: xx-large; text-align: center; padding-top: 2%; color: white;"> -->
+      <!-- <p style="font-size: xx-large; text-align: center; padding-top: 2%; color: white;">Places</p> -->
+      <p class="locate-help">Locate Help</p>
+      <div class="places-list overflow-auto">
+        <p class="cities-txt">Cities</p>
+        <ul (click)="onClickList($event)" id=pueblos style="list-style-type:none;">
+          <li id=	Adjuntas	>	Adjuntas	</li>
+          <li id=	Aguada	>	Aguada	</li>
+          <li id=	Aguadilla	>	Aguadilla	</li>
+          <li id=	AguasBuenas	>	Aguas Buenas	</li>
+          <li id=	Aibonito	>	Aibonito	</li>
+          <li id=	Añasco	>	Añasco	</li>
+          <li id=	Arecibo	>	Arecibo	</li>
+          <li id=	Arroyo	>	Arroyo	</li>
+          <li id=	Barceloneta	>	Barceloneta	</li>
+          <li id=	Barranquitas	>	Barranquitas	</li>
+          <li id=	Bayamón	>	Bayamón	</li>
+          <li id=	CaboRojo	>	Cabo Rojo	</li>
+          <li id=	Caguas	>	Caguas	</li>
+          <li id=	Camuy	>	Camuy	</li>
+          <li id=	Canovanas	>	Canovanas	</li>
+          <li id=	Carolina	>	Carolina	</li>
+          <li id=	Cataño	>	Cataño	</li>
+          <li id=	Cayey	>	Cayey	</li>
+          <li id=	Ceiba	>	Ceiba	</li>
+          <li id=	Ciales	>	Ciales	</li>
+          <li id=	Cidra	>	Cidra	</li>
+          <li id=	Coamo	>	Coamo	</li>
+          <li id=	Comerío	>	Comerío	</li>
+          <li id=	Corozal	>	Corozal	</li>
+          <li id=	Culebra	>	Culebra	</li>
+          <li id=	Dorado	>	Dorado	</li>
+          <li id=	Fajardo	>	Fajardo	</li>
+          <li id=	Florida	>	Florida	</li>
+          <li id=	Guayama	>	Guayama	</li>
+          <li id=	Guayanilla	>	Guayanilla	</li>
+          <li id=	Guaynabo	>	Guaynabo	</li>
+          <li id=	Gurabo	>	Gurabo	</li>
+          <li id=	Guánica	>	Guánica	</li>
+          <li id=	Hatillo	>	Hatillo	</li>
+          <li id=	Hormigueros	>	Hormigueros	</li>
+          <li id=	Humacao	>	Humacao	</li>
+          <li id=	Isabela	>	Isabela	</li>
+          <li id=	Jayuya	>	Jayuya	</li>
+          <li id=	JuanaDíaz	>	Juana Díaz	</li>
+          <li id=	Juncos	>	Juncos	</li>
+          <li id=	Lajas	>	Lajas	</li>
+          <li id=	Lares	>	Lares	</li>
+          <li id=	LasMarías	>	Las Marías	</li>
+          <li id=	LasPiedras	>	Las Piedras	</li>
+          <li id=	Loiza	>	Loiza	</li>
+          <li id=	Luquillo	>	Luquillo	</li>
+          <li id=	Manatí	>	Manatí	</li>
+          <li id=	Maricao	>	Maricao	</li>
+          <li id=	Maunabo	>	Maunabo	</li>
+          <li id=	Mayagüez	>	Mayagüez	</li>
+          <li id=	Moca	>	Moca	</li>
+          <li id=	Morovis	>	Morovis	</li>
+          <li id=	Naguabo	>	Naguabo	</li>
+          <li id=	Naranjito	>	Naranjito	</li>
+          <li id=	Orocovis	>	Orocovis	</li>
+          <li id=	Patillas	>	Patillas	</li>
+          <li id=	Peñuelas	>	Peñuelas	</li>
+          <li id=	Ponce	>	Ponce	</li>
+          <li id=	Quebradillas	>	Quebradillas	</li>
+          <li id=	Rincón	>	Rincón	</li>
+          <li id=	RioGrande	>	Rio Grande	</li>
+          <li id=	SabanaGrande	>	Sabana Grande	</li>
+          <li id=	Salinas	>	Salinas	</li>
+          <li id=	SanGermán	>	San Germán	</li>
+          <li id=	SanJuan	>	San Juan	</li>
+          <li id=	SanLorenzo	>	San Lorenzo	</li>
+          <li id=	SanSebastián	>	San Sebastián	</li>
+          <li id=	SantaIsabel	>	Santa Isabel	</li>
+          <li id=	ToaAlta	>	Toa Alta	</li>
+          <li id=	ToaBaja	>	Toa Baja	</li>
+          <li id=	TrujilloAlto	>	Trujillo Alto	</li>
+          <li id=	Utuado	>	Utuado	</li>
+          <li id=	VegaAlta	>	Vega Alta	</li>
+          <li id=	VegaBaja	>	Vega Baja	</li>
+          <li id=	Vieques	>	Vieques	</li>
+          <li id=	Villalba	>	Villalba	</li>
+          <li id=	Yabucoa	>	Yabucoa	</li>
+          <li id=	Yauco	>	Yauco	</li>
+        </ul>
+      </div>
+    <!-- </div> -->
+  </section>
+ 
+
   </body>
 </html>

@@ -18,17 +18,22 @@ export class HomeComponent implements OnInit, OnDestroy {
   
   ngOnInit(): void {
 
-    this.userApi
-      .getUsers().subscribe(res => {
-        this.userList = res;
-      },
-      error => console.log(error)
-      );
+    // this.userApi
+    //   .getUsers().subscribe(res => {
+    //     this.userList = res;
+    //   },
+    //   error => console.log(error)
+    //   );
 
   }
 
   ngOnDestroy(): void {
     this.userListSubs.unsubscribe();
+  }
+
+  onClickList(e) {
+    console.log(e.target.id);
+    //DO THE SEACH WITH e.target.id
   }
 
 }
