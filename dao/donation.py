@@ -31,3 +31,11 @@ class Donation(OutputMixin, db.Model):
     def create(self, user):
         user.donations.append(self)
         db.session.commit()
+    
+    def update(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self, donation_id):
+        db.session.delete(self.query.filter_by(did=donation_id).first())
+        db.session.commit()

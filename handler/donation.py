@@ -90,7 +90,7 @@ class DonationHandler(BaseHandler):
                 return jsonify(message="Server Error!"), 500
         else:
             return jsonify(message="Bad request!"), 400
-
+            
     def create_donation(self, json):
         valid_params = self.verify_params(json, Donation.DONATION_REQUIRED_PARAMETERS)
         if valid_params:
@@ -107,3 +107,42 @@ class DonationHandler(BaseHandler):
                 return jsonify(message="Server error!"), 500
         else:
             return jsonify(message="Bad Request!"), 400
+
+    def update_donation(self, did, json):
+        if did:
+            try:
+                donation_to_update = self.dao.get_donation_by_id(did)
+                #If parameter is defined in update json, change it
+                if json.get("supplyName"): donation_to_update.supplyName = json.get("supplyName")
+                if json.get("quantity"): donation_to_update.quantity = json.get("quantity")
+                if json.get("createdAt"): donation_to_update.createdAt = json.get("createdAt")
+                if json.get("unit"): donation_to_update.unit = json.get("unit")
+                #add updated donation
+                donation_to_update.update()
+                result = {
+                    "message": "Success!",
+                    "donation": "",
+                }
+                return jsonify(result), 201
+            except:
+                return jsonify(message="Server error!"), 500
+        else:
+            return jsonify(message="Bad Request!"), 400
+    
+    def delete_donation(self, did):
+        if did:
+            try:
+                donation = self.dao.get_donation_by_id(did)
+                if not donation:
+                    return jsonify(Error="donation Not Found"), 404
+                else:
+                    self.dao.delete(did)
+                    result = {
+                        "message": "Success!",
+                        "donation": "",
+                    }
+                    return jsonify(result), 200
+            except:
+                return jsonify(message="Server Error!"), 500
+        else:
+            return jsonify(message="Bad request!"), 400
