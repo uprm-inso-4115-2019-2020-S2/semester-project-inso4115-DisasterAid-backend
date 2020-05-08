@@ -26,6 +26,19 @@ class User(OutputMixin, db.Model):
     username = db.Column(db.String(20), nullable=False)
     password = db.Column(db.String(100), nullable=False)
 
+    def __init__(self, **kwargs):
+        self.firstName = kwargs.get('firstName')
+        self.lastName = kwargs.get('lastName')
+        self.email = kwargs.get('email')
+        self.phone = kwargs.get('phone')
+        self.dateOfBirth = kwargs.get('dateOfBirth')
+        self.address = kwargs.get('address')
+        self.city = kwargs.get('city')
+        self.zipCode = kwargs.get('zipCode')
+        self.country = kwargs.get('country')
+        self.username = kwargs.get('username')
+        self.password = kwargs.get('password')
+
     def __repr__(self):
         return self.full_name
 
@@ -37,11 +50,17 @@ class User(OutputMixin, db.Model):
     def pk(self):
         return self.uid
 
-    def get_all_users(self):
-        return self.query.all()
+    @classmethod
+    def get_all_users(cls):
+        return cls.query.all()
 
-    def get_user_by_id(self, user_id):
-        return self.query.filter_by(uid=user_id).first()
+    def get_all_user_relationship_values(self, rel):
+        user = self.get_user_by_id(user_id=self.uid)
+        return [val.to_dict(rel=False) for val in getattr(user, rel)]
+
+    @classmethod
+    def get_user_by_id(cls, user_id):
+        return cls.query.filter_by(uid=user_id).first()
 
     def create(self):
         self.password = bcrypt.hashpw(self.password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
