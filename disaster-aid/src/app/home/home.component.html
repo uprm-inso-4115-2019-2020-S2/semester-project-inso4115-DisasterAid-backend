@@ -41,22 +41,37 @@
 
   <section>
     <div class="box">
-      <p class="user-text ml-4 mt-1" style="text-align: justify;">My Resources</p>
-      <div class="rectangle-resource"></div>
-      <div class="rectangle-resource" style="left: 180px;"></div>
+      <p class="user-text ml-4 mt-1" style="text-align: justify;">My Supplies</p>
+      <ul class="resources" *ngFor="let supply of mySuppliesList">
+        <div class="rectangle-resource">
+          <img src="assets/Water-Bottle.png" width="60%" style="margin-left: 20px; margin-top: 6px;">
+          <span class="supply-text">{{supply.name}}</span>
+        </div>      
+      </ul>
+
+<!--       <div class="rectangle-resource" style="left: 180px;"></div>
       <div class="rectangle-resource" style="left: 320px;"></div>
-      <div class="rectangle-resource" style="left: 460px;"></div>
+      <div class="rectangle-resource" style="left: 460px;"></div> -->
     </div>
   </section>
 
   <section>
     <div class="box" style="top: 590px;">
       <p class="user-text ml-4 mt-1" style="text-align: justify;">New Resources Available:</p>
-      <div class="rectangle-resource">
-        <img src="assets/Water-Bottle.png" width="60%" style="margin-left: 20px; margin-top: 6px;">
-        <button class="get-btn">GET</button>
-      </div>
-      <div class="rectangle-resource" style="left: 180px;">
+
+      <!-- card -->
+      <ul class="resources" *ngFor="let resource of myResourcesList">
+        <div class="rectangle-resource">
+          <img src="assets/Water-Bottle.png" width="60%" style="margin-left: 20px; margin-top: 6px;">
+          <span class="resource-text">{{resource.name}} </span>
+          <span class="resource-text">x{{resource.quantity}} </span>
+          <span class="resource-text">{{resource.location}}</span>
+          <button class="get-btn">GET</button>
+        </div>
+      </ul>
+
+
+<!--       <div class="rectangle-resource" style="left: 180px;">
         <img src="assets/Water-Bottle.png" width="60%" style="margin-left: 20px; margin-top: 6px;">
         <button class="get-btn">GET</button>
       </div>
@@ -67,9 +82,10 @@
       <div class="rectangle-resource" style="left: 460px;">
         <img src="assets/Water-Bottle.png" width="60%" style="margin-left: 20px; margin-top: 6px;">
         <button class="get-btn">GET</button>
-      </div>
+      </div> -->
     </div>
   </section>
+
     <div class="rectangle-user1">
       <img src="/assets/user.png" style="width: 50%; margin-top: 47px;">
       <p class="user-text">{{user.firstName}} {{user.lastName}}</p>
