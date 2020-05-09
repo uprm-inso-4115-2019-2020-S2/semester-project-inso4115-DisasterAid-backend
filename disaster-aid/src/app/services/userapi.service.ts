@@ -1,28 +1,35 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { User } from './user';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { User } from '../models/user';
+import { Observable, BehaviorSubject, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 
 @Injectable({
 providedIn: 'root'
 })
-export class UserApiService {
+export class AccountService {
+  public user: Observable<User>;
+  public userSubject: BehaviorSubject<User>;
 
-constructor(private httpClient:HttpClient) { }
+  constructor(
+    private httpClient:HttpClient,
+  ) {
+    this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));
+    this.user = this.userSubject.asObservable();
+  }
 
   private _handleError(error: HttpErrorResponse | any) {
     let data = {};
-                data = {
-                    reason: error && error.error.reason ? error.error.reason : '',
-                    status: error.status
-                };
-                console.error(data);
-                return throwError(error);
+      data = {
+          reason: error && error.error.reason ? error.error.reason : '',
+          status: error.status
+      };
+      console.error(data);
+      return throwError(error);
   }
 
-    public server:String = " http://localhost:5000/";
+   public server:String = " http://localhost:5000/";
 
    public getUsers() : Observable<User[]> {
      return this.httpClient
@@ -50,21 +57,21 @@ constructor(private httpClient:HttpClient) { }
   }
 
    public logIn(user: string, password: string) {
-           return this.http.post<any>('/api/authenticate', { username: username, password: password })
-               .map(user => {
-                   if (user && user.token) {
-                       localStorage.setItem('currentUser', JSON.stringify(user));
-                   }
+      return this.httpClient.post<User>('/api/authenticate', { username: user, password: password })
+          .pipe(map(user => {
+              if (user && user.token) {
+                  localStorage.setItem('currentUser', JSON.stringify(user));
+              }
 
-                   return user;
-               });
-       }
+              return user;
+          }));
+  }
 
     public logOut() {
            localStorage.removeItem('currentUser');
        }
 
      getCurrentUser(): User {
-       return this.currentUserSubject.value;
+       return this.userSubject.value;
      }
 }
