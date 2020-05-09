@@ -5,7 +5,6 @@ from flask_sqlalchemy import SQLAlchemy
 from config import app
 from handler.donation import DonationHandler
 from handler.user import UserHandler
-from handler.donation import DonationHandler
 
 
 @app.route('/')
@@ -78,7 +77,7 @@ def get_donations_by_user(uid):
     else:
         return jsonify(message="Method not allowed."), 405
 
-@app.route('/DAD/donations/did/address', methods=['GET'])
+@app.route('/DAD/donations/<int:did>/address', methods=['GET'])
 def get_donation_address(did):
     if request.method == 'GET':
         return DonationHandler().get_donation_address(did)

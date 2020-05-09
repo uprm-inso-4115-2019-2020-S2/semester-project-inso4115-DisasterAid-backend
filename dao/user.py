@@ -62,6 +62,10 @@ class User(OutputMixin, db.Model):
     def get_user_by_id(user_id):
         return User.query.filter_by(uid=user_id).first()
 
+    @staticmethod
+    def get_user_address(self, user_id):
+        return User.query.filter(uid=user_id)
+
     def create(self):
         self.password = bcrypt.hashpw(self.password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
         db.session.add(self)

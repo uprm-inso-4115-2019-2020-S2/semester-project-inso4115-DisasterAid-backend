@@ -2,6 +2,7 @@ from flask import jsonify
 
 from dao.donation import Donation
 from handler.user import BaseHandler
+from dao.user import User
 
 
 class DonationHandler(BaseHandler):
@@ -55,10 +56,15 @@ class DonationHandler(BaseHandler):
         else:
             return jsonify(message="Bad request!"), 400
 
-    def get_donation_address(self, did):
+    @staticmethod
+    def get_donation_address(did):
         if did:
             try:
-                address = Donation.get_donation_address(did)
+                donation = Donation.get_donation_by_id(did)
+                user_id = donation.uid
+                print(user_id)
+                address = User.get_user_address(user_id)
+                print(address)
                 if not address:
                     return jsonify(message="Address Not Found!"), 404
                 else:
