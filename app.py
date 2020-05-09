@@ -88,7 +88,7 @@ def request_update(rid):
     if request.method == 'GET':
         return RequestHandler().get_request_by_id(rid)
     elif request.method == 'PUT':
-        return RequestHandler().update_request(rid)
+        return RequestHandler().update_request(rid, request.json)
     elif request.method == 'DELETE':
         return RequestHandler().delete_request(rid)
     else:
