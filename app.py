@@ -77,28 +77,20 @@ def get_route_by_id(did):
 def requests():
     if request.method == 'GET':
         return RequestHandler().get_all_requests()
-    # elif request.method == 'POST':
-    #     return UserHandler.create_user(request.json)
+    elif request.method == 'POST':
+        return RequestHandler().insert_request(request.json)
     else:
         return jsonify(message="Method not allowed."), 405
 
 
-@app.route("/DAD/request/uid=<int:uid>", methods=['GET', 'POST'])
-def requests_by_id(uid):
-    if request.method == 'GET':
-        return RequestHandler().get_request_by_id(uid)
-    # elif request.method == 'POST':
-    #     return UserHandler.create_user(request.json)
-    else:
-        return jsonify(message="Method not allowed."), 405
-
-
-@app.route("/DAD/request/rid=<int:rid>", methods=['PUT'])
+@app.route("/DAD/request/<int:rid>", methods=['GET', 'PUT', 'DELETE'])
 def request_update(rid):
-    if request.method == 'PUT':
+    if request.method == 'GET':
+        return RequestHandler().get_request_by_id(rid)
+    elif request.method == 'PUT':
         return RequestHandler().update_request(rid)
-    # elif request.method == 'POST':
-    #     return UserHandler.create_user(request.json)
+    elif request.method == 'DELETE':
+        return RequestHandler().delete_request(rid)
     else:
         return jsonify(message="Method not allowed."), 405
 

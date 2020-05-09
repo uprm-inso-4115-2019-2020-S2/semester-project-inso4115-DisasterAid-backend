@@ -1,11 +1,11 @@
 from flask import jsonify
 from dao.request import Request
+from handler.user import BaseHandler
 
 
-class RequestHandler:
+class RequestHandler(BaseHandler):
     # def __init__(self):
     #     print("lol")
-
 
     def build_request_dict(self, row):  # row is a python list
         result = {}
@@ -49,21 +49,17 @@ class RequestHandler:
     #     except:
     #         return jsonify(message="Server error!"), 500
 
-    def get_request_by_id(self, uid):
-        if uid > 0:
+    def get_request_by_id(self, rid):
+        if rid > 0:
             try:
-                request = Request().get_request_by_user_id(uid)
+                request = Request.get_request_by_id(rid)
                 if not request:
                     return jsonify(message="Not Found!"), 404
                 else:
-                    result_list = []
-                    for row in request:
-                        result_list.append(self.build_request_dict(row))
                     result = {
                         "message": "Success!",
-                        "requests": result_list,
+                        "requests": request.to_dict(),
                     }
-                    print(result_list)
                     return jsonify(result), 200
             except:
                 return jsonify(message="Server Error!"), 500
