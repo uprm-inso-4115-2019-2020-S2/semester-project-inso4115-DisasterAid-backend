@@ -4,6 +4,8 @@ import {Subscription} from 'rxjs/Subscription';
 import { User } from '../user';
 import { Supply } from '../supply';
 
+import { User1} from '../user';
+
 
 @Component({
   selector: 'app-home',
@@ -15,6 +17,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   userListSubs: Subscription;
   userList : User[];
 
+  pending = [new User1(1, 'Carlos J. Ayala'), new User1(2, 'Javier'), new User1(2, 'Javier')
+  , new User1(2, 'Javier'), new User1(2, 'Javier'), new User1(2, 'Javier'), new User1(2, 'Javier')
+  , new User1(2, 'Javier'), new User1(2, 'Javier'), new User1(2, 'Javier'), new User1(2, 'Javier')];  //FOR TESTING
+  delivered = [new User1(3, 'Juan Del Pueblo'), new User1(4, 'Los $1200')];  //FOR TESTING
+  numOfRequests = 10; //Displays the number of requests in the home page
+  numOfDonations = 20; //Displays the number of donations in the home page
+
   constructor(private userApi: UserApiService) { }
   
   //Mock data; in practicality, these will be loaded with the info from db. 
@@ -23,9 +32,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     firstName: "X AE A-12",
     lastName: "Musk"
   }
-
-  numOfDonations = 3
-  numOfRequests = 7
 
   //mock pending list (should be loaded from db)
   //List Type should be User
@@ -120,7 +126,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   onClickList(e) {
     console.log(e.target.id);
-    //DO THE SEACH WITH e.target.id
+    //DO THE SEACH WITH e.target.id QUE ES EL NOMBRE DEL PUEBLO
   }
 
 }

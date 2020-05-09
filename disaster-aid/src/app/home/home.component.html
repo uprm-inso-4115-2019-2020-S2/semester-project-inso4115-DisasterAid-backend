@@ -41,18 +41,33 @@
 
   <section>
     <div class="box">
-
+      <p class="user-text ml-4 mt-1" style="text-align: justify;">My Resources</p>
+      <div class="rectangle-resource"></div>
+      <div class="rectangle-resource" style="left: 180px;"></div>
+      <div class="rectangle-resource" style="left: 320px;"></div>
+      <div class="rectangle-resource" style="left: 460px;"></div>
     </div>
   </section>
 
   <section>
     <div class="box" style="top: 590px;">
-      <!-- <ul>
-        <li class="supply-options"></li>
-        <li class="supply-options"></li>
-        <li class="supply-options"></li>
-        <li class="supply-options"></li>
-      </ul> -->
+      <p class="user-text ml-4 mt-1" style="text-align: justify;">New Resources Available:</p>
+      <div class="rectangle-resource">
+        <img src="assets/Water-Bottle.png" width="60%" style="margin-left: 20px; margin-top: 6px;">
+        <button class="get-btn">GET</button>
+      </div>
+      <div class="rectangle-resource" style="left: 180px;">
+        <img src="assets/Water-Bottle.png" width="60%" style="margin-left: 20px; margin-top: 6px;">
+        <button class="get-btn">GET</button>
+      </div>
+      <div class="rectangle-resource" style="left: 320px;">
+        <img src="assets/Water-Bottle.png" width="60%" style="margin-left: 20px; margin-top: 6px;">
+        <button class="get-btn">GET</button>
+      </div>
+      <div class="rectangle-resource" style="left: 460px;">
+        <img src="assets/Water-Bottle.png" width="60%" style="margin-left: 20px; margin-top: 6px;">
+        <button class="get-btn">GET</button>
+      </div>
     </div>
   </section>
     <div class="rectangle-user1">
@@ -60,18 +75,19 @@
       <p class="user-text">{{user.firstName}} {{user.lastName}}</p>
     </div>
     <div class="rectangle-user3">
-      <p class="user-text">{{numOfDonations}}</p>
+      <p class="user-text m-2 mb-lg-n2">{{numOfDonations}}</p>
       <p class="user-text" style="font-size: 18px;">Donations</p>
     </div>
     <div class="rectangle-user3" style="left: 1110px">
-      <p class="user-text">{{numOfRequests}}</p>
+      <p class="user-text m-2 mb-lg-n2">{{numOfRequests}}</p>
       <p class="user-text" style="font-size: 18px;">Requests</p>
     </div>
     <div class="rectangle-user4">
       <p class="user-text" style="font-size: 18px;">My Requests</p>
+      <!-- Que va aquí??? -->
     </div>
     <div class="rectangle-user2">
-      <p class="user-text">My Donations</p> 
+      <p class="user-text">My Donations</p>
       <p class="user-text" style="position: absolute; left: 40px; font-size: 22px;">Delivered</p>
       <div class="rectangle15">
         <ul id="delivered" style="list-style-type: none; color: white;" *ngFor="let person of deliveredList">
@@ -95,7 +111,7 @@
       <p class="locate-help">LOCATE HELP</p>
       <div class="places-list overflow-auto">
         <a class="cities-txt">CITIES</a>
-        <ul (click)="onClickList($event)" id=pueblos style="list-style-type:none;">
+        <ul (click)="onClickList($event)" id="pueblos" style="list-style-type:none;" class="pointer">
           <li id=	Adjuntas	>	Adjuntas	</li>
           <li id=	Aguada	>	Aguada	</li>
           <li id=	Aguadilla	>	Aguadilla	</li>
@@ -178,7 +194,7 @@
       </div>
     <!-- </div> -->
   </section>
- 
+
 
   </body>
 </html>
