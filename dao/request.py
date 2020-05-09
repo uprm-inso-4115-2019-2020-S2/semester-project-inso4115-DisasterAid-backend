@@ -38,9 +38,7 @@ class Request(OutputMixin, db.Model):
     def get_request_by_id(request_id):
         return Request.query.filter_by(rid=request_id).first()
 
-    def create(self, user, donation):
-        user.requests.append(self)
-        donation.requests.append(self)
+    def create(self):
         db.session.add(self)
         db.session.commit()
         return self
