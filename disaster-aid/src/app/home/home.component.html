@@ -18,15 +18,15 @@
               <a class="nav-link menuItem" href="#">SEEK DONATIONS</a>
           </li>
           <li>
-            <input type="text" class="search-input" placeholder="Search">
+            <input id="search" type="text" class="search-input border-0" placeholder="Search">
           </li>
           <li>
-            <span class="material-icons">
+            <span class="material-icons" style="padding-inline-start: 15px;">
               notifications_none
             </span>
           </li>
           <li>
-            <span class="material-icons">
+            <span class="material-icons" style="padding-inline-start: 15px;">
               settings
             </span>
           </li>
@@ -35,15 +35,60 @@
 
   <section>
     <div class="map" >
-        <img src="/assets/MAP-HOME.png" style="width: 50%;">
+        <img src="/assets/MAP-HOME.png" style="width: 70%;">
     </div>
   </section>
+
+  <section>
+    <div class="box">
+
+    </div>
+  </section>
+
+  <section>
+    <div class="box" style="top: 590px;">
+      <!-- <ul>
+        <li class="supply-options"></li>
+        <li class="supply-options"></li>
+        <li class="supply-options"></li>
+        <li class="supply-options"></li>
+      </ul> -->
+    </div>
+  </section>
+    <div class="rectangle-user1">
+      <img src="/assets/user.png" style="width: 35%; margin-top: 20px;">
+      <p class="user-text">User Name</p>
+    </div>
+    <div class="rectangle-user3">
+      <p class="user-text" style="font-size: 18px;">Donations</p>
+    </div>
+    <div class="rectangle-user3" style="left: 1110px">
+      <p class="user-text" style="font-size: 18px;">Requests</p>
+    </div>
+    <div class="rectangle-user4">
+      <p class="user-text" style="font-size: 18px;">My Requests</p>
+    </div>
+    <div class="rectangle-user2">
+      <p class="user-text">My Donations</p> 
+      <p class="user-text" style="position: absolute; left: 40px; font-size: 22px;">Delivered</p>
+      <div class="rectangle15"></div>
+      <p class="user-text" style="position: absolute; left: 230px; font-size: 22px;">Pending</p>
+      <div class="rectangle15" style="left: 200px;">
+        <ul id="pending" style="list-style-type: none; color: white;">
+          <li>Carlos</li>
+        </ul>
+      </div>
+    </div>
+  <section>
+
+  </section>
+
   <section>
     <!-- <div class="places" style="font-size: xx-large; text-align: center; padding-top: 2%; color: white;"> -->
       <!-- <p style="font-size: xx-large; text-align: center; padding-top: 2%; color: white;">Places</p> -->
-      <p class="locate-help">Locate Help</p>
+      <p class="locate-help">LOCATE HELP</p>
       <div class="places-list overflow-auto">
-        <p class="cities-txt">Cities</p>
+        <a class="cities-txt">CITIES</a>
         <ul (click)="onClickList($event)" id=pueblos style="list-style-type:none;">
           <li id=	Adjuntas	>	Adjuntas	</li>
           <li id=	Aguada	>	Aguada	</li>
