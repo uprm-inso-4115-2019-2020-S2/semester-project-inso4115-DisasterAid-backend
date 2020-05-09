@@ -128,13 +128,6 @@ ul {
     font-size: 16px;
 }
 
-.supply-options {
-    position: relative;
-    width: 110px;
-    height: 110px;
-    background: red;
-}
-
 .user-info {
     position: absolute;
     width: 350px;
@@ -152,6 +145,29 @@ ul {
     top: 100px;
     background: #8ACAE6;
     border-radius: 15px;
+}
+
+.rectangle-resource {
+    position: inherit;
+    width: 100px;
+    height: 100px;
+    left: 40px;
+    top: 55px;
+    background: #8ACAE6;
+    border-radius: 15px;
+}
+
+.get-btn {
+    left: 28px;
+    font-size: 12px;
+    width: fit-content;
+    height: fit-content;
+    background: #FFBC40;
+    border-radius: 10px;
+
+    position: absolute; /* Para que bregue con la foto. */
+    top: 100px;
+
 }
 
 .rectangle-user1 {
