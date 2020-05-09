@@ -71,7 +71,7 @@ Make sure to have your **venv** activated.
 We must first specify three environment variables to tell Flask to run the application on these configurations.
 On the project folder, open a terminal and create three environment variables:
 
-If your using Windows:
+If you're using Windows:
 ```bash
 (venv) ..> set FLASK_APP=app.py
 (venv) ..> set FLASK_ENV=development
