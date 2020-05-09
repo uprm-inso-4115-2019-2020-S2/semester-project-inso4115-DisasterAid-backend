@@ -16,6 +16,21 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(private userApi: UserApiService) { }
   
+  //Mock data; in practicality, these will be loaded with the info from db. 
+  user = "John Doe"
+  numOfDonations = 3
+  numOfRequests = 7
+
+  //mock pending list (should be loaded from db)
+  public pendingNamesList: String[] = [
+    "Juan Vargas", "Brian Lopez", "Julia Belinski", "Robert Acar"
+  ]
+  //mock delivered list (should be loaded from db)
+  public deliveredNamesList: String[] = [
+    "Natalie Cruz", "Michael Scott", "Albert Cruz"
+  ]
+
+  
   ngOnInit(): void {
 
     // this.userApi

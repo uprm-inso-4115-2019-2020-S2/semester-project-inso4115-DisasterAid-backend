@@ -57,12 +57,14 @@
   </section>
     <div class="rectangle-user1">
       <img src="/assets/user.png" style="width: 35%; margin-top: 20px;">
-      <p class="user-text">User Name</p>
+      <p class="user-text">{{user}}</p>
     </div>
     <div class="rectangle-user3">
+      <p class="user-text">{{numOfDonations}}</p>
       <p class="user-text" style="font-size: 18px;">Donations</p>
     </div>
     <div class="rectangle-user3" style="left: 1110px">
+      <p class="user-text">{{numOfRequests}}</p>
       <p class="user-text" style="font-size: 18px;">Requests</p>
     </div>
     <div class="rectangle-user4">
@@ -71,11 +73,15 @@
     <div class="rectangle-user2">
       <p class="user-text">My Donations</p> 
       <p class="user-text" style="position: absolute; left: 40px; font-size: 22px;">Delivered</p>
-      <div class="rectangle15"></div>
+      <div class="rectangle15">
+        <ul id="delivered" style="list-style-type: none; color: white;" *ngFor="let name of deliveredNamesList">
+          <li>{{name}}</li>
+        </ul>
+      </div>
       <p class="user-text" style="position: absolute; left: 230px; font-size: 22px;">Pending</p>
       <div class="rectangle15" style="left: 200px;">
-        <ul id="pending" style="list-style-type: none; color: white;">
-          <li>Carlos</li>
+        <ul id="pending" style="list-style-type: none; color: white;" *ngFor="let name of pendingNamesList">
+          <li>{{name}}</li>
         </ul>
       </div>
     </div>
