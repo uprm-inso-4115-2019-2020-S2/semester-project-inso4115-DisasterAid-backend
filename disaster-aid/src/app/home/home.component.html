@@ -89,13 +89,13 @@
     <div class="rectangle-user2">
       <p class="user-text">My Donations</p>
       <p class="user-text" style="position: absolute; left: 40px; font-size: 22px;">Delivered</p>
-      <div class="rectangle15">
+      <div class="rectangle15 overflow-auto">
         <ul id="delivered" style="list-style-type: none; color: white;" *ngFor="let person of deliveredList">
           <li>{{person.firstName}} {{person.lastName}}</li>
         </ul>
       </div>
       <p class="user-text" style="position: absolute; left: 230px; font-size: 22px;">Pending</p>
-      <div class="rectangle15" style="left: 200px;">
+      <div class="rectangle15 overflow-auto" style="left: 200px;">
         <ul id="pending" style="list-style-type: none; color: white;" *ngFor="let person of pendingList">
           <li>{{person.firstName}} {{person.lastName}}</li>
         </ul>

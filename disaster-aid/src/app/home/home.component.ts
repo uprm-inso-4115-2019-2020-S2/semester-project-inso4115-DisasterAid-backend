@@ -51,6 +51,14 @@ export class HomeComponent implements OnInit, OnDestroy {
     {
       firstName: "Robert",
       lastName: "Acar"
+    },
+    {
+      firstName: "Elon",
+      lastName: "Musk"
+    },
+    {
+      firstName: "Peter",
+      lastName: "Griffin"
     }
   ]
 
