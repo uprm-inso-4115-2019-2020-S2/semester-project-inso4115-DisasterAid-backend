@@ -5,6 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from config import app
 from handler.donation import DonationHandler
 from handler.user import UserHandler
+from handler.request import RequestHandler
 
 
 @app.route('/')
@@ -67,6 +68,37 @@ def get_route_by_id(did):
         return DonationHandler.update_donation(did, request.json)
     elif request.method == 'DELETE':
         return DonationHandler.delete_donation(did)
+    else:
+        return jsonify(message="Method not allowed."), 405
+
+
+# USER ENDPOINTS
+@app.route("/DAD/request", methods=['GET', 'POST'])
+def requests():
+    if request.method == 'GET':
+        return RequestHandler().get_all_requests()
+    # elif request.method == 'POST':
+    #     return UserHandler.create_user(request.json)
+    else:
+        return jsonify(message="Method not allowed."), 405
+
+
+@app.route("/DAD/request/uid=<int:uid>", methods=['GET', 'POST'])
+def requests_by_id(uid):
+    if request.method == 'GET':
+        return RequestHandler().get_request_by_id(uid)
+    # elif request.method == 'POST':
+    #     return UserHandler.create_user(request.json)
+    else:
+        return jsonify(message="Method not allowed."), 405
+
+
+@app.route("/DAD/request/rid=<int:rid>", methods=['PUT'])
+def request_update(rid):
+    if request.method == 'PUT':
+        return RequestHandler().update_request(rid)
+    # elif request.method == 'POST':
+    #     return UserHandler.create_user(request.json)
     else:
         return jsonify(message="Method not allowed."), 405
 
