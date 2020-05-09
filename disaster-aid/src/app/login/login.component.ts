@@ -24,7 +24,6 @@ export class LoginComponent implements OnInit {
     // private alertService: AlertService
   ) {}
    
-    // private authenticationService: AuthenticationService
 
   ngOnInit(){
     this.loginForm = this.formBuilder.group({
@@ -47,7 +46,7 @@ export class LoginComponent implements OnInit {
     }
 
     this.loading = true;
-
+    
     this.accountService.logIn(this.f.username.value, this.f.password.value)
       .pipe(first())
       .subscribe(
@@ -61,7 +60,6 @@ export class LoginComponent implements OnInit {
 
     console.warn('Successfuly registered!');
   }
-
+  
 }
-
 // this.authenticationService.logout();

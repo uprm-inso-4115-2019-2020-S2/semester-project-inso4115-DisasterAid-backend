@@ -2,6 +2,9 @@ from flask import Flask, request, jsonify, redirect
 from flask_cors import CORS, cross_origin
 from flask_sqlalchemy import SQLAlchemy
 
+from flask import render_template, url_for, redirect, send_from_directory, make_response
+import os
+
 from config import app
 from handler.user import UserHandler
 
@@ -10,6 +13,10 @@ from handler.user import UserHandler
 def index():
     return 'Welcome to Disaster Aid Distribution App!'
 
+
+@app.route('/Login') 
+def g():
+    return 'Login html page goes here'
 
 @app.route("/DAD/users", methods=['GET', 'POST'])
 def getall_or_create_users():
@@ -34,4 +41,5 @@ def get_user_by_id(uid):
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug = True)
+    # adding debug = True to run method gives flask live reload 
