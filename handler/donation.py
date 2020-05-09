@@ -8,7 +8,6 @@ class DonationHandler(BaseHandler):
     @staticmethod
     def get_all_donations(available=None):
         try:
-            print("Estoy aqui")
             donations = Donation.get_all_donations() if not available else Donation.get_available_donations()
             donation_list = [donation.to_dict() for donation in donations]
             result = {
