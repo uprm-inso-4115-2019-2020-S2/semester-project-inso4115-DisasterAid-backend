@@ -3,6 +3,8 @@ import { UserApiService } from '../userapi.service';
 import {Subscription} from 'rxjs/Subscription';
 import { User } from '../user';
 
+import { User1} from '../user';
+
 
 @Component({
   selector: 'app-home',
@@ -13,6 +15,13 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   userListSubs: Subscription;
   userList : User[];
+
+  pending = [new User1(1, 'Carlos J. Ayala'), new User1(2, 'Javier'), new User1(2, 'Javier')
+  , new User1(2, 'Javier'), new User1(2, 'Javier'), new User1(2, 'Javier'), new User1(2, 'Javier')
+  , new User1(2, 'Javier'), new User1(2, 'Javier'), new User1(2, 'Javier'), new User1(2, 'Javier')];  //FOR TESTING
+  delivered = [new User1(3, 'Juan Del Pueblo'), new User1(4, 'Los $1200')];  //FOR TESTING
+  numOfRequests = 10; //Displays the number of requests in the home page
+  numOfDonations = 20; //Displays the number of donations in the home page
 
   constructor(private userApi: UserApiService) { }
   
@@ -33,7 +42,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   onClickList(e) {
     console.log(e.target.id);
-    //DO THE SEACH WITH e.target.id
+    //DO THE SEACH WITH e.target.id QUE ES EL NOMBRE DEL PUEBLO
   }
 
 }

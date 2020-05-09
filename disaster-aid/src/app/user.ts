@@ -12,3 +12,10 @@ export interface User {
     username: String;
     password: String;
 }
+
+// Para test, BORRAR
+export class User1 {
+    constructor(
+      public id: number,
+      public name: string) { }
+  }

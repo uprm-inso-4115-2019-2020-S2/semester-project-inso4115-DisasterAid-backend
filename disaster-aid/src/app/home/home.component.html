@@ -60,22 +60,35 @@
       <p class="user-text">User Name</p>
     </div>
     <div class="rectangle-user3">
+      <p class="user-text m-2 mb-lg-n2">{{numOfDonations}}</p>
       <p class="user-text" style="font-size: 18px;">Donations</p>
     </div>
     <div class="rectangle-user3" style="left: 1110px">
+      <p class="user-text m-2 mb-lg-n2">{{numOfRequests}}</p>
       <p class="user-text" style="font-size: 18px;">Requests</p>
     </div>
     <div class="rectangle-user4">
       <p class="user-text" style="font-size: 18px;">My Requests</p>
+      <!-- Que va aquí??? -->
     </div>
     <div class="rectangle-user2">
       <p class="user-text">My Donations</p> 
       <p class="user-text" style="position: absolute; left: 40px; font-size: 22px;">Delivered</p>
-      <div class="rectangle15"></div>
+      <div id="delivered" class="rectangle15 overflow-auto">
+        <!-- AQUI SE AÑADE A LA LISTA DE PENDING DELIVERY -->
+        <ul style="list-style-type: none; color: white;">
+          <li *ngFor="let user of delivered">
+            {{ user.name }}
+            </li>
+        </ul>
+      </div>
       <p class="user-text" style="position: absolute; left: 230px; font-size: 22px;">Pending</p>
-      <div class="rectangle15" style="left: 200px;">
-        <ul id="pending" style="list-style-type: none; color: white;">
-          <li>Carlos</li>
+      <div id="pending" class="rectangle15 overflow-auto" style="left: 200px;">
+        <!-- AQUI SE AÑADE A LA LISTA DE PENDING DELIVERY -->
+        <ul style="list-style-type: none; color: white;">
+          <li *ngFor="let user of pending">
+            {{ user.name }}
+            </li>
         </ul>
       </div>
     </div>
@@ -89,7 +102,7 @@
       <p class="locate-help">LOCATE HELP</p>
       <div class="places-list overflow-auto">
         <a class="cities-txt">CITIES</a>
-        <ul (click)="onClickList($event)" id=pueblos style="list-style-type:none;">
+        <ul (click)="onClickList($event)" id="pueblos" style="list-style-type:none;" class="pointer">
           <li id=	Adjuntas	>	Adjuntas	</li>
           <li id=	Aguada	>	Aguada	</li>
           <li id=	Aguadilla	>	Aguadilla	</li>
