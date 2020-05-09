@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import authenticationService;
 
 @Component({
   selector: 'app-login',
@@ -17,16 +18,24 @@ export class LoginComponent implements OnInit {
       password:'',
     })
    }
+    private authenticationService: AuthenticationService
 
-  ngOnInit(): void {
-    
+  ngOnInit(){
+    this.authenticationService.logout();
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   onSubmit(userData){
-
-    //PONER COSAS DEL BACKEND AQUI
-
-    this.loginForm.reset();
+    this.loading = true;
+            this.authenticationService.login(this.model.email, this.model.password)
+                .subscribe(
+                    data => {
+                        this.router.navigate([this.returnUrl]);
+                    },
+                    error => {
+                        this.alertService.error(error);
+                        this.loading = false;
+                    });
 
     console.warn('Successfuly registered!');
   }
