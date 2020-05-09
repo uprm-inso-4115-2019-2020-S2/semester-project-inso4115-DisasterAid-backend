@@ -135,6 +135,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   onClickList(e) {
     console.log(e.target.id);
     //DO THE SEACH WITH e.target.id QUE ES EL NOMBRE DEL PUEBLO
+    window.location.href = '/donations'+String(e.target.id)
+    //window.location.href = '/donations'
   }
 
 }
