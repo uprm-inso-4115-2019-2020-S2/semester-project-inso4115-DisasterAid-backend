@@ -1,6 +1,9 @@
 import bcrypt as bcrypt
+from flask import render_template, request, session, redirect, url_for
+from werkzeug.utils import redirect
 
-from config import db
+from config import db, app
+from dao import request
 from dao.mixin import OutputMixin
 from dao.request import Request
 from dao.donation import Donation
@@ -59,3 +62,29 @@ class User(OutputMixin, db.Model):
     def delete(self):
         db.session.delete(self)
         db.session.commit()
+
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+
+        req = request.form
+
+        username = req.get("username")
+        password = req.get("password")
+
+        if not username in db:
+            print("Username not found")
+            return redirect(request.url)
+        else:
+            user = db[username]
+
+        if not password == db["password"]:
+            print("Incorrect password")
+            return redirect(request.url)
+        else:
+            session["USERNAME"] = db["username"]
+            print("session username set")
+            return redirect(url_for("profile"))
+
+    return render_template("login.component.html")
