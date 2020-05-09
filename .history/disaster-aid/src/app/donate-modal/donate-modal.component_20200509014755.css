@@ -1,27 +1,22 @@
 .donateBox {
     position: absolute;
-    width: 33%;
-    height: 75%;
+    width: 370px;
+    height: 290px;
     left: 66%;
-    /* right: 10%;
-    top: 10%; */
-    
+    top: 97px;
     background: rgba(2, 163, 232, 0.4);
     border: 10px solid #02A3E8;
     border-radius: 30px;
-    font-family: 'Fredoka One', cursive;
-    font-family: 'Gochi Hand', cursive;
+    font-family: PoetsenOne;
+    /* font-family: 'Gochi Hand', cursive; */
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    font-size: 30px;
 }
-
 
 .donateButton{
     text-align: center; 
     padding-top: 7px;
     background: gold;
     width: 90%;
-    /* font-size:30px */
 }
 
 .select{
