@@ -38,6 +38,10 @@ class Donation(OutputMixin, db.Model):
         return Donation.query.filter_by(did=donation_id).first()
 
     @staticmethod
+    def get_donations_by_uid(user_id):
+        return Donation.query.filter_by(uid=user_id).all()
+
+    @staticmethod
     def get_available_donations():
         return Donation.query.filter(Donation.quantity != 0)
 
