@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Gochi+Hand&display=swap');
+
+
+
+a.menuItem:hover {
+    color: rgba(0, 124, 177, 0.856);
+}
+
+.map {
+    position: absolute;
+    width: 1450px;
+    height: 500px;
+    left: 300px;
+    top: 90px;
+}
+
+.bestText{
+    position: absolute;
+    font-size: 45px;
+    color: white;
+    top: 370px;
+    left: 320px;
+    
+}
+.donateText{
+    position: absolute;
+    font-size: 25px;
+    color: white;
+    top: 435px;
+    left: 380px;
+}
+.button {
+    
+    border-radius: 5px;
+    background-color: #FFBC40;
+    font-size: larger;
+    text-align: center;
+    position: absolute;
+    width: 130px;
+    height: 30px;
+    left: 580px;
+    top: 500px;
+
+    
+}
+

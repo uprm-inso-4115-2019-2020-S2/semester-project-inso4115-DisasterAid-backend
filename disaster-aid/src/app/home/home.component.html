@@ -1,0 +1,11 @@
+<html>
+    <div style="text-align:center">
+        <h1>Users</h1>
+        <h2>Welcome {{myInfo}}</h2>
+      </div>
+      <ul>
+        <li *ngFor="let user of userList">
+          {{user.firstName}} {{user.lastName}}
+        </li>
+      </ul>
+</html>
