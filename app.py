@@ -13,6 +13,14 @@ def index():
     return 'Welcome to Disaster Aid Distribution App!'
 
 # USER ENDPOINTS
+@app.route("/DAD/login", methods=['POST'])
+def do_login():
+    return UserHandler().do_login(request.json)
+
+@app.route("/DAD/logout", methods=['GET'])
+def do_logout():
+    return UserHandler().do_logout()
+
 @app.route("/DAD/users", methods=['GET', 'POST'])
 def get_all_or_create_users():
     if request.method == 'GET':
