@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Donation } from '../donation';
+import { Donation } from '../donation'
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DonationsService } from '../donations.service';
 import { UserApiService } from '../userapi.service';
@@ -54,12 +54,9 @@ export class DonationsComponent implements OnInit {
   }
 
   onAddDonationSubmit(donationData) {
-
-    this.donationsService.addDonation(donationData)
-    .subscribe(data => {this.getDonations(); } );
     this.addDonationForm.reset();
 
-    // this.donationsService.addDonation(donationData);
+    this.donationsService.addDonation(donationData);
 
     console.warn('donation added: ', donationData);
     console.warn('list added: ', this.donationsList);
@@ -126,7 +123,7 @@ export class DonationsComponent implements OnInit {
     console.warn('Values did: ', values);
 
     // tslint:disable-next-line:prefer-for-of
-    for (let i = 0; i < this.donationsList.length; i++) {
+    for (let i = 0; i < this.donationsList.length; i++){
       console.warn('List did: ', this.donationsList[i].did);
       if (this.donationsList[i].did === this.currentEditingID) {
         console.log('current: ', this.currentEditingID);

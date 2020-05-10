@@ -56,10 +56,10 @@ export class DonationsComponent implements OnInit {
   onAddDonationSubmit(donationData) {
 
     this.donationsService.addDonation(donationData)
-    .subscribe(data => {this.getDonations(); } );
+    .subscribe(data => {this.getDonations(); } ); 
     this.addDonationForm.reset();
 
-    // this.donationsService.addDonation(donationData);
+    this.donationsService.addDonation(donationData);
 
     console.warn('donation added: ', donationData);
     console.warn('list added: ', this.donationsList);

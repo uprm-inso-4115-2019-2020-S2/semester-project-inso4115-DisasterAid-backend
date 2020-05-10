@@ -51,7 +51,7 @@
                 </td>
                 <td>
                   <!-- <input id="supplyName" type="text" formControlName="supplyName"> -->
-                  <select class="select" id="supplyNameE" type="text" formControlName="supplyName">
+                  <select id="supplyName" name="supply" class="select">
                     <option value="food">food</option>
                     <option value="water">water</option>
                     <option value="blankets">blankets</option>
@@ -70,7 +70,14 @@
                   >
                 </td>
                 <td>
-                  <input class="select" id="quantityE" type="text" formControlName="quantity">
+                  <input
+                    type="number"
+                    class="select"
+                    id="quantityE"
+                    name="quantity"
+                    min="1"
+                    max="1000"
+                  />
                 </td>
               </tr>
       
@@ -171,6 +178,7 @@
                      font-style: normal;
                      font-weight: normal;
                      line-height: 32px;
+
                   "
 
               type="submit">Save</button>
