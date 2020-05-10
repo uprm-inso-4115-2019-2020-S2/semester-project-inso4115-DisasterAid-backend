@@ -28,7 +28,11 @@ class UserHandler(BaseHandler):
             if user and bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8')):
                 session['logged_in'] = True
                 status = True
-                return jsonify(status=status), 200
+                result = {
+                    "status": status,
+                    "uid": user.uid
+                }
+                return jsonify(result), 200
             else:
                 return jsonify(message="Username or password is wrong."), 400
         except:
