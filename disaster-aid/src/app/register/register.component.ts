@@ -100,16 +100,16 @@ export class RegisterComponent implements OnInit {
       firstName : '',
       lastName:'',
       email: '',
-      phone:'',
+      phone: '',
       dateOfBirth: Date,
-      address:'',
-      city:'',
-      zipCode:'',
+      address: '',
+      city: '',
+      zipCode: '',
       country: 'PR',
       username: '',
-      password:'',
-      retype_password:'',
-    })
+      password: '',
+      retype_password: '',
+    });
    }
 
   ngOnInit(): void {
@@ -117,17 +117,17 @@ export class RegisterComponent implements OnInit {
 
   onSubmit(userData: any){
 
-      const user: User = {  
-        firstName: userData.firstName, 
+      const user: User = {
+        firstName: userData.firstName,
         lastName: userData.lastName,
         email: userData.email,
-        phone: userData.phone, 
+        phone: userData.phone,
         dateOfBirth: userData.dateOfBirth,
         address : userData.address,
-        city: userData.city, 
-        zipCode: userData.zipCode, 
+        city: userData.city,
+        zipCode: userData.zipCode,
         country: userData.country,
-        username:userData.username, 
+        username:userData.username,
         password:userData.password};
 
 
