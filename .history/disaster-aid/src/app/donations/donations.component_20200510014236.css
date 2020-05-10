@@ -59,7 +59,7 @@ h2 {
 
 
 .donateBox {
-    position: absolute;
+    position: sticky;
     width: 33%;
     height: 70%;
     left: 66%;

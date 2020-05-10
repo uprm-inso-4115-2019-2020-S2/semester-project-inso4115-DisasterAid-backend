@@ -61,8 +61,12 @@ h2 {
 .donateBox {
     position: absolute;
     width: 33%;
-    height: 70%;
+    height: 60%;
     left: 66%;
+    /* right: 10%;
+    top: 10%; */
+    
+    
     background: rgba(2, 163, 232, 0.4);
     border: 10px solid #02A3E8;
     border-radius: 30px;
@@ -83,7 +87,7 @@ h2 {
     font-family: 'Gochi Hand', cursive;
     font-style: normal;
     font-weight: normal;
-    /* font-size: 21px; */
+    font-size: 21px;
     line-height: 32px;
     /* margin-right: 3vw; */
 }
@@ -98,9 +102,5 @@ h2 {
     border-radius: 10px;
     -webkit-appearance: none;
     /* background: url(/assests/triangle.png) no-repeat right #ddd; */
-}
-
-.main{
-    background-color:rgb(162, 219, 246);
 }
 

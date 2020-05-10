@@ -63,6 +63,10 @@ h2 {
     width: 33%;
     height: 70%;
     left: 66%;
+    /* right: 10%;
+    top: 10%; */
+    
+    
     background: rgba(2, 163, 232, 0.4);
     border: 10px solid #02A3E8;
     border-radius: 30px;
