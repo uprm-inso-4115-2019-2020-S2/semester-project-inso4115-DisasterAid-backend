@@ -5,7 +5,6 @@ from flask_sqlalchemy import SQLAlchemy
 from config import app
 from handler.donation import DonationHandler
 from handler.user import UserHandler
-from handler.donation import DonationHandler
 
 
 @app.route('/')

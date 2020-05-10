@@ -61,10 +61,6 @@ class Donation(OutputMixin, db.Model):
     def get_donations_by_date():
 	    return Donation.query.order_by(Donation.createdAt.desc())
 
-    # @staticmethod
-    # def get_supply_count(supply):
-    #     pass
-
     def create(self):
         db.session.add(self)
         db.session.commit()
