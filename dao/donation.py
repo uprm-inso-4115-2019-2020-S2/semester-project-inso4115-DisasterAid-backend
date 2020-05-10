@@ -53,6 +53,14 @@ class Donation(OutputMixin, db.Model):
     def get_donations_by_user(user_id):
         return Donation.query.filter_by(uid=user_id)
 
+    @staticmethod
+    def get_donations_by_supplyName(supName):
+	    return Donation.query.filter_by(supplyName=supName)
+
+    @staticmethod
+    def get_donations_by_date():
+	    return Donation.query.order_by(Donation.createdAt.desc())
+
     # @staticmethod
     # def get_supply_count(supply):
     #     pass
@@ -70,13 +78,3 @@ class Donation(OutputMixin, db.Model):
     def delete(self):
         db.session.delete(self)
         db.session.commit()
-
-    def get_donations_by_date(self):
-	    return Donation.query.group_by(createdAt)
-	
-#  def get_donations_by_date_desc(self):
-#     return Donation.query.group_by(createdAt)
-	      
-	
-	def get_donations_by_supplyName(self, supNum):
-	    return Donation.query.filter_by(supplyName=supNum)

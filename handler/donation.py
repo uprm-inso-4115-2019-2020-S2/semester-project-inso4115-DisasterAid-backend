@@ -32,6 +32,32 @@ class DonationHandler(BaseHandler):
             return jsonify(message="Server error!"), 500
 
     @staticmethod
+    def get_donations_by_date():
+        try:
+            donations = Donation.get_donations_by_date()
+            donation_list = [donation.to_dict() for donation in donations]
+            result = {
+                "message": "Success!",
+                "donations": donation_list,
+            }
+            return jsonify(result), 200
+        except:
+            return jsonify(message="Server error!"), 500
+
+    @staticmethod
+    def get_donations_by_supplyName(supplyName):
+        try:
+            donations = Donation.get_donations_by_supplyName(supplyName)
+            donation_list = [donation.to_dict() for donation in donations]
+            result = {
+                "message": "Success!",
+                "donations": donation_list,
+            }
+            return jsonify(result), 200
+        except:
+            return jsonify(message="Server error!"), 500
+
+    @staticmethod
     def get_donation_by_id(did, relationship=None):
         if did:
             try:
@@ -118,46 +144,4 @@ class DonationHandler(BaseHandler):
             except:
                 return jsonify(message="Sever Error!"), 500
         else:
-            return jsonify(message="Bad Request!"), 400
-        
-   	
-	@staticmethod	
-	def get_donations_by_date():	
-	    dao = Donation()	
-	    resr_list = dao.get_donations_by_date()	
-	    result_list = []	
-	    for row in resr_list:	
-	        result =  donation.to_dict(row)	
-	        result_list.append(result)	
-	    return jsonify(Donation=result_list)	
-		
-		
-	@staticmethod	
-	def get_donations_by_date_desc():	
-	    dao = Donation()	
-	    resr_list = dao.get_donations_by_date_desc()	
-	    result_list = []	
-	    for row in resr_list:	
-	        result = donation.to_dict(row)	
-	        result_list.append(result)	
-	    return jsonify(Donation=result_list)	
-		
-		
-		
-		
-	@staticmethod	
-	def searchBySupplyName(self, args):	
-	    if len(args) > 1:	
-	        return jsonify(Error="Malformed search string"), 400	
-	    else:	
-	        supplyName = args.get("supplyName")	
-	        if supplyName:	
-	            dao = Donation()	
-	            resr_list = dao. get_donations_by_supplyName(supplyName)	
-	            result_list = []	
-	            for row in resr_list:	
-	                result = donation.to_dict(row)	
-	                result_list.append(result)	
-	            return jsonify(Donation=result_list)	
-	        else:	
-	            return jsonify(Error="Malformed search string"), 400
+            return jsonify(message="Bad Request!"), 400		
