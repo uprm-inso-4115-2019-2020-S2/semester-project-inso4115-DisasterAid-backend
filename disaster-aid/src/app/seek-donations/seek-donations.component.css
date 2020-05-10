@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Gochi+Hand&display=swap');
+
+.title{
+    padding-left: 3%;
+    font-size: 50px;
+    font-family: 'Fredoka One', cursive;
+    font-family: 'Gochi Hand', cursive;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.donation-box {
+    background: #B3E6FD;
+    box-shadow: 0px 4px 4px rgba(179, 230, 253, 0.25);
+    border-radius: 30px;
+    /* position: absolute; */
+    width: 60vw;
+    height: 15vh;
+    margin-left: 1vw;
+    margin-top: 3vh;
+    
+    font-style: normal;
+    font-weight: normal;
+    font-size: 21px;
+    line-height: 32px;
+    display: flex;
+    align-items: center;
+    /* text-align: center; */
+    justify-content: space-around;
+    color: #000000;
+}
+
+button {
+    background: #FFBC40;
+    box-shadow: 0px 4px 4px rgba(255, 188, 64, 0.25);
+    border-radius: 10px;
+    width: 8vw;
+    height: 6vh;
+}
+
+.checkout {
+    margin-left: 4vw;
+    margin-top: 3vh;
+    background: #B3E6FD;
+    box-shadow: 0px 4px 4px rgba(179, 230, 253, 0.25);
+    border-radius: 30px;
+    width: 350px;
+    min-height: 300px;
+    max-height: fit-content;
+    text-align: center;
+}
+
+.checkoutTitle {
+    padding-top: 2%;
+    font-size: 30px;
+    font-family: 'Fredoka One', cursive;
+    font-family: 'Gochi Hand', cursive;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { throwError, Observable, from } from 'rxjs';
 import { RequestResponse } from './request-response';
-import {Request } from './request'
+import {MyRequest } from './my-request'
 import { catchError } from 'rxjs/operators';
 
 @Injectable({
@@ -30,7 +30,7 @@ constructor(private httpClient:HttpClient) { }
      .pipe(catchError (this._handleError));
    }
    
-   public createRequest(request: Request): Observable<any> {
+   public createRequest(request: MyRequest): Observable<any> {
     
     const httpOptions = {
       headers: new HttpHeaders ({
@@ -43,7 +43,7 @@ constructor(private httpClient:HttpClient) { }
     .pipe(catchError (this._handleError));
   }
   
-  public editRequest(request: Request): Observable<any> {
+  public editRequest(request: MyRequest): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders ({
         'Content-Type':'application/json',

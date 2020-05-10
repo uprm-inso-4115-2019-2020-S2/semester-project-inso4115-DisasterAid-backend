@@ -5,6 +5,7 @@ import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { SettingsComponent } from './settings/settings.component';
+import { SeekDonationsComponent } from './seek-donations/seek-donations.component';
 
 
 const routes: Routes = [
@@ -13,7 +14,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent},
   { path: 'landing_page', component: LandingPageComponent },
-  { path: 'settings', component: SettingsComponent}
+  { path: 'settings', component: SettingsComponent},
+  { path: 'seek-donations', component:SeekDonationsComponent}
 
 ];
 

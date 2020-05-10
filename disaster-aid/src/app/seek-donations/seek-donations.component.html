@@ -1,0 +1,63 @@
+<html>
+    <nav
+    class="navbar navbar-light">
+    <a class="navbar-brand mr-1" href="#"
+      ><img src="/assets/DAD_logo.png" style="width: 50%;"
+    /></a>
+    <ul
+      class="nav navbar-justified navbar-right ml-auto"
+      style="margin-right: 3%;"
+    >
+      <li class="nav-item">
+        <a class="nav-link menuItem" routerLink="/my-donations">DONATE</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link menuItem" href="#">LOCATE HELP</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link menuItem" href="#">SEEK DONATIONS</a>
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link menuItem"
+          routerLink="/home"
+          routerLinkActive="active"
+          >HOME</a
+        >
+      </li>
+    </ul>
+  </nav>
+  
+  <div>
+  
+   <p class="title">Seek Donations:</p>
+  <table>
+      <tr>
+          <td style="vertical-align: top;">
+            <ul id="donations-list" >
+                <div class="donation-box" *ngFor="let donation of donationsList">
+                    <span><img src="../assets/{{donation.supplyName}}.png" width="40px"></span>
+                  <span>Supply: {{ donation.supplyName }}</span>
+                  <span>Quantity: {{ donation.quantity }} {{ donation.unit }}</span>
+                  <span>Location: {{ donation.city }}</span>
+                  <span><button id="get-btn"  (click)="getItem(donation)">Get</button></span>
+                </div>
+              </ul>
+          </td>
+          <td>
+            <div class="checkout">
+                <p class="checkoutTitle">Checkout</p>
+                <ul>
+                    <div *ngFor="let item of checkoutItems">
+                      Supply: {{item.supplyName}}  (   Quantity:{{item.quantity}}   ) </div>
+                </ul>
+                <button style="width: 80% !important; vertical-align:80%;" (click)="requestItems()">Request items</button>
+            </div>
+          </td>
+      </tr>
+  </table>
+  
+  
+  </div> 
+</html>
+

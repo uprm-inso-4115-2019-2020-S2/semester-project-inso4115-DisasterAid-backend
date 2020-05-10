@@ -14,6 +14,7 @@ import { UserApiService } from './userapi.service';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { RequestApiService } from './request-api.service';
 import { SettingsComponent } from './settings/settings.component';
+import { SeekDonationsComponent } from './seek-donations/seek-donations.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { SettingsComponent } from './settings/settings.component';
     LoginComponent,
     HomeComponent,
     LandingPageComponent,
-    SettingsComponent
+    SettingsComponent,
+    SeekDonationsComponent
   ],
   imports: [
     BrowserModule,

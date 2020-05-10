@@ -126,7 +126,8 @@ export class SettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(localStorage.getItem('loggedInUserID') == null) {this.router.navigate(["\login"]); }
+    if(localStorage.getItem('loggedInUserID') == null){ this.router.navigate(['/login'])}
+    
     console.log(localStorage.getItem('loggedInUserID'));
       
     this.userApi.getUserById(localStorage.getItem('loggedInUserID')).subscribe(
