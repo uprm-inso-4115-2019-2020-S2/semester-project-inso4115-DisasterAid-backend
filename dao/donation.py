@@ -2,6 +2,7 @@ import datetime
 
 from config import db
 from dao.mixin import OutputMixin
+from dao.user import User
 
 
 class Donation(OutputMixin, db.Model):
@@ -38,12 +39,20 @@ class Donation(OutputMixin, db.Model):
         return Donation.query.filter_by(did=donation_id).first()
 
     @staticmethod
+    def get_donations_by_uid(user_id):
+        return Donation.query.filter_by(uid=user_id).all()
+
+    @staticmethod
     def get_available_donations():
         return Donation.query.filter(Donation.quantity != 0)
 
     def get_all_donation_requests(self):
         donation = self.get_donation_by_id(self.did)
         return [req.to_dict(rel=False) for req in donation.requests]
+
+    def get_city(self):
+        user = User.get_user_by_id(user_id=self.uid)
+        return user.city
 
     # @staticmethod
     # def get_supply_count(supply):
