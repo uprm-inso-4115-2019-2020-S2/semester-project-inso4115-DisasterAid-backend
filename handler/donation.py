@@ -19,7 +19,7 @@ class DonationHandler(BaseHandler):
             return jsonify(message="Server error!"), 500
 
     @staticmethod
-    def get_donation_by_id(did, relationship=None):
+    def get_donation_by_id(did, relationship=None, city_property=None):
         if did:
             try:
                 donation = Donation.get_donation_by_id(donation_id=did)
@@ -28,9 +28,11 @@ class DonationHandler(BaseHandler):
                 else:
                     result = {"message": "Success!"}
                     if relationship:
-                        result['requsts'] = donation.get_all_donation_requests()
+                        result['requests'] = donation.get_all_donation_requests()
                     else:
                         result['donation'] = donation.to_dict()
+                        if city_property == 'city':
+                            result['donation']['city'] = donation.get_city()
                     return jsonify(result), 200
             except:
                 return jsonify(message="Server Error!"), 500
@@ -61,7 +63,6 @@ class DonationHandler(BaseHandler):
                 donation_to_update = Donation.get_donation_by_id(did)
                 if donation_to_update:
                     valid_params = DonationHandler.verify_params(json, Donation.DONATION_REQUIRED_PARAMS)
-                    print(valid_params)
                     for key, value in valid_params.items():
                         setattr(donation_to_update, key, value)
                     donation_to_update.update()
