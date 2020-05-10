@@ -42,7 +42,6 @@ class Request(OutputMixin, db.Model):
     def get_requests_by_uid(user_id):
         return Request.query.filter_by(uid=user_id).all()
 
-
     def create(self):
         db.session.add(self)
         db.session.commit()

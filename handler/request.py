@@ -50,8 +50,8 @@ class RequestHandler(BaseHandler):
                     "user": created_request.to_dict(),
                 }
                 return jsonify(result), 201
-            except:
-                return jsonify(message="Server error!"), 500
+            except Exception as e:
+                return jsonify(message="Server error!", error=e.__str__()), 500
         else:
             return jsonify(message="Bad Request!"), 400
 
