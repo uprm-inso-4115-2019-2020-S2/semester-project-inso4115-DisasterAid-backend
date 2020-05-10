@@ -54,14 +54,15 @@ def get_all_or_create_donations():
     if request.method == 'GET':
         search = request.args.get('search', None)
         city_property = request.args.get('city', None)
+        supply = request.args.get('supply', None)
         if search in ['available']:
             return DonationHandler.get_all_donations(search)
         elif search in ['no_request']:
             return DonationHandler.get_all_donations_without_request()
         elif search in ['dates']:
             return DonationHandler.get_donations_by_date()
-        elif search in ['water', 'food', 'blankets', 'clothes', 'medicine', 'batteries', 'tools']:
-            return DonationHandler.get_donations_by_supplyName(search)
+        elif supply:
+            return DonationHandler.get_donations_by_supplyName(supply)
         elif city_property:
             return DonationHandler.get_donations_by_city(city_property)
         else:
