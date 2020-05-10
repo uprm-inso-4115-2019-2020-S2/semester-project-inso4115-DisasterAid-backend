@@ -67,7 +67,7 @@ def get_all_or_create_donations():
         elif search in ['dates']:
             return DonationHandler.get_donations_by_date()
         elif supply:
-            return DonationHandler.get_donations_by_supplyName(supply)
+            return DonationHandler.get_donations_by_supply_name(supply)
         elif city_property:
             return DonationHandler.get_donations_by_city(city_property)
         else:
@@ -107,8 +107,14 @@ def get_donations_by_user(uid):
 
 # REQUESTS ENDPOINTS
 @app.route("/DAD/requests", methods=['GET', 'POST'])
-def requests():
+def get_all_or_create_requests():
     if request.method == 'GET':
+        supply_name = request.args.get('supply', None)
+        status = request.args.get('status', None)
+        if supply_name:
+            return RequestHandler.get_all_requests(supply_name=supply_name)
+        elif status:
+            return RequestHandler.get_all_requests(status=status)
         return RequestHandler().get_all_requests()
     elif request.method == 'POST':
         return RequestHandler().create_request(request.json)
@@ -117,7 +123,7 @@ def requests():
 
 
 @app.route("/DAD/requests/<int:rid>", methods=['GET', 'PUT', 'DELETE'])
-def request_update(rid):
+def get_request_by_id(rid):
     if request.method == 'GET':
         return RequestHandler().get_request_by_id(rid)
     elif request.method == 'PUT':

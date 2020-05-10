@@ -56,19 +56,19 @@ class Donation(OutputMixin, db.Model):
 
     @staticmethod
     def get_donations_by_user(user_id):
-        return Donation.query.filter_by(uid=user_id)
+        return Donation.query.filter_by(uid=user_id).all()
 
     @staticmethod
-    def get_donations_by_supplyName(supName):
-	    return Donation.query.filter_by(supplyName=supName)
+    def get_donations_by_supply_name(supply_name):
+        return Donation.query.filter_by(Donation.supplyName.ilike(supply_name)).all()
 
     @staticmethod
     def get_donations_by_date():
-	    return Donation.query.order_by(Donation.createdAt.desc())
+        return Donation.query.order_by(Donation.createdAt.desc()).all()
 
     @staticmethod
     def get_donations_by_city(donation_city):
-	    return Donation.query.join(User).filter_by(city=donation_city)
+        return Donation.query.join(User).filter_by(city=donation_city).all()
 
     def get_city(self):
         user = User.get_user_by_id(user_id=self.uid)

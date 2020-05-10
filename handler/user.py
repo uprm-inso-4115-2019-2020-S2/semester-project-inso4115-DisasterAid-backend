@@ -37,16 +37,16 @@ class UserHandler(BaseHandler):
                 return jsonify(result), 200
             else:
                 return jsonify(message="Username or password is wrong."), 400
-        except:
-            return jsonify(message="Server error!"), 500
+        except Exception as err:
+            return jsonify(message="Server error!", error=err.__str__()), 500
 
     @staticmethod
     def do_logout():
         try:
             session['logged_in'] = False
-            return jsonify(status= 'Success!'), 200
-        except:
-            return jsonify(message="Server error!"), 500
+            return jsonify(status='Success!'), 200
+        except Exception as err:
+            return jsonify(message="Server error!", error=err.__str__()), 500
 
     @staticmethod
     def get_all_users():
@@ -60,8 +60,8 @@ class UserHandler(BaseHandler):
                 "users": result_list,
             }
             return jsonify(result), 200
-        except:
-            return jsonify(message="Server error!"), 500
+        except Exception as err:
+            return jsonify(message="Server error!", error=err.__str__()), 500
 
     @staticmethod
     def get_user_by_id(uid, relationship=None):
@@ -69,7 +69,7 @@ class UserHandler(BaseHandler):
             try:
                 user = User.get_user_by_id(uid)
                 if not user:
-                    return jsonify(Error="User Not Found"), 404
+                    return jsonify(message="User Not Found"), 404
                 else:
                     result = {"message": "Success!"}
                     if relationship:
@@ -77,8 +77,8 @@ class UserHandler(BaseHandler):
                     else:
                         result['user'] = user.to_dict()
                     return jsonify(result), 200
-            except:
-                return jsonify(message="Server Error!"), 500
+            except Exception as err:
+                return jsonify(message="Server Error!", error=err.__str__()), 500
         else:
             return jsonify(message="Bad request!"), 400
 
@@ -98,18 +98,18 @@ class UserHandler(BaseHandler):
                     "user": created_user.to_dict(),
                 }
                 return jsonify(result), 201
-            except:
-                return jsonify(message="Server error!"), 500
+            except Exception as err:
+                return jsonify(message="Server error!", error=err.__str__()), 500
         else:
             return jsonify(message="Bad Request!"), 400
 
     @staticmethod
     def update_user(uid, json):
-        if uid:
+        valid_params = UserHandler.verify_params(json, User.USER_REQUIRED_PARAMETERS)
+        if uid and valid_params:
             try:
                 user_to_update = User.get_user_by_id(uid)
                 if user_to_update:
-                    valid_params = UserHandler.verify_params(json, User.USER_REQUIRED_PARAMETERS)
                     for key, value in valid_params.items():
                         if key == "password":
                             user_to_update.update_password(value)
@@ -123,8 +123,8 @@ class UserHandler(BaseHandler):
                     return jsonify(result), 200
                 else:
                     return jsonify(message="Not Found!"), 404
-            except:
-                return jsonify(message="Server Error!"), 500
+            except Exception as err:
+                return jsonify(message="Server Error!", error=err.__str__()), 500
         else:
             return jsonify(message="Bad Request!"), 400
 
@@ -138,7 +138,7 @@ class UserHandler(BaseHandler):
                     return jsonify(message="Success!"), 200
                 else:
                     return jsonify(message="Not Found!"), 404
-            except:
-                return jsonify(message="Server Error!"), 500
+            except Exception as err:
+                return jsonify(message="Server Error!", error=err.__str__()), 500
         else:
             return jsonify(message="Bad Request!"), 400
