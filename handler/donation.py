@@ -63,7 +63,6 @@ class DonationHandler(BaseHandler):
                 donation_to_update = Donation.get_donation_by_id(did)
                 if donation_to_update:
                     valid_params = DonationHandler.verify_params(json, Donation.DONATION_REQUIRED_PARAMS)
-                    print(valid_params)
                     for key, value in valid_params.items():
                         setattr(donation_to_update, key, value)
                     donation_to_update.update()

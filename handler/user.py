@@ -1,5 +1,7 @@
 from flask import jsonify
 from dao.user import User
+from dao.donation import Donation
+from dao.request import Request
 
 
 class BaseHandler:
