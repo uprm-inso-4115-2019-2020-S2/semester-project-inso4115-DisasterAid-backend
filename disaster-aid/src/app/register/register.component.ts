@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {  FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import {  FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserApiService } from '../userapi.service';
 import { Router } from '@angular/router';
 import { User } from '../user';
@@ -11,12 +11,93 @@ import { User } from '../user';
 })
 export class RegisterComponent implements OnInit {
   registerForm : FormGroup;
+  warningMessage : String;
+  usernameList: User[];
+  formNotValid = false;
+  cityList = [ "Adjuntas",
+    "Aguada",
+    "Aguadilla",
+    "Aguas Buenas",
+    "Aibonito",
+    "Arecibo",
+    "Arroyo",
+    "Añasco",
+    "Barceloneta",
+    "Barranquitas",
+    "Bayamón",
+    "Cabo Rojo",
+    "Caguas",
+    "Camuy",
+    "Canóvanas",
+    "Carolina",
+    "Cataño",
+    "Cayey",
+    "Ceiba",
+    "Ciales",
+    "Cidra",
+    "Coamo",
+    "Comerío",
+    "Corozal",
+    "Culebra",
+    "Dorado",
+    "Fajardo",
+    "Florida",
+    "Guayama",
+    "Guayanilla",
+    "Guaynabo",
+    "Gurabo",
+    "Guánica",
+    "Hatillo",
+    "Hormigueros",
+    "Humacao",
+    "Isabela",
+    "Jayuya",
+    "Juana Díaz",
+    "Juncos",
+    "Lajas",
+    "Lares",
+    "Las Marías",
+    "Las Piedras",
+    "Loiza",
+    "Luquillo",
+    "Manatí",
+    "Maricao",
+    "Maunabo",
+    "Mayagüez",
+    "Moca",
+    "Morovis",
+    "Naguabo",
+    "Naranjito",
+    "Orocovis",
+    "Patillas",
+    "Peñuelas",
+    "Ponce",
+    "Quebradillas",
+    "Rincón",
+    "Rio Grande",
+    "Sabana Grande",
+    "Salinas",
+    "San Germán",
+    "San Juan",
+    "San Lorenzo",
+    "San Sebastián",
+    "Santa Isabel",
+    "Toa Alta",
+    "Toa Baja",
+    "Trujillo Alto",
+    "Utuado",
+    "Vega Alta",
+    "Vega Baja",
+    "Vieques",
+    "Villalba",
+    "Yabucoa",
+    "Yauco" ];
 
   constructor(
-    private formBuilder: FormBuilder, private flaskApi: UserApiService, private router: Router
+    private formBuilder: FormBuilder, private usersApi: UserApiService, private router: Router
   ) {
     this.registerForm = this.formBuilder.group({
-      firstName:'',
+      firstName : '',
       lastName:'',
       email: '',
       phone:'',
@@ -32,7 +113,6 @@ export class RegisterComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    
   }
 
   onSubmit(userData: any){
@@ -50,17 +130,38 @@ export class RegisterComponent implements OnInit {
         username:userData.username, 
         password:userData.password};
 
-        this.flaskApi
-        .createUser(user)
-        .subscribe(() => this.router.navigate["/"]),
-        error => alert(error.message);
-        
-      
-      this.registerForm.reset();
 
-      console.warn('Successfuly registered!');
+        if(this.isValidForm(userData)){
+          this.formNotValid = false;
+
+          this.usersApi.createUser(user).subscribe(
+            res => {
+              this.usersApi.login(user.username, user.password)
+              .subscribe(
+              res => {localStorage.setItem('loggedInUserID',res.uid),
+              this.router.navigate(['/home'])
+              }, error => alert(error.message));},
+          error => alert(error.message));
+      
+
+          this.registerForm.reset();
+          console.warn('Successfuly registered!');
+        } else this.formNotValid = true;
         
     
   }
+
+
+  isValidForm(userData: any): boolean {
+    if(userData.password != userData.retype_password){
+      this.warningMessage = "Passwords do not match! ";
+      return false;
+    }
+    
+    this.warningMessage = '';
+    return true;
+
+  }
+
 
 }

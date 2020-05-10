@@ -33,6 +33,9 @@
         </div>
         <div class="registerBox">
             <p style="font-size: xx-large; text-align: center; padding-top: 2%; color: white;">Create Account</p>
+            <div *ngIf="formNotValid" style="text-align: center; color: red;">
+                {{warningMessage}}
+            </div>
             <form [formGroup]="registerForm" (ngSubmit)="onSubmit(registerForm.value)">
                 <div style="text-align: right; padding-right: 22px;">
                     <div>
@@ -65,7 +68,7 @@
                     </div>
                     <div>
                         <label for="retype_password">Retype Password</label>
-                        <input class="input" id="password" type="password" formControlName="retype_password">
+                        <input class="input" id="retypepassword" type="password" formControlName="retype_password">
                     </div>
                     <div>
                         <label for="address" style="padding-right: 7px;">Address</label>
@@ -73,7 +76,9 @@
                     </div>
                     <div>
                         <label for="city" style="padding-right: 7px;">City</label>
-                        <input class="input" id="city" type="text" formControlName="city">
+                        <select class="input" style="height: 30px; border-width: 2px; border-top-color:rgb(6, 86, 121); border-left-color: rgb(6, 86, 121);" id="city" type="text" formControlName="city">
+                            <option *ngFor="let city of cityList" value="{{city}}">{{city}}</option>
+                        </select>
                     </div>
                     <div>
                         <label for="zipCode" style="padding-right: 7px;">Zip Code</label>

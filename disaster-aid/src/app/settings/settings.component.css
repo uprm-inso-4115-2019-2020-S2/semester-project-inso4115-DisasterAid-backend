@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Gochi+Hand&display=swap');
+
+.return{
+    position: absolute;
+    font-family: 'Fredoka One', cursive;
+    font-family: 'Gochi Hand', cursive;
+    text-shadow: 0px 3px 3px rgba(0, 0, 0, 0.5);
+    color: #FFBC40;
+    font-size: xx-large; 
+    top: 40px !important;
+    left: 315px !important;
+}
+
+.settingsBox {
+    position: absolute;
+    width: 700px;
+    height: 500px;
+    align-self: center;
+    left: 300px;
+    top: 70px;
+    background: rgba(2, 163, 232, 0.4);
+    border: 10px solid #02A3E8;
+    border-radius: 30px;
+    font-family: 'Fredoka One', cursive;
+    font-family: 'Gochi Hand', cursive;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.input {
+    border-radius: 5px;
+    width: 235px;
+    height: 35px;
+    border-color: #02A3E8;
+    background-color: rgb(169, 221, 243);
+}
+
+.button {
+    border-color: white;
+    border-radius: 5px;
+    background-color: #FFBC40;
+    width: 50%;
+    height: 40px;
+    font-size: larger;
+    text-align: center;
+    
+}

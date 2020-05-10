@@ -11,6 +11,7 @@ export interface User {
     country: String;
     username: String;
     password: String;
+    requests?: Request[]; 
 }
 
 // Para test, BORRAR
@@ -19,3 +20,5 @@ export class User1 {
       public id: number,
       public name: string) { }
   }
+    
+

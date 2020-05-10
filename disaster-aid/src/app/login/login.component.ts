@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { UserApiService } from '../userapi.service';
+import { User } from '../user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -8,12 +11,18 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
   loginForm : FormGroup;
+  validUser: boolean;
+  loggedInUserID: string;
+  loginFailed:boolean = false;
+  warningMessage:string;
 
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private usersApi: UserApiService,
+    private router: Router
   ) {
     this.loginForm = this.formBuilder.group({
-      email: '',
+      username: '',
       password:'',
     })
    }
@@ -22,13 +31,27 @@ export class LoginComponent implements OnInit {
     
   }
 
+
   onSubmit(userData){
+    this.loginFailed = false;
 
-    //PONER COSAS DEL BACKEND AQUI
+    this.usersApi
+    .login(userData.username, userData.password).subscribe(res => {
+      console.log(res);
+      this.loggedInUserID = res.uid;  
+      localStorage.setItem('loggedInUserID', this.loggedInUserID);
+      this.router.navigate(["/home"]);
+      
+    },
+    error => {
+      this.loginFailed = true;
+      console.log(error);
+      this.warningMessage = error.error.message;
+    }
+    );
 
-    this.loginForm.reset();
-
-    console.warn('Successfuly registered!');
+   
+   
   }
 
 }

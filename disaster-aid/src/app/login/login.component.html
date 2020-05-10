@@ -33,11 +33,14 @@
         </div>
         <div class="loginBox">
             <p style="font-size: xx-large; text-align: center; padding-top: 3%; color: white;">Sign In</p>
+            <p *ngIf="loginFailed" style="text-align: center; color: red;">
+                {{warningMessage}}
+            </p>
             <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
                 <div style="text-align: right; padding-right: 22px;">
                     <div>
-                        <label for="email" style="padding-right: 7px;">Email</label>
-                        <input class="input" id="email" type="email" formControlName="email">
+                        <label for="username" style="padding-right: 7px;">Username</label>
+                        <input class="input" id="username" type="username" formControlName="username">
                     </div>
                     <div>
                         <label for="password" style="padding-right: 7px;">Password</label>

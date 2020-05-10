@@ -5,6 +5,7 @@ import { User } from '../user';
 import { Supply } from '../supply';
 
 import { User1} from '../user';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -16,6 +17,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   userListSubs: Subscription;
   userList : User[];
+  loggedInUser: User;
 
   pending = [new User1(1, 'Carlos J. Ayala'), new User1(2, 'Javier'), new User1(2, 'Javier')
   , new User1(2, 'Javier'), new User1(2, 'Javier'), new User1(2, 'Javier'), new User1(2, 'Javier')
@@ -24,13 +26,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   numOfRequests = 10; //Displays the number of requests in the home page
   numOfDonations = 20; //Displays the number of donations in the home page
 
-  constructor(private userApi: UserApiService) { }
+  constructor(private userApi: UserApiService, private router: Router) { }
   
   //Mock data; in practicality, these will be loaded with the info from db. 
   //user type should be User
   user = {
-    firstName: "X AE A-12",
-    lastName: "Musk"
+    firstName: this.loggedInUser? this.loggedInUser.firstName : '',
+    lastName: this.loggedInUser? this.loggedInUser.lastName : ''
   }
 
   //mock pending list (should be loaded from db)
@@ -126,18 +128,22 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    // this.userApi
-    //   .getUsers().subscribe(res => {
-    //     this.userList = res;
-    //   },
-    //   error => console.log(error)
-    //   );
+    if(localStorage.getItem('loggedInUserID') == null){ this.router.navigate(['/login'])}
+
+    this.userApi
+      .getUserById(localStorage.getItem('loggedInUserID')).subscribe(res => {
+        this.loggedInUser = res.user;
+        this.user.firstName = res.user.firstName;
+        this.user.lastName = res.user.lastName;
+      },
+      error => console.log(error)
+      );
 
   }
 
   ngOnDestroy(): void {
-    this.userListSubs.unsubscribe();
-  }
+    
+    }
 
   onClickList(e) {
     console.log(e.target.id);
@@ -148,6 +154,12 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   logout(){
     console.warn("Stepping out, bye.")
+    this.userApi.logout().subscribe(
+      res =>{
+        localStorage.removeItem('loggedInUserID'),
+        this.router.navigate(['/landing_page'])
+      }, error => console.error(error)
+       )
     // Add this.auth.logout(); HERE
   }
 

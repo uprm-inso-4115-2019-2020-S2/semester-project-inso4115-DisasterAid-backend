@@ -12,6 +12,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component'
 import { UserApiService } from './userapi.service';
 import { LandingPageComponent } from './landing-page/landing-page.component';
+import { RequestApiService } from './request-api.service';
+import { SettingsComponent } from './settings/settings.component';
 
 
 @NgModule({
@@ -20,7 +22,8 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
     RegisterComponent,
     LoginComponent,
     HomeComponent,
-    LandingPageComponent
+    LandingPageComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +32,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [UserApiService],
+  providers: [UserApiService, RequestApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
