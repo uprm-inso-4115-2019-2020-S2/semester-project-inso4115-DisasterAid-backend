@@ -80,6 +80,21 @@ def get_donations_by_user(uid):
     else:
         return jsonify(message="Method not allowed."), 405
 
+    
+@app.route('/DAD/donations/dates', methods = ['GET'])
+def get_donations_by_date():
+    return DonationHandler.get_donations_by_date()
+	    
+@app.route('/DAD/donations/dates_desc', methods = ['GET'])
+def get_donations_by_date_desc():
+    return DonationHandler.get_donations_by_date_desc()
+
+@app.route('/DAD/donations/' , methods = ['GET'])
+	def get_donations_by_supplyname():
+	     if not request.args:
+	            return DonationHandler.get_all_donations(search)
+	        else:
+	            return DonationHandler.searchBySupplyName(request.args)
 
 if __name__ == '__main__':
     app.run()
