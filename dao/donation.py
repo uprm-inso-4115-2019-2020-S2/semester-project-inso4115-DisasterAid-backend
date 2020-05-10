@@ -66,6 +66,10 @@ class Donation(OutputMixin, db.Model):
     def get_donations_by_date():
 	    return Donation.query.order_by(Donation.createdAt.desc())
 
+    @staticmethod
+    def get_donations_by_city(donation_city):
+	    return Donation.query.join(User).filter_by(city=donation_city)
+
     def get_city(self):
         user = User.get_user_by_id(user_id=self.uid)
         return user.city
