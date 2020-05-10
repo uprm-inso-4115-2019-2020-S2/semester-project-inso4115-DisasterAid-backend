@@ -17,6 +17,10 @@ import { RequestApiService } from './request-api.service';
 import { SettingsComponent } from './settings/settings.component';
 import { SeekDonationsComponent } from './seek-donations/seek-donations.component';
 import {RequestModalComponent} from './request-modal/request-modal.component';
+import { DonationsComponent } from './donations/donations.component';
+import { SeekDonationsService } from './seek-donations.service';
+import { DonationsService } from './donations.service';
+
 
 
 @NgModule({
@@ -29,16 +33,18 @@ import {RequestModalComponent} from './request-modal/request-modal.component';
     HomeComponent,
     LandingPageComponent,
     SettingsComponent,
-    SeekDonationsComponent
+    SeekDonationsComponent,
+    DonationsComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+
   ],
-  providers: [UserApiService, RequestApiService],
+  providers: [UserApiService, RequestApiService, SeekDonationsService, DonationsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,85 @@
+<nav class="navbar navbar-light" style="background-color: rgba(2, 163, 232, 0.4);">
+    <a class="navbar-brand mr-1" href="#"><img src="/assets/DAD_logo.png" style="width: 50%;"></a>
+    <ul class="nav navbar-justified navbar-right ml-auto" style="margin-right: 3%;">
+        <li class="nav-item">
+            <a class="nav-link menuItem" routerLink="/my-donations"  >DONATE</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link menuItem"  href="#">LOCATE HELP</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link menuItem" href="#">SEEK DONATIONS</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link menuItem"  routerLink="/register" routerLinkActive="active">SIGN-UP</a>
+        </li>
+    </ul>
+</nav>
+
+<h2>My Donations:</h2>
+
+<button id="add-new" (click)="toggleAddDonation();">Add New Donation</button>
+
+<div *ngIf="showAddDonationForm">
+    <form [formGroup]="addDonationForm" (ngSubmit)="onAddDonationSubmit(addDonationForm.value)">
+
+        <div class="donateBox">
+            
+            <table>
+                <tr>
+                    <td colspan="2">
+            <p style="font-size:80px; text-align: center; padding-top: 3%; color: white;">Donate:</p>
+        </td>
+        </tr>
+        <tr>
+<td>
+            <label for="supplyName" style=" width:10%; text-align:center; background-color: rebeccapurple;">Supply</label>
+        </td>
+<td>
+            <!-- <input id="supplyName" type="text" formControlName="supplyName"> -->
+            <select id="supplyName" name="supply" class="select">
+                <option value="food">food</option>
+                <option value="water">water</option>
+                <option value="blankets">blankets</option>
+                <option value="clothes">clothes</option>
+                <option value="medicine">medicine</option>
+                <option value="batteries">batteries</option>
+                <option value="tools">tools</option> 
+            </select>
+        </td>
+        
+        </tr>
+
+       
+<div>
+    <div>
+        <label for="quantity" style="width:60%; text-align:left;">Quantity</label>
+        <input type="number" class="select" id="quantity" name="quantity" min="1" max="1000">
+    </div>
+</div>
+
+        <div>
+            <label for="unit" style="width:60%; text-align:left;">Units</label>
+            <input type="number" class="select" id="unit" name="quantity" min="1" max="1000">
+        </div>
+
+
+        
+
+        <div style="text-align: center;  padding-top: 7px;">
+            <button class="donateButton" (click)="toggleAddDonation();">Cancel</button>
+            <button class="donateButton" type="submit">Donate</button>
+        </div>
+    </table>
+    </div>
+    </form>
+</div>
+
+<ul id="donations-list">
+    <div class="donation-box" *ngFor="let donation of donationsList">
+        <span>Supply: {{donation.supplyName}}</span>
+        <span>Quantity: {{donation.quantity}} {{donation.unit}}</span>
+        <span>Location: {{location}}</span>
+        <span><button id="edit-btn">Edit</button></span>
+    </div>
+</ul>

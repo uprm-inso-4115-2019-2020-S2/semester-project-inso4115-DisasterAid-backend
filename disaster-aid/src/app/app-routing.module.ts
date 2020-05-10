@@ -8,6 +8,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { SeekDonationsComponent } from './seek-donations/seek-donations.component';
 import {RequestComponent} from './request/request.component';
 import {RequestModalComponent} from './request-modal/request-modal.component';
+import { DonationsComponent } from './donations/donations.component';
 
 
 const routes: Routes = [
@@ -19,7 +20,8 @@ const routes: Routes = [
   { path: 'settings', component: SettingsComponent},
   { path: 'seek-donations', component:SeekDonationsComponent},
   {path: 'request', component: RequestComponent},
-  {path: 'request-modal', component: RequestModalComponent}
+  {path: 'request-modal', component: RequestModalComponent},
+  { path: 'my-donations', component: DonationsComponent },
 
 ];
 
