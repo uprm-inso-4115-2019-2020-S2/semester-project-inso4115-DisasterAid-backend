@@ -35,7 +35,7 @@ class Donation(OutputMixin, db.Model):
 
     @staticmethod
     def get_all_donations_without_request():
-        return db.session.query(Donation).filter(Donation.requests == None).all()
+        return Donation.query.filter(Donation.requests == None)
 
     @staticmethod
     def get_donation_by_id(donation_id):
