@@ -60,6 +60,10 @@ class UserHandler(BaseHandler):
         valid_params = UserHandler.verify_params(json, User.USER_REQUIRED_PARAMETERS)
         if valid_params:
             try:
+                print(valid_params)
+                username_exists = User.verify_username(valid_params.get('username'))
+                if username_exists:
+                    return jsonify(message="Username already taken."), 400
                 new_user = User(**valid_params)
                 created_user = new_user.create()
                 result = {
