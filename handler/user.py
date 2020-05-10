@@ -22,7 +22,7 @@ class UserHandler(BaseHandler):
 
     @staticmethod
     def do_login(json):
-        #try:
+        try:
             user = User.do_login(json)
             password = json['password']
             if user and bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8')):
@@ -31,13 +31,13 @@ class UserHandler(BaseHandler):
                 return jsonify(status=status), 200
             else:
                 return jsonify(message="Username or password is wrong."), 400
-        #except:
-            #return jsonify(message="Server error!"), 500
+        except:
+            return jsonify(message="Server error!"), 500
 
     @staticmethod
     def do_logout():
         try:
-            session.pop('logged_in', None)
+            session['logged_in'] = False
             return jsonify(status= 'Success!'), 200
         except:
             return jsonify(message="Server error!"), 500
