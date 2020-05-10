@@ -76,17 +76,17 @@ def get_donation_by_id(did):
 
 
 # USER ENDPOINTS
-@app.route("/DAD/request", methods=['GET', 'POST'])
+@app.route("/DAD/requests", methods=['GET', 'POST'])
 def requests():
     if request.method == 'GET':
         return RequestHandler().get_all_requests()
     elif request.method == 'POST':
-        return RequestHandler().insert_request(request.json)
+        return RequestHandler().create_request(request.json)
     else:
         return jsonify(message="Method not allowed."), 405
 
 
-@app.route("/DAD/request/<int:rid>", methods=['GET', 'PUT', 'DELETE'])
+@app.route("/DAD/requests/<int:rid>", methods=['GET', 'PUT', 'DELETE'])
 def request_update(rid):
     if request.method == 'GET':
         return RequestHandler().get_request_by_id(rid)

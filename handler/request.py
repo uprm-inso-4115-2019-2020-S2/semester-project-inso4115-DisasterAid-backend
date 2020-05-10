@@ -4,20 +4,7 @@ from handler.user import BaseHandler
 
 
 class RequestHandler(BaseHandler):
-    # def __init__(self):
-    #     print("lol")
-
-    # def build_request_dict(self, row):  # row is a python list
-    #     result = {}
-    #     result['rid'] = row[0]
-    #     result['supplyName'] = row[1]
-    #     result['time'] = row[2]
-    #     result['status'] = row[3]
-    #     result['description'] = row[4]
-    #     result['uid'] = row[5]
-    #     result['did'] = row[6]
-    #     return result
-
+   
     @staticmethod
     def get_all_requests():
         try:
@@ -36,7 +23,7 @@ class RequestHandler(BaseHandler):
 
     @staticmethod
     def get_request_by_id(rid):
-        if rid > 0:
+        if rid:
             try:
                 request = Request.get_request_by_id(rid)
                 if not request:
@@ -53,7 +40,7 @@ class RequestHandler(BaseHandler):
             return jsonify(message="Bad Request!"), 400
 
     @staticmethod
-    def insert_request(json):
+    def create_request(json):
         valid_params = RequestHandler.verify_params(json, Request.REQUEST_REQUIRED_PARAMS)
         if valid_params:
             try:
