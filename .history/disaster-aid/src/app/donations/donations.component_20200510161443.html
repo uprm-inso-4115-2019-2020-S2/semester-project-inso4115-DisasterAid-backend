@@ -1,0 +1,190 @@
+<nav class="navbar navbar-light" style="background-color: rgba(2, 163, 232, 0.4);">
+    <a class="navbar-brand mr-1" href="#"><img src="/assets/DAD_logo.png" style="width: 50%;" /></a>
+    <ul class="nav navbar-justified navbar-right ml-auto" style="margin-right: 3%;">
+        <li class="nav-item">
+            <a class="nav-link menuItem" routerLink="/my-donations">DONATE</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link menuItem" href="#">LOCATE HELP</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link menuItem" href="#">SEEK DONATIONS</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link menuItem" routerLink="/register" routerLinkActive="active">SIGN-UP</a
+      >
+    </li>
+  </ul>
+</nav>
+
+
+
+<div class="main">
+
+    <div *ngIf="showAddDonationForm">
+        <form
+          [formGroup]="addDonationForm"
+          (ngSubmit)="onAddDonationSubmit(addDonationForm.value)"
+        >
+          <div class="donateBox">
+            <table style=" width: 100%; text-align: center;">
+              <tr>
+                <td colspan="2">
+                  <p
+                    style="
+                      font-size: 80px;
+                      text-align: center;
+                      padding-top: 3%;
+                      color: white;
+                    "
+                  >
+                    Donate:
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label
+                    for="supplyName"
+                    >Supply</label
+                  >
+                </td>
+                <td>
+                  <!-- <input id="supplyName" type="text" formControlName="supplyName"> -->
+                  <input class="selectInput" id="supplyNameE" type="text" formControlName="supplyName">
+                    <!-- <option value="food">food</option>
+                    <option value="water">water</option>
+                    <option value="blankets">blankets</option>
+                    <option value="clothes">clothes</option>
+                    <option value="medicine">medicine</option>
+                    <option value="batteries">batteries</option>
+                    <option value="tools">tools</option>
+                  </select> -->
+                </td>
+              </tr>
+      
+              <tr>
+                <td>
+                  <label for="quantity" style=" text-align: left;"
+                    >Quantity</label
+                  >
+                </td>
+                <td>
+                  <input class="select" id="quantityE" type="text" formControlName="quantity">
+                </td>
+              </tr>
+      
+              <tr>
+                <td>
+                  <label for="unit" style=" text-align: left;"
+                    >Units</label
+                  >
+                </td>
+                <td>
+                  <input class="select" id="unitE" type="text" formControlName="unit">
+                </td>
+              </tr>
+      
+              <!-- <div style="text-align: center; padding-top: 7px;"> -->
+                  <tr>
+                      <td colspan="2"> 
+                          <br>
+                <button class="donateButton" (click)="toggleAddDonation()">
+                  Cancel
+                </button>
+              </td>
+              </tr>
+              <tr>
+                  <td colspan="2">
+                <button class="donateButton" type="submit">Donate</button>
+              </td>
+              </tr>
+              <!-- </div> -->
+            </table>
+          </div>
+        </form>
+      </div>
+
+<h2>My Donations:</h2>
+
+<button id="add-new" (click)="toggleAddDonation()">Add New Donation</button>
+
+
+
+<ul id="donations-list" >
+  <div class="donation-box" *ngFor="let donation of donationsList">
+    <span>Supply: {{ donation.supplyName }}</span>
+    <span>Quantity: {{ donation.quantity }} {{ donation.unit }}</span>
+    <span>Location: {{ location }}</span>
+    <span><button id="edit-btn">Edit</button></span>
+  </div>
+</ul>
+
+</div>
+
+<ul id="donations-list">
+    <div class="donation-box" *ngFor="let donation of donationsList">
+        <span>Supply: {{donation.supplyName}}</span>
+        <span>Quantity: {{donation.quantity}} {{donation.unit}}</span>
+        <span>Location: {{location}}</span>
+        <span><button id="edit-btn" (click)="toggleEditDonation(donation.did);">Edit</button></span>
+    </div>
+
+  <div class="editDonation" id="edit-form" *ngIf="showEditDonationForm">
+    <form [formGroup]="editDonationForm" (ngSubmit)="onEditDonationSubmit(editDonationForm.value)">
+      <div>
+        <h2
+          style="
+               font-size: 30px;
+               text-align: center;
+               margin-left: 0vw;
+               padding-top: 3%;
+               color: white;
+          "
+
+        > Edit Donation:</h2>
+
+        <label for="supplyName">
+          Supply Name:
+        </label>
+        <input class="selectInput" id="supplyNameE" type="text" formControlName="supplyName">
+
+      </div>
+
+      <div>
+        <label for="quantity">
+          Quantity:
+        </label>
+        <input class="selectInput" id="quantityE" type="text" formControlName="quantity">
+      </div>
+
+      <div>
+        <label for="unit">
+          Unit:
+        </label>
+        <input class="selectInput" id="unitE" type="text" formControlName="unit">
+      </div>
+      <button class="button"
+              style="border-radius: 10px;
+                     width: 100%;
+                     height: auto;
+                     font-style: normal;
+                     font-weight: normal;
+                     line-height: 32px;
+
+                  "
+
+              type="submit">Save</button>
+
+      <button class="button"
+              style="border-radius: 10px;
+                     width: 100%;
+                     height: auto;
+                     font-style: normal;
+                     font-weight: normal;
+                     line-height: 32px;"
+
+              (click)="toggleEditDonationCancel();">Cancel</button>
+    </form>
+  </div>
+</ul>
