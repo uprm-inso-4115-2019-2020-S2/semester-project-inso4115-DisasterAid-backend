@@ -77,11 +77,7 @@ class RequestHandler(BaseHandler):
                 if request_to_update:
                     valid_params = RequestHandler.verify_params(json, Request.REQUEST_REQUIRED_PARAMS)
                     for key, value in valid_params.items():
-                        if key == 'supplyName':
-                            setattr(request_to_update, key, value)
-                        elif key == 'status':
-                            setattr(request_to_update, key, value)
-                        elif key == 'description':
+                        if key in Request.REQUEST_REQUIRED_PARAMS:
                             setattr(request_to_update, key, value)
                     request_to_update.update()
                     result = {
