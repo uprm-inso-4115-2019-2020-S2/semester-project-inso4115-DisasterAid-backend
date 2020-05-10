@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Donation } from '../donation'
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { DonationsService } from '../donations.service'
 import { UserApiService } from '../userapi.service'
 
@@ -11,9 +11,13 @@ import { UserApiService } from '../userapi.service'
 })
 export class DonationsComponent implements OnInit {
 
-  addDonationForm;
+  addDonationForm: FormGroup;
+  editDonationForm: FormGroup;
+
+  currentEditingID;
 
   showAddDonationForm: Boolean = false;
+  showEditDonationForm: Boolean = false;
 
   donationsList: Donation[];
 
@@ -25,6 +29,12 @@ export class DonationsComponent implements OnInit {
     private formBuilder: FormBuilder, private donationsService: DonationsService, private userService: UserApiService
   ) {
     this.addDonationForm = this.formBuilder.group({
+      supplyName: '',
+      quantity: '',
+      unit: '',
+    });
+
+    this.editDonationForm = this.formBuilder.group({
       supplyName: '',
       quantity: '',
       unit: '',
@@ -46,7 +56,9 @@ export class DonationsComponent implements OnInit {
 
     this.donationsService.addDonation(donationData);
 
-    console.warn('donation added: ', donationData);    
+    console.warn('donation added: ', donationData);
+    console.warn('list added: ', this.donationsList);
+
 
   }
 
@@ -66,7 +78,53 @@ export class DonationsComponent implements OnInit {
 
   //// NOTE: NEVER GOT A WAY TO GET CURRENT USERS ID FROM THAT TEAM so it is hardcoded as 1
   getCurrentUserID(){
-    this.currentUserID = "1"
+    this.currentUserID = localStorage.getItem('loggedInUserID');
+
+  }
+
+//    EDIT
+
+  toggleEditDonationCancel() {
+    console.log("edit cancel btn clicked");
+    this.showEditDonationForm = !this.showEditDonationForm;
+  }
+
+  toggleEditDonation(did){
+
+    console.log("edit btn clicked");
+    console.log(did);
+
+    this.showEditDonationForm = !this.showEditDonationForm;
+
+    for(let i = 0; i < this.donationsList.length; i++){
+      if(this.donationsList[i].did == did){
+        this.currentEditingID = did;
+        console.log("current: ", this.currentEditingID);
+        console.log(this.donationsList[i].did);
+        this.editDonationForm.controls['supplyName'].setValue(this.donationsList[i].supplyName);
+        this.editDonationForm.controls['quantity'].setValue(this.donationsList[i].quantity);
+        this.editDonationForm.controls['unit'].setValue(this.donationsList[i].unit);
+      }
+    }
+  }
+
+  onEditDonationSubmit(values) {
+    this.editDonationForm.reset();
+
+    this.donationsService.editDonation(values)
+    .subscribe(data => {this.getDonations()});
+
+    console.warn('Values did: ', values);
+
+    for(let i = 0; i < this.donationsList.length; i++){
+      console.warn('List did: ', this.donationsList[i].did);
+      if(this.donationsList[i].did == this.currentEditingID){
+        console.log("current: ", this.currentEditingID);
+        this.donationsList[i].supplyName = values.supplyName;
+        this.donationsList[i].quantity = values.quantity;
+        this.donationsList[i].unit =  values.unit;
+      }
+    }
   }
 
 }

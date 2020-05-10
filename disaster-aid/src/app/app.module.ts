@@ -15,6 +15,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { DonationsComponent } from './donations/donations.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +30,8 @@ import { DonationsComponent } from './donations/donations.component';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+
   ],
   providers: [UserApiService],
   bootstrap: [AppComponent]

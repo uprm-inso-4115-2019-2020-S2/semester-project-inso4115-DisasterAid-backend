@@ -6,4 +6,5 @@ export interface Donation {
     quantity: number;
     time: Time; // not sure if this is correct type
     unit: string;
+
 }

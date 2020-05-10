@@ -8,7 +8,7 @@
     /* position: absolute; */
     width: 60vw;
     height: 15vh;
-    margin-left: 3vw;
+    margin-left: 1vw;
     margin-top: 3vh;
     font-family: Poppins;
     font-style: normal;
@@ -57,7 +57,6 @@ h2 {
     margin-left: 3vw;
 }
 
-
 .donateBox {
     position: absolute;
     width: 33%;
@@ -72,8 +71,7 @@ h2 {
     font-size: 30px;
 }
 
-
-.donateButton{
+.donateButton {
     background: #FFBC40;
     box-shadow: 0px 4px 4px rgba(255, 188, 64, 0.25);
     border-radius: 10px;
@@ -88,8 +86,8 @@ h2 {
     /* margin-right: 3vw; */
 }
 
-.select{
-    background-color:#02A3E8;
+.select {
+    background-color: #02A3E8;
     width: 50%;
     /* display: none; */
     position: relative;
@@ -100,7 +98,34 @@ h2 {
     /* background: url(/assests/triangle.png) no-repeat right #ddd; */
 }
 
-.main{
-    background-color:rgb(162, 219, 246);
+.main {
+    background-color: rgb(162, 219, 246);
 }
 
+.editDonation {
+    position: absolute;
+    width: 30%;
+    height: 50%;
+    left: 66%;
+    background: #B3E6FD;
+    top: 18vh;
+    justify-content: space-around;
+    border-radius: 30px;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 21px;
+    line-height: 36px;
+    display: flex;
+    margin: 20px;
+}
+
+.selectInput {
+    background: #FFFFFF;
+    width: 50%;
+    /* display: none; */
+    position: relative;
+    box-shadow: 0px 4px 4px rgba(255, 188, 64, 0.25);
+    border-radius: 10px;
+    -webkit-appearance: none;
+}
