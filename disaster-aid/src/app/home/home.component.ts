@@ -12,10 +12,10 @@ import { User } from '../user';
 export class HomeComponent implements OnInit, OnDestroy {
 
   userListSubs: Subscription;
-  userList : User[];
+  userList: User[];
 
   constructor(private userApi: UserApiService) { }
-  
+
   ngOnInit(): void {
 
     this.userApi
