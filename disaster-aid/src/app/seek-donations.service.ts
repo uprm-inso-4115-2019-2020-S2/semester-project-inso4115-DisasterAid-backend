@@ -58,6 +58,15 @@ export class SeekDonationsService {
     .pipe(catchError (this._handleError));
   }
 
+  public searchByCity(cityName: String):Observable<DonationResponse>{
+    return this.httpClient.get<DonationResponse>(this.server+`DAD/donations?city=${cityName}`)
+    .pipe(catchError (this._handleError))
+  }
+
+  public searchBySupplyName(supplyName: String):Observable<DonationResponse>{
+    return this.httpClient.get<DonationResponse>(this.server+`DAD/donations?supply=${supplyName}`)
+    .pipe(catchError (this._handleError))
+  }
 
 
     
