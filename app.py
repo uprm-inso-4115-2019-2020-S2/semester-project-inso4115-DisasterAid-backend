@@ -5,6 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from config import app
 from handler.donation import DonationHandler
 from handler.user import UserHandler
+from handler.request import RequestHandler
 
 
 @app.route('/')
@@ -12,6 +13,14 @@ def index():
     return 'Welcome to Disaster Aid Distribution App!'
 
 # USER ENDPOINTS
+@app.route("/DAD/login", methods=['POST'])
+def do_login():
+    return UserHandler().do_login(request.json)
+
+@app.route("/DAD/logout", methods=['GET'])
+def do_logout():
+    return UserHandler().do_logout()
+
 @app.route("/DAD/users", methods=['GET', 'POST'])
 def get_all_or_create_users():
     if request.method == 'GET':
@@ -20,7 +29,6 @@ def get_all_or_create_users():
         return UserHandler.create_user(request.json)
     else:
         return jsonify(message="Method not allowed."), 405
-
 
 @app.route('/DAD/users/<int:uid>', methods=['GET', 'PUT', 'DELETE'])
 def get_user_by_id(uid):
@@ -61,12 +69,15 @@ def get_all_or_create_donations():
         return jsonify(message="Method not allowed."), 405
 
 @app.route('/DAD/donations/<int:did>', methods=['GET', 'PUT', 'DELETE'])
-def get_route_by_id(did):
+def get_donation_by_id(did):
     if request.method == 'GET':
         relationship = request.args.get('relationship', None)
+        city_property = request.args.get('property', None)
         if relationship:
-            return DonationHandler.get_donation_by_id(did, relationship)
+            return DonationHandler.get_donation_by_id(did=did, relationship=relationship)
         else:
+            if city_property:
+                return DonationHandler.get_donation_by_id(did=did, city_property=city_property)
             return DonationHandler.get_donation_by_id(did)
     elif request.method == 'PUT':
         return DonationHandler.update_donation(did, request.json)
@@ -79,6 +90,27 @@ def get_route_by_id(did):
 def get_donations_by_user(uid):
     if request.method == 'GET':
         return DonationHandler().get_donations_by_user(uid)
+    else:
+        return jsonify(message="Method not allowed."), 405
+
+# REQUESTS ENDPOINTS
+@app.route("/DAD/requests", methods=['GET', 'POST'])
+def requests():
+    if request.method == 'GET':
+        return RequestHandler().get_all_requests()
+    elif request.method == 'POST':
+        return RequestHandler().create_request(request.json)
+    else:
+        return jsonify(message="Method not allowed."), 405
+
+@app.route("/DAD/requests/<int:rid>", methods=['GET', 'PUT', 'DELETE'])
+def request_update(rid):
+    if request.method == 'GET':
+        return RequestHandler().get_request_by_id(rid)
+    elif request.method == 'PUT':
+        return RequestHandler().update_request(rid, request.json)
+    elif request.method == 'DELETE':
+        return RequestHandler().delete_request(rid)
     else:
         return jsonify(message="Method not allowed."), 405
 

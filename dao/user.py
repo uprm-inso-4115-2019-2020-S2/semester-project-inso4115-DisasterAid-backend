@@ -2,8 +2,6 @@ import bcrypt as bcrypt
 
 from config import db
 from dao.mixin import OutputMixin
-from dao.request import Request
-from dao.donation import Donation
 
 
 class User(OutputMixin, db.Model):
@@ -51,6 +49,10 @@ class User(OutputMixin, db.Model):
         return self.uid
 
     @staticmethod
+    def do_login(json):
+        return User.query.filter_by(username=json['username']).first()
+
+    @staticmethod
     def get_all_users():
         return User.query.all()
 
@@ -61,6 +63,11 @@ class User(OutputMixin, db.Model):
     @staticmethod
     def get_user_by_id(user_id):
         return User.query.filter_by(uid=user_id).first()
+
+    @staticmethod
+    def verify_username(username):
+        obj = User.query.filter(User.username == username).first()
+        return True if obj else False
 
     def create(self):
         self.password = bcrypt.hashpw(self.password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
