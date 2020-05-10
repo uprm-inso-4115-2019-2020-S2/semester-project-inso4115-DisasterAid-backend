@@ -56,12 +56,15 @@ def get_all_or_create_donations():
 
 
 @app.route('/DAD/donations/<int:did>', methods=['GET', 'PUT', 'DELETE'])
-def get_route_by_id(did):
+def get_donation_by_id(did):
     if request.method == 'GET':
         relationship = request.args.get('relationship', None)
+        city_property = request.args.get('property', None)
         if relationship:
-            return DonationHandler.get_donation_by_id(did, relationship)
+            return DonationHandler.get_donation_by_id(did=did, relationship=relationship)
         else:
+            if city_property:
+                return DonationHandler.get_donation_by_id(did=did, city_property=city_property)
             return DonationHandler.get_donation_by_id(did)
     elif request.method == 'PUT':
         return DonationHandler.update_donation(did, request.json)

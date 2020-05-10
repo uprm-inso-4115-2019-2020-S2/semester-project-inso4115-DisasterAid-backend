@@ -2,8 +2,6 @@ import bcrypt as bcrypt
 
 from config import db
 from dao.mixin import OutputMixin
-from dao.request import Request
-from dao.donation import Donation
 
 
 class User(OutputMixin, db.Model):
