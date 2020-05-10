@@ -146,4 +146,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     //window.location.href = '/donations'
   }
 
+  logout(){
+    console.warn("Stepping out, bye.")
+    // Add this.auth.logout(); HERE
+  }
+
 }
