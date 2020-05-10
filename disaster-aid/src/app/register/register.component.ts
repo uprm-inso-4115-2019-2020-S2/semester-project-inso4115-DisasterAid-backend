@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {  FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import {  FormBuilder, FormGroup, FormControl, Validators, EmailValidator } from '@angular/forms';
 import { UserApiService } from '../userapi.service';
 import { Router } from '@angular/router';
 import { User } from '../user';
@@ -140,11 +140,21 @@ export class RegisterComponent implements OnInit {
               .subscribe(
               res => {localStorage.setItem('loggedInUserID',res.uid),
               this.router.navigate(['/home'])
-              }, error => alert(error.message));},
-          error => alert(error.message));
+              }, error => 
+              console.error(error.reason));
+              this.registerForm.reset();
+            },
+          error => {
+            this.formNotValid = true;
+            if(error.error.message == "Server error!"){
+              this.warningMessage = "Enter date of birth";
+            }
+            console.log(this.warningMessage);
+            console.error(error);
+          });
       
 
-          this.registerForm.reset();
+          
           console.warn('Successfuly registered!');
         } else this.formNotValid = true;
         
@@ -153,11 +163,21 @@ export class RegisterComponent implements OnInit {
 
 
   isValidForm(userData: any): boolean {
+    console.log(userData.dateOfBirth.valu)
     if(userData.password != userData.retype_password){
       this.warningMessage = "Passwords do not match! ";
       return false;
     }
-    
+    if(
+      userData.firstName == '' || userData.lastName == '' ||
+      userData.email == '' || userData.phone == '' || 
+      userData.dateOfBirth == 'mm/dd/yyyy' || userData.username =='' ||
+      userData.password == '' || userData.address == '' ||
+      userData.city == '' || userData.zipCode == ''){
+      this.warningMessage = "All fields are required!"
+      return false
+      } 
+      
     this.warningMessage = '';
     return true;
 
