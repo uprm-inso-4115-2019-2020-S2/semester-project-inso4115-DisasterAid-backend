@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { User } from '../user';
 import { UserApiService } from '../userapi.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-settings',
@@ -102,23 +103,12 @@ export class SettingsComponent implements OnInit {
   usernameDisabled:boolean = true;
   passwordDisabled:boolean = true;
 
-  myUser:User = {
-    firstName: 'Estefania',
-    lastName: 'Torres',
-    email: 'estef@gmail.com',
-    phone: '7871112222',
-    dateOfBirth: new Date(),
-    address: 'Urb. aqui vivo',
-    city: 'San Juan',
-    zipCode: '00969',
-    country:'PR',
-    username: 'estef',
-    password: '1234'
-  }
+  myUser:User;
 
   constructor(
     private formBuilder: FormBuilder,
-    private userApi: UserApiService
+    private userApi: UserApiService,
+    private router: Router
   ) { 
     this.settingsForm = this.formBuilder.group({
       firstName:'',
@@ -136,6 +126,15 @@ export class SettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(localStorage.getItem('loggedInUserID') == null) {this.router.navigate(["\login"]); }
+    console.log(localStorage.getItem('loggedInUserID'));
+      
+    this.userApi.getUserById(localStorage.getItem('loggedInUserID')).subscribe(
+      res => { this.myUser = res.user,
+      console.log(res);
+      },error =>
+       console.error(error)
+    )
   }
 
 
