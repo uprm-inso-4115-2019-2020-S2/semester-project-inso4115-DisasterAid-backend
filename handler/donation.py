@@ -119,3 +119,45 @@ class DonationHandler(BaseHandler):
                 return jsonify(message="Sever Error!"), 500
         else:
             return jsonify(message="Bad Request!"), 400
+        
+   	
+	@staticmethod	
+	def get_donations_by_date():	
+	    dao = Donation()	
+	    resr_list = dao.get_donations_by_date()	
+	    result_list = []	
+	    for row in resr_list:	
+	        result =  donation.to_dict(row)	
+	        result_list.append(result)	
+	    return jsonify(Donation=result_list)	
+		
+		
+	@staticmethod	
+	def get_donations_by_date_desc():	
+	    dao = Donation()	
+	    resr_list = dao.get_donations_by_date_desc()	
+	    result_list = []	
+	    for row in resr_list:	
+	        result = donation.to_dict(row)	
+	        result_list.append(result)	
+	    return jsonify(Donation=result_list)	
+		
+		
+		
+		
+	@staticmethod	
+	def searchBySupplyName(self, args):	
+	    if len(args) > 1:	
+	        return jsonify(Error="Malformed search string"), 400	
+	    else:	
+	        supplyName = args.get("supplyName")	
+	        if supplyName:	
+	            dao = Donation()	
+	            resr_list = dao. get_donations_by_supplyName(supplyName)	
+	            result_list = []	
+	            for row in resr_list:	
+	                result = donation.to_dict(row)	
+	                result_list.append(result)	
+	            return jsonify(Donation=result_list)	
+	        else:	
+	            return jsonify(Error="Malformed search string"), 400
