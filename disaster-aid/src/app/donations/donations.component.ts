@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Donation } from '../donation'
 import { FormBuilder } from '@angular/forms';
 import { DonationsService } from '../donations.service'
+import { UserApiService } from '../userapi.service'
 
 @Component({
   selector: 'app-donations',
@@ -16,10 +17,12 @@ export class DonationsComponent implements OnInit {
 
   donationsList: Donation[];
 
-  location = 'Arecibo'  // only field that comes from user and not donation. (FETCH user.location)
+  location: string;  // only field that comes from user and not donation. (FETCH user.location)
+
+  currentUserID: string;
 
   constructor(
-    private formBuilder: FormBuilder, private donationsService: DonationsService
+    private formBuilder: FormBuilder, private donationsService: DonationsService, private userService: UserApiService
   ) {
     this.addDonationForm = this.formBuilder.group({
       supplyName: '',
@@ -29,7 +32,9 @@ export class DonationsComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    this.getCurrentUserID()
     this.getDonations();
+    this.getLocation();
   }
 
   toggleAddDonation() {
@@ -46,7 +51,22 @@ export class DonationsComponent implements OnInit {
   }
 
   getDonations(): void {
-    this.donationsList = this.donationsService.getDonations();
+    this.donationsService.getUserDonations(this.currentUserID)
+    .subscribe(donations => {
+      this.donationsList = donations as Donation[]
+    })
+  }
+
+  getLocation(): void {
+    this.userService.getUser(this.currentUserID)
+    .subscribe(user => {
+      this.location = user.city as string
+    })
+  }
+
+  //// NOTE: NEVER GOT A WAY TO GET CURRENT USERS ID FROM THAT TEAM so it is hardcoded as 1
+  getCurrentUserID(){
+    this.currentUserID = "1"
   }
 
 }

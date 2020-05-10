@@ -1,74 +1,61 @@
 import { Injectable } from '@angular/core';
 import { Donation } from './donation';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DonationsService {
 
-  // mock list. in reality it would get loaded with db donations (GET all donations)
-  public donationsList: Donation[] = [
-    {
-      did: 1,
-      supplyName: 'Water',
-      quantity: 10,
-      time: { hours: 12, minutes: 12 },
-      unit: '8oz bottles'
-    },
-    {
-      did: 2,
-      supplyName: 'Toilet Paper',
-      quantity: 5,
-      time: { hours: 12, minutes: 12 },
-      unit: 'Rolls'
-    },
-    {
-      did: 3,
-      supplyName: 'Granola Bars',
-      quantity: 8,
-      time: { hours: 12, minutes: 12 },
-      unit: 'Boxes of 12'
-    }
-  ]
+  constructor(private httpClient:HttpClient) { }
 
-  constructor() { }
-
-  getDonations(): Donation[] {
-    return this.donationsList;
+  private _handleError(error: HttpErrorResponse | any) {
+    let data = {};
+                data = {
+                    reason: error && error.error.reason ? error.error.reason : '',
+                    status: error.status
+                };
+                console.error(data);
+                return throwError(error);
   }
 
-  getDonationById(id: number): Donation {
-    // return donation based on id
-    let dummyDonationToReturn: Donation = {
-      did: 1,
-      supplyName: 'Water',
-      quantity: 10,
-      time: { hours: 12, minutes: 12 },
-      unit: '8oz bottles'
-    }
-    return dummyDonationToReturn;
-  }
+  public server:String = "http://localhost:5000/"
 
-  addDonation(donation: Donation): void {
-    // here it is getting pushed to the array to be displayed but also needs to be pushed to db (POST new donation)
-    this.donationsList.push({
-      did: this.donationsList.length + 1,
-      supplyName: donation.supplyName,
-      quantity: donation.quantity,
-      time: { hours: 12, minutes: 12 },
-      unit: donation.unit
-    });
-    
-  }
-
-  deleteDonation(id: number){
+  public getDonations(): Observable<Donation[]> {
     return this.httpClient
-    .delete(this.server +'DAD/donations/id/${donation.id}')
+    .get<Donation[]>(this.server + "DAD/donations")
+    .pipe(catchError(this._handleError));
+  }
+
+  public getDonationById(donationID: String): Observable<Donation> {
+    return this.httpClient
+    .get<Donation>(this.server + `DAD/donations/${donationID}`)
+    .pipe(catchError(this._handleError));
+  }
+
+  public addDonation(donation: Donation): Observable<any> {
+    
+    const httpOptions = {
+      headers: new HttpHeaders ({
+        'Content-Type':'application/json',
+        'Accept': 'application/json'
+      })
+    };
+
+    return this.httpClient
+    .post(this.server + "DAD/donations", donation, httpOptions)
+    .pipe(catchError (this._handleError));
+  }
+
+  public deleteDonation(donationID: String): Observable<any> {
+    return this.httpClient
+    .delete(this.server + `DAD/donations/id/${donationID}`)
     .pipe(catchError (this._handleError))
   }
 
-  editDonation(donation: Donation): void {
-    // using donation id, update the other fields
+  public editDonation(donation: Donation): Observable<any> {
     const httpOptions = { 
       headers: new HttpHeaders ({
         'Content-Type': 'applications/json',
@@ -78,5 +65,11 @@ export class DonationsService {
     return this.httpClient
     .put(this.server+'DAD/donations/id/${donation.did}', donation, httpOptions)
     .pipe(catchError (this._handleError))
+  }
+
+  public getUserDonations(userID: String): Observable<Donation[]> {
+    return this.httpClient
+    .get<Donation[]>(this.server + `DAD/donations/user/${userID}`)
+    .pipe(catchError(this._handleError));
   }
 }
