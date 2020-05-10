@@ -58,13 +58,25 @@ export class DonationsService {
       time: { hours: 12, minutes: 12 },
       unit: donation.unit
     });
+    
   }
 
-  deleteDonation(id: number): void {
-
+  deleteDonation(id: number){
+    return this.httpClient
+    .delete(this.server +'DAD/donations/id/${donation.id}')
+    .pipe(catchError (this._handleError))
   }
 
   editDonation(donation: Donation): void {
     // using donation id, update the other fields
+    const httpOptions = { 
+      headers: new HttpHeaders ({
+        'Content-Type': 'applications/json',
+        'Accept': 'application/json'
+      })
+    };
+    return this.httpClient
+    .put(this.server+'DAD/donations/id/${donation.did}', donation, httpOptions)
+    .pipe(catchError (this._handleError))
   }
 }
