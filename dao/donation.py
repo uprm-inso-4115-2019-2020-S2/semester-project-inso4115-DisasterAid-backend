@@ -35,6 +35,10 @@ class Donation(OutputMixin, db.Model):
         return Donation.query.all()
 
     @staticmethod
+    def get_all_donations_without_request():
+        return Donation.query.filter(Donation.requests == None)
+
+    @staticmethod
     def get_donation_by_id(donation_id):
         return Donation.query.filter_by(did=donation_id).first()
 
@@ -50,13 +54,25 @@ class Donation(OutputMixin, db.Model):
         donation = self.get_donation_by_id(self.did)
         return [req.to_dict(rel=False) for req in donation.requests]
 
+    @staticmethod
+    def get_donations_by_user(user_id):
+        return Donation.query.filter_by(uid=user_id).all()
+
+    @staticmethod
+    def get_donations_by_supply_name(supply_name):
+        return Donation.query.filter_by(Donation.supplyName.ilike(supply_name)).all()
+
+    @staticmethod
+    def get_donations_by_date():
+        return Donation.query.order_by(Donation.createdAt.desc()).all()
+
+    @staticmethod
+    def get_donations_by_city(donation_city):
+        return Donation.query.join(User).filter_by(city=donation_city).all()
+
     def get_city(self):
         user = User.get_user_by_id(user_id=self.uid)
         return user.city
-
-    # @staticmethod
-    # def get_supply_count(supply):
-    #     pass
 
     def create(self):
         db.session.add(self)

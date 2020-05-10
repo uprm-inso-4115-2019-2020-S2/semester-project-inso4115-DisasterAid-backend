@@ -15,8 +15,60 @@ class DonationHandler(BaseHandler):
                 "donations": donation_list,
             }
             return jsonify(result), 200
-        except:
-            return jsonify(message="Server error!"), 500
+        except Exception as err:
+            return jsonify(message="Server error!", error=err.__str__()), 500
+
+    @staticmethod
+    def get_all_donations_without_request():
+        try:
+            donations = Donation.get_all_donations_without_request()
+            donation_list = [donation.to_dict() for donation in donations]
+            result = {
+                "message": "Success!",
+                "donations": donation_list,
+            }
+            return jsonify(result), 200
+        except Exception as err:
+            return jsonify(message="Server error!", error=err.__str__()), 500
+
+    @staticmethod
+    def get_donations_by_date():
+        try:
+            donations = Donation.get_donations_by_date()
+            donation_list = [donation.to_dict() for donation in donations]
+            result = {
+                "message": "Success!",
+                "donations": donation_list,
+            }
+            return jsonify(result), 200
+        except Exception as err:
+            return jsonify(message="Server error!", error=err.__str__()), 500
+
+    @staticmethod
+    def get_donations_by_supply_name(supply_name):
+        try:
+            donations = Donation.get_donations_by_supply_name(supply_name)
+            donation_list = [donation.to_dict() for donation in donations]
+            result = {
+                "message": "Success!",
+                "donations": donation_list,
+            }
+            return jsonify(result), 200
+        except Exception as err:
+            return jsonify(message="Server error!", error=err.__str__()), 500
+
+    @staticmethod
+    def get_donations_by_city(donation_city):
+        try:
+            donations = Donation.get_donations_by_city(donation_city)
+            donation_list = [donation.to_dict() for donation in donations]
+            result = {
+                "message": "Success!",
+                "donations": donation_list,
+            }
+            return jsonify(result), 200
+        except Exception as err:
+            return jsonify(message="Server error!", error=err.__str__()), 500
 
     @staticmethod
     def get_donation_by_id(did, relationship=None, city_property=None):
@@ -34,10 +86,26 @@ class DonationHandler(BaseHandler):
                         if city_property == 'city':
                             result['donation']['city'] = donation.get_city()
                     return jsonify(result), 200
-            except:
-                return jsonify(message="Server Error!"), 500
+            except Exception as err:
+                return jsonify(message="Server Error!", error=err.__str__()), 500
         else:
-            return jsonify(message="Bad Request!"), 400
+            return jsonify(message="Bad request!"), 400
+
+    @staticmethod
+    def get_donations_by_user(uid):
+        if uid:
+            try:
+                donations = Donation.get_donations_by_user(uid)
+                result_list = [donation.to_dict() for donation in donations]
+                result = {
+                    "message": "Success!",
+                    "donation": result_list
+                }
+                return jsonify(result), 200
+            except Exception as err:
+                return jsonify(message="Server Error!", error=err.__str__()), 500
+        else:
+            return jsonify(message="Bad request!"), 400
 
     @staticmethod
     def create_donation(json):
@@ -51,18 +119,18 @@ class DonationHandler(BaseHandler):
                     "donation": created_donation.to_dict(),
                 }
                 return jsonify(result), 201
-            except:
-                return jsonify(message="Server error!"), 500
+            except Exception as err:
+                return jsonify(message="Server error!", error=err.__str__()), 500
         else:
             return jsonify(message="Bad Request!"), 400
 
     @staticmethod
     def update_donation(did, json):
-        if did:
+        valid_params = DonationHandler.verify_params(json, Donation.DONATION_REQUIRED_PARAMS)
+        if did and valid_params:
             try:
                 donation_to_update = Donation.get_donation_by_id(did)
                 if donation_to_update:
-                    valid_params = DonationHandler.verify_params(json, Donation.DONATION_REQUIRED_PARAMS)
                     for key, value in valid_params.items():
                         setattr(donation_to_update, key, value)
                     donation_to_update.update()
@@ -73,8 +141,8 @@ class DonationHandler(BaseHandler):
                     return jsonify(result), 200
                 else:
                     return jsonify(message="Not Found!"), 404
-            except:
-                return jsonify(message="Server Error!"), 500
+            except Exception as err:
+                return jsonify(message="Server Error!", error=err.__str__()), 500
         else:
             return jsonify(message="Bad Request!"), 400
 
@@ -88,7 +156,7 @@ class DonationHandler(BaseHandler):
                     return jsonify(message="Success!"), 200
                 else:
                     return jsonify(message="Not Found!"), 404
-            except:
-                return jsonify(message="Sever Error!"), 500
+            except Exception as err:
+                return jsonify(message="Sever Error!", error=err.__str__()), 500
         else:
             return jsonify(message="Bad Request!"), 400

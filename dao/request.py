@@ -42,6 +42,13 @@ class Request(OutputMixin, db.Model):
     def get_requests_by_uid(user_id):
         return Request.query.filter_by(uid=user_id).all()
 
+    @staticmethod
+    def get_requests_by_supply_name(supply_name):
+        return Request.query.filter(Request.supplyName.ilike(supply_name)).all()
+
+    @staticmethod
+    def get_requests_by_status(val=False):
+        return Request.query.filter(Request.status.is_(val)).all()
 
     def create(self):
         db.session.add(self)
