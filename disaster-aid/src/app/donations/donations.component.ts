@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Donation } from '../donation'
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-donations',
@@ -9,12 +9,17 @@ import { FormBuilder } from '@angular/forms';
 })
 export class DonationsComponent implements OnInit {
 
-  addDonationForm;
+  addDonationForm: FormGroup;
+  editDonationForm: FormGroup;
+
+  currentEditingID;
 
   showAddDonationForm: Boolean = false;
+  showEditDonationForm: Boolean = false;
 
   // mock list. in reality it would get loaded with db donations (GET all donations)
-  public donationsList: Donation[] = [
+
+  donationsList: Donation[] = [
     {
       did: 1,
       supplyName: 'Water',
@@ -40,10 +45,14 @@ export class DonationsComponent implements OnInit {
 
   location = 'Arecibo'  // only field that comes from user and not donation. (FETCH user.location)
 
-  constructor(
-    private formBuilder: FormBuilder,
-  ) {
+  constructor(private formBuilder: FormBuilder,) {
     this.addDonationForm = this.formBuilder.group({
+      supplyName: '',
+      quantity: '',
+      unit: '',
+    });
+
+    this.editDonationForm = this.formBuilder.group({
       supplyName: '',
       quantity: '',
       unit: '',
@@ -51,6 +60,19 @@ export class DonationsComponent implements OnInit {
    }
 
   ngOnInit(): void {
+
+  }
+
+  get supplyName(){
+    return this.addDonationForm.get('supplyName').value;
+  }
+
+  get quantity(){
+    return this.addDonationForm.get('quantity').value;
+  }
+
+  get unit(){
+    return this.addDonationForm.get('unit').value;
   }
 
   toggleAddDonation() {
@@ -70,8 +92,53 @@ export class DonationsComponent implements OnInit {
       unit: donationData.unit
     });
 
-    console.warn('donation added: ', donationData);    
+    console.warn('donation added: ', donationData);
+    console.warn('list added: ', this.donationsList);
 
+
+  }
+
+
+//    EDIT
+
+  toggleEditDonationCancel() {
+    console.log("edit cancel btn clicked");
+    this.showEditDonationForm = !this.showEditDonationForm;
+  }
+
+  toggleEditDonation(did){
+
+    console.log("edit btn clicked");
+    console.log(did);
+
+    this.showEditDonationForm = !this.showEditDonationForm;
+
+    for(let i = 0; i < this.donationsList.length; i++){
+      if(this.donationsList[i].did == did){
+        this.currentEditingID = did;
+        console.log("current: ", this.currentEditingID);
+        console.log(this.donationsList[i].did);
+        this.editDonationForm.controls['supplyName'].setValue(this.donationsList[i].supplyName);
+        this.editDonationForm.controls['quantity'].setValue(this.donationsList[i].quantity);
+        this.editDonationForm.controls['unit'].setValue(this.donationsList[i].unit);
+      }
+    }
+  }
+
+  onEditDonationSubmit(values) {
+    this.editDonationForm.reset();
+
+    console.warn('Values did: ', values);
+
+    for(let i = 0; i < this.donationsList.length; i++){
+      console.warn('List did: ', this.donationsList[i].did);
+      if(this.donationsList[i].did == this.currentEditingID){
+        console.log("current: ", this.currentEditingID);
+        this.donationsList[i].supplyName = values.supplyName;
+        this.donationsList[i].quantity = values.quantity;
+        this.donationsList[i].unit =  values.unit;
+      }
+    }
   }
 
 }

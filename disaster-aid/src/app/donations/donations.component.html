@@ -1,3 +1,4 @@
+
 <h2>My Donations:</h2>
 
 <button id="add-new" (click)="toggleAddDonation();">Add New Donation</button>
@@ -38,6 +39,64 @@
         <span>Supply: {{donation.supplyName}}</span>
         <span>Quantity: {{donation.quantity}} {{donation.unit}}</span>
         <span>Location: {{location}}</span>
-        <span><button id="edit-btn">Edit</button></span>
+        <span><button id="edit-btn" (click)="toggleEditDonation(donation.did);">Edit</button></span>
     </div>
+
+  <div class="editDonation" id="edit-form" *ngIf="showEditDonationForm">
+    <form [formGroup]="editDonationForm" (ngSubmit)="onEditDonationSubmit(editDonationForm.value)">
+      <div>
+        <h2
+          style="
+               font-size: 30px;
+               text-align: center;
+               margin-left: 0vw;
+               padding-top: 3%;
+               color: white;
+          "
+
+        > Edit Donation:</h2>
+
+        <label for="supplyName">
+          Supply Name:
+        </label>
+        <input class="selectInput" id="supplyNameE" type="text" formControlName="supplyName">
+
+      </div>
+
+      <div>
+        <label for="quantity">
+          Quantity:
+        </label>
+        <input class="selectInput" id="quantityE" type="text" formControlName="quantity">
+      </div>
+
+      <div>
+        <label for="unit">
+          Unit:
+        </label>
+        <input class="selectInput" id="unitE" type="text" formControlName="unit">
+      </div>
+      <button class="button"
+              style="border-radius: 10px;
+                     width: 100%;
+                     height: auto;
+                     font-style: normal;
+                     font-weight: normal;
+                     line-height: 32px;
+
+                  "
+
+              type="submit">Save</button>
+
+      <button class="button"
+              style="border-radius: 10px;
+                     width: 100%;
+                     height: auto;
+                     font-style: normal;
+                     font-weight: normal;
+                     line-height: 32px;"
+
+              (click)="toggleEditDonationCancel();">Cancel</button>
+    </form>
+  </div>
 </ul>
