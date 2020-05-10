@@ -51,7 +51,7 @@ export class DonationsService {
 
   public deleteDonation(donationID: String): Observable<any> {
     return this.httpClient
-    .delete(this.server + `DAD/donations/id/${donationID}`)
+    .delete(this.server + `DAD/donations/${donationID}`)
     .pipe(catchError (this._handleError))
   }
 
@@ -63,7 +63,7 @@ export class DonationsService {
       })
     };
     return this.httpClient
-    .put(this.server+'DAD/donations/id/${donation.did}', donation, httpOptions)
+    .put(this.server+`DAD/donations/${donation.did}`, donation, httpOptions)
     .pipe(catchError (this._handleError))
   }
 
