@@ -87,33 +87,40 @@ export class HomeComponent implements OnInit, OnDestroy {
   //List should be of type Supply[]
   mySuppliesList = [
     {
-      name: "Water"
+      name: "tools",
     },
     {
-      name: "Apple Sauce"
+      name: "batteries"
     },
     {
-      name: "Blankets"
+      name: "blanket"
     }
   ]
 
   //mock resources list (to be loaded from db)
   //List should be of type Supply[]
+  //Para los supplies la lista es : food, water, blankets, clothes, medicine, batteries y tools
+  // OJO - para que funcionen las fotos los names tienen que empezar con lowercase
   myResourcesList: Supply[] = [
     {
-      name: "Water",
+      name: "water",
       quantity: 17,
       location: "Arecibo"
     },
     {
-      name: "Canned Beans",
+      name: "food",
       quantity: 23,
       location: "Quebradillas"
     },
     {
-      name: "First Aid Kits",
+      name: "medicine",
       quantity: 4,
       location: "Naguabo"
+    },
+    {
+      name: "clothes",
+      quantity: 4,
+      location: "San Sebastian"
     }
   ]
 

@@ -44,8 +44,8 @@
       <p class="user-text ml-4 mt-1" style="text-align: justify;">My Supplies</p>
       <ul class="resources" *ngFor="let supply of mySuppliesList">
         <div class="rectangle-resource">
-          <img src="assets/Water-Bottle.png" width="60%" style="margin-left: 20px; margin-top: 6px;">
-          <span class="supply-text">{{supply.name}}</span>
+          <img src="assets/{{supply.name}}.png" width="60%" style="margin-left: 20px; margin-top: 6px; margin-bottom: 12px;">
+          <span class="supply-text" style="text-transform: capitalize;">{{supply.name}}</span>
         </div>      
       </ul>
 
@@ -56,16 +56,19 @@
   </section>
 
   <section>
-    <div class="box" style="top: 590px;">
+    <div class="box" style="top: 570px;">
       <p class="user-text ml-4 mt-1" style="text-align: justify;">New Resources Available:</p>
 
       <!-- card -->
       <ul class="resources" *ngFor="let resource of myResourcesList">
         <div class="rectangle-resource">
-          <img src="assets/Water-Bottle.png" width="60%" style="margin-left: 20px; margin-top: 6px;">
-          <span class="resource-text">{{resource.name}} </span>
-          <span class="resource-text">x{{resource.quantity}} </span>
-          <span class="resource-text">{{resource.location}}</span>
+          <img src="assets/{{resource.name}}.png" width="60%" style="margin-top: 6px; margin-bottom: 18px;">
+          <p class="resource-text" style="white-space: pre; text-transform: capitalize;">
+            {{resource.name}} x{{resource.quantity}}
+            {{resource.location}}
+          </p>
+          <!-- <span class="resource-text">x{{resource.quantity}} </span> -->
+          <!-- <span class="resource-text">{{resource.location}}</span>  -->
           <button class="get-btn">GET</button>
         </div>
       </ul>

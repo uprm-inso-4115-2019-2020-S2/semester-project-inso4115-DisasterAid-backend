@@ -108,10 +108,10 @@ ul {
 
 .box {
     position: absolute;
-    width: 600px;
-    height: 200px;
-    left: 300px;
-    top: 375px;
+    width: 620px;
+    height: 220px;
+    left: 280px;
+    top: 340px;
     background: #B3E6FD;
     border-radius: 30px;
 }
@@ -149,8 +149,8 @@ ul {
 
 .rectangle-resource {
     position: inherit;
-    width: 110px;
-    height: 110px;
+    width: 120px;
+    height: 120px;
     left: 40px;
     top: 55px;
     background: #8ACAE6;
@@ -158,6 +158,7 @@ ul {
     display: flexbox;
     align-items: center;
     justify-content: center;
+    text-align-last: center;
 }
 
 .get-btn {
@@ -167,10 +168,7 @@ ul {
     height: fit-content;
     background: #FFBC40;
     border-radius: 15px;
-
-
     top: 100px;
-
 }
 
 .rectangle-user1 {
@@ -231,17 +229,16 @@ ul {
 
 .resource-text {
     width: 30px;
-    height: 13px;
-    
+    height: 5px;
     font-family: Helvetica;
-    font-style: normal;
+    font-style: bold;
     font-weight: normal;
-    font-size: 12px;
+    font-size: 10px;
     line-height: 21px;
     color: #141E1F;
 }
 
 .resources {
     display: inline-flex;
-    padding-left: 40px;
+    padding-left: 28px;
 }
