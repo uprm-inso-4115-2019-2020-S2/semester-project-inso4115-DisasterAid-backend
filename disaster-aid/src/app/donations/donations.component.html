@@ -122,20 +122,19 @@
 
 </div>
 
-<ul id="donations-list">
-    <div class="donation-box" *ngFor="let donation of donationsList">
-        <span>Supply: {{donation.supplyName}}</span>
-        <span>Quantity: {{donation.quantity}} {{donation.unit}}</span>
-        <span>Location: {{location}}</span>
-        <span><button id="edit-btn" (click)="toggleEditDonation(donation.did);">Edit</button></span>
-    </div>
 
-  <div class="editDonation" id="edit-form" *ngIf="showEditDonationForm">
+
+    
+  <div class="donateBox" id="edit-form" *ngIf="showEditDonationForm">
     <form [formGroup]="editDonationForm" (ngSubmit)="onEditDonationSubmit(editDonationForm.value)">
-      <div>
+      <table style="text-align: center; width: 100%;">
+        <tr>
+          
+      
+        <td colspan="2">
         <h2
           style="
-               font-size: 30px;
+               font-size: 50px;
                text-align: center;
                margin-left: 0vw;
                padding-top: 3%;
@@ -143,47 +142,84 @@
           "
 
         > Edit Donation:</h2>
+      </td>
+    </tr>
+    <tr>
+      <td>
 
         <label for="supplyName">
           Supply Name:
         </label>
-        <input class="selectInput" id="supplyNameE" type="text" formControlName="supplyName">
+      </td>
+      <td>
+        <select id="supplyName" name="supply" class="select" formControlName="supplyName" >
+          <option value="food">food</option>
+          <option value="water">water</option>
+          <option value="blankets">blankets</option>
+          <option value="clothes">clothes</option>
+          <option value="medicine">medicine</option>
+          <option value="batteries">batteries</option>
+          <option value="tools">tools</option> 
+      </select>
+      </td>
+      </tr>
 
-      </div>
+      <tr>
 
-      <div>
+    <td>
         <label for="quantity">
           Quantity:
         </label>
-        <input class="selectInput" id="quantityE" type="text" formControlName="quantity">
-      </div>
-
-      <div>
+      </td>
+      <td>
+        <input type="number" class="select" id="quantity" name="quantity" formControlName="quantity" min="1" max="1000">
+      </td>
+      </tr>
+      
+<tr>
+      <td>
         <label for="unit">
           Unit:
         </label>
-        <input class="selectInput" id="unitE" type="text" formControlName="unit">
-      </div>
-      <button class="button"
-              style="border-radius: 10px;
-                     width: 100%;
-                     height: auto;
-                     font-style: normal;
-                     font-weight: normal;
-                     line-height: 32px;
-                  "
+
+      </td>
+      <td>
+       <input class="select" id="unit" type="text" formControlName="unit">
+      </td>
+    </tr>
+   
+
+<tr>
+  <td colspan="2">
+    <br>
+      <button class="donateButton"
+
+
 
               type="submit">Save</button>
-
-      <button class="button"
-              style="border-radius: 10px;
-                     width: 100%;
-                     height: auto;
-                     font-style: normal;
-                     font-weight: normal;
-                     line-height: 32px;"
+            </td>
+            </tr>
+<tr>
+  <td colspan="2">
+      <button class="donateButton"
+              
 
               (click)="toggleEditDonationCancel();">Cancel</button>
-    </form>
+            </td>
+            </tr>
+
+            </table>
+            </form>
+    
   </div>
+ <ul id
+="donations-list">
+    <div class="donation-box" *ngFor="let donation of donationsList">
+        <span>Supply: {{donation.supplyName}}</span>
+        <span>Quantity: {{donation.quantity}} {{donation.unit}}</span>
+        <span>Location: {{location}}</span>
+        <span><button id="edit-btn" (click)="toggleEditDonation(donation.did);">Edit</button></span>
+    </div>
+
 </ul>
+
