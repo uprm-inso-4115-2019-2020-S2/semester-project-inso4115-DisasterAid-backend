@@ -70,3 +70,13 @@ class Donation(OutputMixin, db.Model):
     def delete(self):
         db.session.delete(self)
         db.session.commit()
+
+    def get_donations_by_date(self):
+	    return Donation.query.group_by(createdAt)
+	
+#  def get_donations_by_date_desc(self):
+#     return Donation.query.group_by(createdAt)
+	      
+	
+	def get_donations_by_supplyName(self, supNum):
+	    return Donation.query.filter_by(supplyName=supNum)
