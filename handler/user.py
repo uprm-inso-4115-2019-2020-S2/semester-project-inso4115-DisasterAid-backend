@@ -1,5 +1,6 @@
-from flask import jsonify
+from flask import jsonify, session
 from dao.user import User
+import bcrypt as bcrypt
 
 
 class BaseHandler:
@@ -18,6 +19,28 @@ class BaseHandler:
 
 
 class UserHandler(BaseHandler):
+
+    @staticmethod
+    def do_login(json):
+        #try:
+            user = User.do_login(json)
+            password = json['password']
+            if user and bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8')):
+                session['logged_in'] = True
+                status = True
+                return jsonify(status=status), 200
+            else:
+                return jsonify(message="Username or password is wrong."), 400
+        #except:
+            #return jsonify(message="Server error!"), 500
+
+    @staticmethod
+    def do_logout():
+        try:
+            session.pop('logged_in', None)
+            return jsonify(status= 'Success!'), 200
+        except:
+            return jsonify(message="Server error!"), 500
 
     @staticmethod
     def get_all_users():

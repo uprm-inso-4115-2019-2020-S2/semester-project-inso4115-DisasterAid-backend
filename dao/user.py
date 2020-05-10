@@ -51,6 +51,10 @@ class User(OutputMixin, db.Model):
         return self.uid
 
     @staticmethod
+    def do_login(json):
+        return User.query.filter_by(username=json['username']).first()
+
+    @staticmethod
     def get_all_users():
         return User.query.all()
 
