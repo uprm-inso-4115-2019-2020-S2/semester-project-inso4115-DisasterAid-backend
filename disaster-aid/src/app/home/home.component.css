@@ -1,0 +1,244 @@
+.map {
+    position: absolute;
+    width: 886px;
+    height: 414px;
+    left: 300px;
+    top: 110px;
+}
+
+.top-bar {
+    position: absolute;
+    width: 1920px;
+    height: 226px;
+    left: 0px;
+    top: 0px;
+}
+
+.home-page {
+    background: #8ACAE6;
+}
+
+.search-input {
+    position: relative;
+    width: 180px;
+    height: 27px;
+    top: 5px;
+    background: #B3E6FD;
+    border-radius: 40px;
+    padding: 10px;
+    color: white;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+}
+
+.places {
+    position: absolute;
+    width: 413px;
+    height: 880px;
+    left: 48px;
+    top: 150px;
+}
+
+.places-list {
+    position: absolute;
+    width: 200px;
+    height: 620px;
+    left: 48px;
+    top: 180px;
+    background: #B3E6FD;
+    border-radius: 20px;
+    color: #1B29A3;
+    text-align: center;
+}
+
+.places-list ul{
+    padding-inline-start: 0px;
+}
+
+.places-list li {
+    cursor: pointer;
+}
+
+ul {
+    padding-inline-start: 0px;
+}
+
+.places-list a {
+    text-align: center;
+}
+
+/* Home (T2) */
+.home {
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+    background: #8ACAE6;
+}
+
+/* LOCATE HELP */
+.locate-help{
+    position: absolute;
+    width: 280px;
+    height: 68px;
+    left: 48px;
+    top: 100px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 30px;
+    line-height: 67px;
+    /* identical to box height */
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #FFFFFF;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.cities-txt {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 54px;
+    align-items: center;
+    text-align: center;
+    color: #FFFFFF;
+    text-shadow: 0px 4px 4px rgba(42, 38, 38, 0.25);
+}
+
+.box {
+    position: absolute;
+    width: 620px;
+    height: 220px;
+    left: 280px;
+    top: 340px;
+    background: #B3E6FD;
+    border-radius: 30px;
+}
+
+.material-icons {
+    cursor: pointer;
+    font-size: 36px;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: white;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+}
+
+.user-info {
+    position: absolute;
+    width: 350px;
+    height: 640px;
+    left: 930px;
+    top: 87px;
+    background: #B3E6FD;
+}
+
+.rectangle15 {
+    position: inherit;
+    width: 135px;
+    height: 190px;
+    left: 20px;
+    top: 100px;
+    background: #8ACAE6;
+    border-radius: 15px;
+}
+
+.rectangle-resource {
+    position: inherit;
+    width: 120px;
+    height: 120px;
+    left: 40px;
+    top: 55px;
+    background: #8ACAE6;
+    border-radius: 15px;
+    display: flexbox;
+    align-items: center;
+    justify-content: center;
+    text-align-last: center;
+}
+
+.get-btn {
+    left: 28px;
+    font-size: 12px;
+    width: fit-content;
+    height: fit-content;
+    background: #FFBC40;
+    border-radius: 15px;
+    top: 100px;
+}
+
+.rectangle-user1 {
+    position: absolute;
+    width: 350px;
+    height: 298px;
+    left: 930px;
+    top: 87px;
+    background: #B3E6FD;
+    text-align: center;
+}
+
+.rectangle-user2 {
+    position: absolute;
+    width: 350px;
+    height: 300px;
+    left: 930px;
+    top: 495px;
+    background: #B3E6FD;
+    text-align: center;
+}
+
+.rectangle-user3 {
+    position: absolute;
+    width: 170px;
+    height: 90px;
+    left: 930px;
+    top: 395px;
+    background: #B3E6FD;
+    text-align: center;
+}
+
+.rectangle-user4 {
+    position: absolute;
+    width: 350px;
+    height: 90px;
+    left: 930px;
+    top: 395px;
+    background: #B3E6FD;
+    text-align: center;
+}
+
+
+.user-text {
+    position: relative;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 30px;
+    line-height: 45px;
+    /* identical to box height */
+
+    align-items: center;
+    text-align: center;
+
+    color: #FFFFFF;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.resource-text {
+    width: 30px;
+    height: 5px;
+    font-family: Helvetica;
+    font-style: bold;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 21px;
+    color: #141E1F;
+}
+
+.resources {
+    display: inline-flex;
+    padding-left: 28px;
+}

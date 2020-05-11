@@ -1,0 +1,59 @@
+<nav class="navbar navbar-light" style="background-color: rgba(2, 163, 232, 0.4);">
+  <a class="navbar-brand mr-1" href="#"><img src="/assets/DAD_logo.png" style="width: 50%;"></a>
+  <ul class="nav navbar-justified navbar-right ml-auto" style="margin-right: 3%;">
+    <li class="nav-item">
+      <a class="nav-link menuItem" routerLink="/my-donations"  >DONATE</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link menuItem"  href="#">LOCATE HELP</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link menuItem" href="#">SEEK DONATIONS</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link menuItem"  routerLink="/register" routerLinkActive="active">SIGN-UP</a>
+    </li>
+  </ul>
+</nav>
+
+<div class="requestBox">
+  <p style="font-size:80px; text-align: center; padding-top: 3%; color: white;">Donate:</p>
+  <!-- <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)"> -->
+  <div style="text-align: right; padding-right: 22px;">
+    <div>
+      <label for="Supply" style=" width:50%; text-align:left;">Supply</label>
+      <select id="supply" name="supply" class="select">
+        <option value="water">water</option>
+        <option value="food">food</option>
+        <option value="medicine">medicine</option>
+        <option value="clothing">clothing</option>
+
+      </select>
+    </div>
+    <div>
+      <label for="quantity" style="width:73%; text-align:left;">Quantity</label>
+      <input type="number" class="select" id="quantity" name="quantity" min="1" max="5">
+    </div>
+
+    <div>
+      <label for="status" style="width:73%; text-align:left;">Units</label>
+      <input type="boolean" class="select" id="status" name="status" min="1" max="5">
+    </div>
+
+    <div>
+      <label for="time" style="width:73%; text-align:left;">Time</label>
+      <input type="time" class="select" id="time" name="time" min="1" max="5">
+    </div>
+  </div>
+
+  <div style="text-align: center;  padding-top: 7px;">
+    <button class="requestButton" type="submit">Request</button>
+  </div>
+  <!-- </form> -->
+
+  <!-- <div style="text-align: center; padding-top: 5px; font-size: large;">
+      <label style="color: white; padding-right: 5px;">Don't have an account?</label>
+      <a routerLink="/register" routerLinkActive="active" style="color:#FFBC40 ;">Sign up</a>
+  </div> -->
+
+</div>

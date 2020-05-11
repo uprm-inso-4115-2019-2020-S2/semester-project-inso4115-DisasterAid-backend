@@ -1,0 +1,70 @@
+<html>
+
+    <a class="return"  routerLink="/home" routerLinkActive="active" >Return</a> 
+<section class="settingsBox">
+    <p style="font-size: xx-large; text-align: center; padding-top: 3%; color: white;">Edit your profile</p>
+    <form [formGroup]="settingsForm" (ngSubmit)="onSubmit(settingsForm.value)" style="text-align: center;"> 
+        <div style="text-align: right; padding-right: 25%;">
+            <div>
+                <label for="first_name" style="padding-right: 7px;">First Name</label>
+                <input class="input" id="first_name" type="text" formControlName="firstName"
+                    placeholder="{{myUser.firstName}}">
+            </div>
+            <div>
+                <label for="last_name" style="padding-right: 7px;">Last Name</label>
+                <input class="input" id="last_name" type="text" formControlName="lastName"
+                    placeholder="{{myUser.lastName}}">
+            </div>
+            <div>
+                <label for="email" style="padding-right: 7px;">Email</label>
+                <input class="input" id="email" type="email" formControlName="email" placeholder="{{myUser.email}}">
+            </div>
+            <div>
+                <label for="phone" style="padding-right: 7px;">Phone</label>
+                <input class="input" id="phone" type="text" formControlName="phone" placeholder="{{myUser.phone}}">
+            </div>
+            <div>
+                <label for="date_of_birth" style="padding-right: 7px;">Date of Birth</label>
+                <input class="input" id="date_of_birth" type="date" formControlName="dateOfBirth"
+                    ngModel="{{myUser.dateOfBirth}}">
+            </div>
+            <div>
+                <label for="username" style="padding-right: 7px;">Username</label>
+                <input class="input" id="username" type="text" formControlName="username"
+                    placeholder="{{myUser.username}}">
+            </div>
+            <div>
+                <label for="password" style="padding-right: 7px;">Password</label>
+                <input class="input" id="password" type="password" formControlName="password"
+                    placeholder="****">
+            </div>
+            <div>
+                <label for="address" style="padding-right: 7px;">Address</label>
+                <input class="input" id="address" type="text" formControlName="address"
+                    placeholder="{{myUser.address}}">
+            </div>
+            <div>
+                <label for="city" style="padding-right: 7px;">City</label>
+                <select class="input"
+                    style="height: 30px; border-width: 2px; border-top-color:rgb(6, 86, 121); border-left-color: rgb(6, 86, 121);"
+                    id="city" type="text" formControlName="city">
+                    <option *ngFor="let city of cityList" value="{{city}}" selected="{{city}}">{{city}}</option>
+                </select>
+            </div>
+            <div>
+                <label for="zipCode" style="padding-right: 7px;">Zip Code</label>
+                <input class="input" id="zipCode" type="text" formControlName="zipCode"
+                    placeholder="{{myUser.zipCode}}">
+            </div>
+        </div>
+
+        <div style="text-align: center; padding-top: 7px;">
+            <button class="button" type="submit">Update</button>
+        </div>
+    </form>
+
+</section>
+
+
+
+</html>

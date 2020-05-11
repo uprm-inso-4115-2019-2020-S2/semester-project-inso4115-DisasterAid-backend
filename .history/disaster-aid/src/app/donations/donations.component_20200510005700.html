@@ -1,0 +1,43 @@
+<h2>My Donations:</h2>
+
+<button id="add-new" (click)="toggleAddDonation();">Add New Donation</button>
+
+<div *ngIf="showAddDonationForm">
+    <form [formGroup]="addDonationForm" (ngSubmit)="onAddDonationSubmit(addDonationForm.value)">
+
+        <div>
+            <label for="supplyName">
+                Supply Name
+            </label>
+            <input id="supplyName" type="text" formControlName="supplyName">
+
+        </div>
+
+        <div>
+            <label for="quantity">
+                Quantity
+            </label>
+            <input id="quantity" type="text" formControlName="quantity">
+        </div>
+
+        <div>
+            <label for="unit">
+                Unit
+            </label>
+            <input id="unit" type="text" formControlName="unit">
+        </div>
+
+        <button class="button" (click)="toggleAddDonation();">Cancel</button>
+        <button class="button" type="submit">Add</button>
+
+    </form>
+</div>
+
+<ul id="donations-list">
+    <div class="donation-box" *ngFor="let donation of donationsList">
+        <span>Supply: {{donation.supplyName}}</span>
+        <span>Quantity: {{donation.quantity}} {{donation.unit}}</span>
+        <span>Location: {{location}}</span>
+        <span><button id="edit-btn">Edit</button></span>
+    </div>
+</ul>

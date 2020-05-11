@@ -1,0 +1,70 @@
+<nav class="navbar navbar-light" style="background-color: rgba(2, 163, 232, 0.4);">
+  <a class="navbar-brand mr-1" href="#"><img src="/assets/DAD_logo.png" style="width: 50%;"></a>
+  <ul class="nav navbar-justified navbar-right ml-auto" style="margin-right: 3%;">
+    <li class="nav-item">
+      <a class="nav-link menuItem" routerLink="/my-donations">DONATE</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link menuItem"  href="/seek-donations">SEEK DONATIONS</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link menuItem" href="/home">HOME</a>
+    </li>
+    <!-- <li class="nav-item">
+      <a class="nav-link menuItem"  routerLink="/register" routerLinkActive="active">SIGN-UP</a>
+    </li> -->
+  </ul>
+</nav>
+
+<h2>Request</h2>
+
+
+
+<button id="add-new" (click)="toggleAddRequest();">Add New Request</button>
+
+<div *ngIf="showRequestForm">
+  <form [formGroup]="addRequestForm" (ngSubmit)="onAddRequestSubmit(addRequestForm.value)">
+
+    <div>
+      <label for="supplyName">
+        Supply Name
+      </label>
+      <input id="supplyName" type="text" formControlName="supplyName">
+
+    </div>
+
+    <div>
+      <label for="quantity">
+        Quantity
+      </label>
+      <input id="quantity" type="number" formControlName="quantity">
+    </div>
+
+    <div>
+    <label for="description">
+      Description
+    </label>
+    <input id="description" type="text" formControlName="description">
+  </div>
+
+
+    <div style="text-align: center;">
+    <button class="button" (click)="toggleAddRequest();">Cancel</button>
+    <button class="button" type="submit">Add</button>
+    </div>
+
+  </form>
+</div>
+
+
+
+<ul id="request-list">
+  <div class="request-box" *ngFor="let request of requestList">
+    <span>Supply: {{request.supplyName}}</span>
+    <span> Quantity: {{request.quantity}}</span>
+    <span>Location: {{location}} </span>
+    <span>Status: {{request.status}}</span>
+    <span><button id="edit-btn">Edit</button></span>
+  </div>
+</ul>
+

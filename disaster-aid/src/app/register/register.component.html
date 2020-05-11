@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+</head>
+
+<body>
+    <nav class="navbar navbar-light" style="background-color: rgba(2, 163, 232, 0.4);">
+        <a class="navbar-brand mr-1" href="#"><img src="/assets/DAD_logo.png" style="width: 50%;"></a>
+        <ul class="nav navbar-justified navbar-right ml-auto" style="margin-right: 3%;">
+            <!-- <li class="nav-item">
+                <a class="nav-link menuItem" href="#">DONATE</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link menuItem" href="#">LOCATE HELP</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link menuItem" href="#">SEEK DONATIONS</a>
+            </li> -->
+            <li class="nav-item">
+                <a class="nav-link menuItem" routerLink="/login" routerLinkActive="active">SIGN-IN</a>
+            </li>
+        </ul>
+    </nav>
+
+    <section>
+
+        <div class="pin">
+            <img src="/assets/LOGO.png" style="width: 45%;">
+        </div>
+        <div class="boxes">
+            <img src="/assets/Stop-Sending-Food-2.png" style="width: 65%;">
+        </div>
+        <div class="registerBox">
+            <p style="font-size: xx-large; text-align: center; padding-top: 2%; color: white;">Create Account</p>
+            <div *ngIf="formNotValid" style="text-align: center; color: red;">
+                {{warningMessage}}
+            </div>
+            <form [formGroup]="registerForm" (ngSubmit)="onSubmit(registerForm.value)">
+                <div style="text-align: right; padding-right: 22px;">
+                    <div>
+                        <label for="first_name" style="padding-right: 7px;">First Name</label>
+                        <input class="input" id="first_name" type="text" formControlName="firstName" maxlength="30">
+                    </div>
+                    <div>
+                        <label for="last_name" style="padding-right: 7px;">Last Name</label>
+                        <input class="input" id="last_name" type="text" formControlName="lastName" maxlength="30">
+                    </div>
+                    <div>
+                        <label for="email" style="padding-right: 7px;">Email</label>
+                        <input class="input" id="email" type="email" formControlName="email" maxlength="30">
+                    </div>
+                    <div>
+                        <label for="phone" style="padding-right: 7px;">Phone</label>
+                        <input class="input" id="phone" type="text" formControlName="phone" maxlength="10">
+                    </div>
+                    <div>
+                        <label for="date_of_birth" style="padding-right: 7px;">Date of Birth</label>
+                        <input class="input" id="date_of_birth" type="date" formControlName="dateOfBirth">
+                    </div>
+                    <div>
+                        <label for="username" style="padding-right: 7px;">Username</label>
+                        <input class="input" id="username" type="text" formControlName="username" maxlength="20">
+                    </div>
+                    <div>
+                        <label for="password" style="padding-right: 7px;">Password</label>
+                        <input class="input" id="password" type="password" formControlName="password" maxlength="100">
+                    </div>
+                    <div>
+                        <label for="retype_password">Retype Password</label>
+                        <input class="input" id="retypepassword" type="password" formControlName="retype_password" maxlength="100">
+                    </div>
+                    <div>
+                        <label for="address" style="padding-right: 7px;">Address</label>
+                        <input class="input" id="address" type="text" formControlName="address" maxlength="50">
+                    </div>
+                    <div>
+                        <label for="city" style="padding-right: 7px;">City</label>
+                        <select class="input" style="height: 30px; border-width: 2px; border-top-color:rgb(6, 86, 121); border-left-color: rgb(6, 86, 121);" id="city" type="text" formControlName="city">
+                            <option *ngFor="let city of cityList" value="{{city}}">{{city}}</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="zipCode" style="padding-right: 7px;">Zip Code</label>
+                        <input class="input" id="zipCode" type="text" formControlName="zipCode" maxlength="10">
+                    </div>
+                </div>
+
+                <div style="text-align: center; padding-top: 7px;">
+                    <button class="button" type="submit">Sign up</button>
+                </div>
+            </form>
+
+            <div style="text-align: center; padding-top: 5px; font-size: large;">
+                <label style="color: white; padding-right: 5px;">Already have an account?</label>
+                <a routerLink="/login" routerLinkActive="active" style="color:#FFBC40 ;">Sign in</a>
+            </div>
+
+        </div>
+    </section>
+
+</body>
+
+</html>

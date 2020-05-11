@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+</head>
+
+<body>
+        <nav class="navbar navbar-light" style="background-color: rgba(2, 163, 232, 0.4);">
+        <a class="navbar-brand mr-1" href="#"><img src="/assets/DAD_logo.png" style="width: 50%;"></a>
+        <ul class="nav navbar-justified navbar-right ml-auto" style="margin-right: 3%;">
+            <!-- <li class="nav-item">
+                <a class="nav-link menuItem" href="#">DONATE</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link menuItem" href="#">LOCATE HELP</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link menuItem" href="#">SEEK DONATIONS</a>
+            </li> -->
+            <li class="nav-item">
+                <a class="nav-link menuItem"  routerLink="/register" routerLinkActive="active">SIGN-UP</a>
+            </li>
+        </ul>
+    </nav>
+
+    <section>
+
+        <div class="pin">
+            <img src="/assets/LOGO.png" style="width: 45%;">
+        </div>
+        <div class="boxes">
+            <img src="/assets/Stop-Sending-Food-2.png" style="width: 65%;">
+        </div>
+        <div class="loginBox">
+            <p style="font-size: xx-large; text-align: center; padding-top: 3%; color: white;">Sign In</p>
+            <p *ngIf="loginFailed" style="text-align: center; color: red;">
+                {{warningMessage}}
+            </p>
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
+                <div style="text-align: right; padding-right: 22px;">
+                    <div>
+                        <label for="username" style="padding-right: 7px;">Username</label>
+                        <input class="input" id="username" type="username" formControlName="username">
+                    </div>
+                    <div>
+                        <label for="password" style="padding-right: 7px;">Password</label>
+                        <input class="input" id="password" type="password" formControlName="password">
+                    </div>
+                </div>
+
+                <div style="text-align: center; padding-top: 7px;">
+                    <button class="button" type="submit">Sign in</button>
+                </div>
+            </form>
+
+            <div style="text-align: center; padding-top: 5px; font-size: large;">
+                <label style="color: white; padding-right: 5px;">Don't have an account?</label>
+                <a routerLink="/register" routerLinkActive="active" style="color:#FFBC40 ;">Sign up</a>
+            </div>
+
+        </div>
+    </section>
+
+</body>
+
+</html>
