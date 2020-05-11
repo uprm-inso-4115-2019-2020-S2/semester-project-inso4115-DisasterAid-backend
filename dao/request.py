@@ -7,6 +7,7 @@ from dao.mixin import OutputMixin
 class Request(OutputMixin, db.Model):
     RELATIONSHIPS_TO_DICT = True
     REQUEST_REQUIRED_PARAMS = ['supplyName', 'status', 'description', 'uid', 'did']
+    RESQUEST_STATUS_TYPES = ['pending', 'delivered', 'accepted']
 
     rid = db.Column(db.Integer, primary_key=True)
     supplyName = db.Column(db.String(50), nullable=False)
@@ -47,8 +48,8 @@ class Request(OutputMixin, db.Model):
         return Request.query.filter(Request.supplyName.ilike(supply_name)).all()
 
     @staticmethod
-    def get_requests_by_status(val=False):
-        return Request.query.filter(Request.status.is_(val)).all()
+    def get_requests_by_status(val="Pending"):
+        return Request.query.filter(Request.status.ilike(val)).all()
 
     @staticmethod
     def get_requests_by_user(user_id):

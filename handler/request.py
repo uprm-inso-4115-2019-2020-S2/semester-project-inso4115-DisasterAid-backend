@@ -11,7 +11,7 @@ class RequestHandler(BaseHandler):
             if supply_name:
                 requests = Request.get_requests_by_supply_name(supply_name)
             elif status:
-                requests = Request.get_requests_by_status(True) if status.lower() == 'true' \
+                requests = Request.get_requests_by_status(status) if status.lower() in Request.RESQUEST_STATUS_TYPES \
                     else Request.get_requests_by_status()
             else:
                 requests = Request.get_all_requests()
