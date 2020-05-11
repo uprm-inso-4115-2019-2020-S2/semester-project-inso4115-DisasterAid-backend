@@ -67,7 +67,6 @@ class User(OutputMixin, db.Model):
     @staticmethod
     def verify_username(username):
         obj = User.query.filter(User.username == username).first()
-        print(obj)
         return True if obj else False
 
     def create(self):

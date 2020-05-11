@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, redirect
+from flask import Flask, request, jsonify, redirect, render_template
 from flask_cors import CORS, cross_origin
 from flask_sqlalchemy import SQLAlchemy
 
@@ -12,14 +12,17 @@ from handler.request import RequestHandler
 def index():
     return 'Welcome to Disaster Aid Distribution App!'
 
+
 # USER ENDPOINTS
 @app.route("/DAD/login", methods=['POST'])
 def do_login():
     return UserHandler().do_login(request.json)
 
+
 @app.route("/DAD/logout", methods=['GET'])
 def do_logout():
     return UserHandler().do_logout()
+
 
 @app.route("/DAD/users", methods=['GET', 'POST'])
 def get_all_or_create_users():
@@ -49,13 +52,24 @@ def get_user_by_id(uid):
     else:
         return jsonify(message="Method not allowed."), 405
 
+
 # DONATIONS ENDPOINTS
 @app.route('/DAD/donations', methods=['GET', 'POST'])
 def get_all_or_create_donations():
     if request.method == 'GET':
         search = request.args.get('search', None)
+        city_property = request.args.get('city', None)
+        supply = request.args.get('supply', None)
         if search in ['available']:
             return DonationHandler.get_all_donations(search)
+        elif search in ['no_request']:
+            return DonationHandler.get_all_donations_without_request()
+        elif search in ['dates']:
+            return DonationHandler.get_donations_by_date()
+        elif supply:
+            return DonationHandler.get_donations_by_supply_name(supply)
+        elif city_property:
+            return DonationHandler.get_donations_by_city(city_property)
         else:
             return DonationHandler.get_all_donations()
     elif request.method == 'POST':
@@ -83,10 +97,24 @@ def get_donation_by_id(did):
         return jsonify(message="Method not allowed."), 405
 
 
-# USER ENDPOINTS
-@app.route("/DAD/requests", methods=['GET', 'POST'])
-def requests():
+@app.route('/DAD/donations/user/<int:uid>', methods=['GET'])
+def get_donations_by_user(uid):
     if request.method == 'GET':
+        return DonationHandler().get_donations_by_user(uid)
+    else:
+        return jsonify(message="Method not allowed."), 405
+
+
+# REQUESTS ENDPOINTS
+@app.route("/DAD/requests", methods=['GET', 'POST'])
+def get_all_or_create_requests():
+    if request.method == 'GET':
+        supply_name = request.args.get('supply', None)
+        status = request.args.get('status', None)
+        if supply_name:
+            return RequestHandler.get_all_requests(supply_name=supply_name)
+        elif status:
+            return RequestHandler.get_all_requests(status=status)
         return RequestHandler().get_all_requests()
     elif request.method == 'POST':
         return RequestHandler().create_request(request.json)
@@ -95,7 +123,7 @@ def requests():
 
 
 @app.route("/DAD/requests/<int:rid>", methods=['GET', 'PUT', 'DELETE'])
-def request_update(rid):
+def get_request_by_id(rid):
     if request.method == 'GET':
         return RequestHandler().get_request_by_id(rid)
     elif request.method == 'PUT':
