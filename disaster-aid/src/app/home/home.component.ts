@@ -3,7 +3,7 @@ import { UserApiService } from '../userapi.service';
 import {Subscription} from 'rxjs/Subscription';
 import { User } from '../user';
 import { Supply } from '../supply';
-
+import { SeekDonationsService } from '../seek-donations.service';
 import { User1} from '../user';
 import { Router } from '@angular/router';
 
@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   numOfRequests = 10; //Displays the number of requests in the home page
   numOfDonations = 20; //Displays the number of donations in the home page
 
-  constructor(private userApi: UserApiService, private router: Router) { }
+  constructor(private userApi: UserApiService, private router: Router, private donationApi: SeekDonationsService) { }
   
   //Mock data; in practicality, these will be loaded with the info from db. 
   //user type should be User
@@ -148,8 +148,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   onClickList(e) {
     console.log(e.target.id);
     //DO THE SEACH WITH e.target.id QUE ES EL NOMBRE DEL PUEBLO
-    window.location.href = '/donations/'+String(e.target.id)
-    //window.location.href = '/donations'
+    this.donationApi.searchByCity(e.target.id);
+    //this.router.navigate(['/seek-donations']);
   }
 
   logout(){
