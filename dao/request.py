@@ -50,6 +50,10 @@ class Request(OutputMixin, db.Model):
     def get_requests_by_status(val=False):
         return Request.query.filter(Request.status.is_(val)).all()
 
+    @staticmethod
+    def get_requests_by_user(user_id):
+        return Request.query.filter_by(uid=user_id).all()
+
     def create(self):
         db.session.add(self)
         db.session.commit()
