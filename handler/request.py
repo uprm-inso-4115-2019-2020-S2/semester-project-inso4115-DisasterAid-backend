@@ -52,7 +52,7 @@ class RequestHandler(BaseHandler):
                 result_list = [request.to_dict() for request in requests]
                 result = {
                     "message": "Success!",
-                    "donation": result_list
+                    "requests": result_list
                 }
                 return jsonify(result), 200
             except Exception as err:
