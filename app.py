@@ -134,5 +134,13 @@ def get_request_by_id(rid):
         return jsonify(message="Method not allowed."), 405
 
 
+@app.route('/DAD/requests/user/<int:uid>', methods=['GET'])
+def get_requests_by_user(uid):
+    if request.method == 'GET':
+        return RequestHandler().get_requests_by_user(uid)
+    else:
+        return jsonify(message="Method not allowed."), 405
+
+
 if __name__ == '__main__':
     app.run()

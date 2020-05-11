@@ -45,6 +45,22 @@ class RequestHandler(BaseHandler):
             return jsonify(message="Bad Request!"), 400
 
     @staticmethod
+    def get_requests_by_user(uid):
+        if uid:
+            try:
+                requests = Request.get_requests_by_user(uid)
+                result_list = [request.to_dict() for request in requests]
+                result = {
+                    "message": "Success!",
+                    "requests": result_list
+                }
+                return jsonify(result), 200
+            except Exception as err:
+                return jsonify(message="Server Error!", error=err.__str__()), 500
+        else:
+            return jsonify(message="Bad request!"), 400
+
+    @staticmethod
     def create_request(json):
         valid_params = RequestHandler.verify_params(json, Request.REQUEST_REQUIRED_PARAMS)
         if valid_params:
