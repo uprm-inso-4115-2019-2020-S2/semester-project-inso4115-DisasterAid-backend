@@ -19,7 +19,7 @@ export class DonationsComponent implements OnInit {
   showAddDonationForm: Boolean = false;
   showEditDonationForm: Boolean = false;
 
-  donationsList: Donation[];
+  donationsList: Donation[] = [];
 
   location: string;  // only field that comes from user and not donation. (FETCH user.location)
 
@@ -76,15 +76,16 @@ export class DonationsComponent implements OnInit {
   getDonations(): void {
     this.donationsService.getUserDonations(this.currentUserID)
     .subscribe(donations => {
-      this.donationsList = donations as Donation[]
-    })
+      console.log(donations);
+      this.donationsList = donations.donation;
+    }, error=> console.error(error))
   }
 
   getLocation(): void {
     this.userService.getUserById(this.currentUserID)
     .subscribe(user => {
       this.location = user.user.city as string
-    })
+    }, error => console.error(error))
   }
 
   getCurrentUserID(){
@@ -132,12 +133,7 @@ export class DonationsComponent implements OnInit {
 
     }
 
-    this.donationsService.editDonation(donationToEdit)
-    .subscribe(data => {this.getDonations()});
-
-    console.warn('Values did: ', values);
-
-    for(let i = 0; i < this.donationsList.length; i++){
+      for(let i = 0; i < this.donationsList.length; i++){
       console.warn('List did: ', this.donationsList[i].did);
       if(this.donationsList[i].did == this.currentEditingID){
         console.log("current: ", this.currentEditingID);
@@ -146,6 +142,15 @@ export class DonationsComponent implements OnInit {
         this.donationsList[i].unit =  values.unit;
       }
     }
+
+    this.donationsService.editDonation(donationToEdit)
+    .subscribe(data => { 
+      console.log(data);
+      this.getDonations();
+      this.ngOnInit();
+    }, error=> console.error(error));
+
+    console.warn('Values did: ', values);
   }
 
 }

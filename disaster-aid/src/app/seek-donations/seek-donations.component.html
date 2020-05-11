@@ -35,24 +35,28 @@
       <tr>
           <td style="vertical-align: top;">
             <ul id="donations-list" >
-                <div class="donation-box" *ngFor="let donation of donationsList">
+                <div *ngFor="let donation of donationsList">
+                  <div  class="donation-box" *ngIf="donation.uid != loggedInUserID">
                     <span><img src="../assets/{{donation.supplyName}}.png" width="40px"></span>
-                  <span>Supply: {{ donation.supplyName }}</span>
-                  <span>Quantity: {{ donation.quantity }} {{ donation.unit }}</span>
-                  <span>Location: {{ donation.city }}</span>
-                  <span><button id="get-btn"  (click)="getItem(donation)">Get</button></span>
+                    <span>Supply: {{ donation.supplyName }}</span>
+                    <span>Quantity: {{ donation.quantity }} {{ donation.unit }}</span>
+                    <span>Location: {{ donation.user.city }}</span>
+                    <span><button id="get-btn_{{donation.did}}"  (click)="getItem(donation)">Get</button></span>
+                  </div>
                 </div>
               </ul>
           </td>
-          <td>
+          <td style="vertical-align: top;">
             <div class="checkout">
                 <p class="checkoutTitle">Checkout</p>
                 <ul>
                     <div *ngFor="let item of checkoutItems">
                       Supply: {{item.supplyName}}  (   Quantity:{{item.quantity}}   ) </div>
                 </ul>
-                <button style="width: 80% !important; vertical-align:80%;" (click)="requestItems()">Request items</button>
-            </div>
+                <div style="padding-top:55%;">
+                  <button style="width: 80% !important; vertical-align:80%;" (click)="requestItems()">Request items</button>
+                </div>
+              </div>
           </td>
       </tr>
   </table>

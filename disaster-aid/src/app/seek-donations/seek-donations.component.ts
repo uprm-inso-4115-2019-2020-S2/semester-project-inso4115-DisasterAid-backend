@@ -30,18 +30,13 @@ export class SeekDonationsComponent implements OnInit {
 
     this.seekServices.seekDonations().subscribe(res => {
       this.donationsList = res.donations;
-      this.donationsList.forEach(don => this.setCity(don))
+      
     }, error=>console.error(error));
   }
 
-  setCity(don: Donation ){
-      this.seekServices.getDonationCity(don.did).subscribe(city=>{
-        don.city = city.city;
-      }, error=> console.error(error))
-  }
-
-  getItem(donation: Donation){
+    getItem(donation: Donation){
     this.checkoutItems.push(donation);
+    document.getElementById(`get-btn_${donation.did}`).setAttribute('disabled', "true");
   }
 
   requestItems(){
@@ -55,7 +50,9 @@ export class SeekDonationsComponent implements OnInit {
         did: item.did
       }
       this.requestServices.createRequest(request).subscribe(
-        res => console.log("Request created!"), error => console.error(error)
+        res => {console.log("Request created!"),
+          this.router.navigate(['/request'])
+      }, error => console.error(error)
         // A~adir ruta a requests
       )
     }

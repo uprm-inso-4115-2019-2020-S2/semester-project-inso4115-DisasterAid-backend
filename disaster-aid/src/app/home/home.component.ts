@@ -6,6 +6,10 @@ import { Supply } from '../supply';
 
 import { User1} from '../user';
 import { Router } from '@angular/router';
+import { DonationsService } from '../donations.service';
+import { Donation } from '../donation';
+import { MyRequest } from '../my-request';
+import { RequestApiService } from '../request-api.service';
 
 
 @Component({
@@ -18,15 +22,18 @@ export class HomeComponent implements OnInit, OnDestroy {
   userListSubs: Subscription;
   userList : User[];
   loggedInUser: User;
+  mySuppliesList: Donation[] = [];
+
 
   pending = [new User1(1, 'Carlos J. Ayala'), new User1(2, 'Javier'), new User1(2, 'Javier')
   , new User1(2, 'Javier'), new User1(2, 'Javier'), new User1(2, 'Javier'), new User1(2, 'Javier')
   , new User1(2, 'Javier'), new User1(2, 'Javier'), new User1(2, 'Javier'), new User1(2, 'Javier')];  //FOR TESTING
   delivered = [new User1(3, 'Juan Del Pueblo'), new User1(4, 'Los $1200')];  //FOR TESTING
-  numOfRequests = 10; //Displays the number of requests in the home page
-  numOfDonations = 20; //Displays the number of donations in the home page
+  numOfRequests : number; //Displays the number of requests in the home page
+  numOfDonations:number; //Displays the number of donations in the home page
 
-  constructor(private userApi: UserApiService, private router: Router) { }
+  constructor(private userApi: UserApiService, private router: Router, 
+    private donationApi: DonationsService, private requestsApi: RequestApiService) { }
   
   //Mock data; in practicality, these will be loaded with the info from db. 
   //user type should be User
@@ -87,44 +94,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   
   //mock supplies list (to be loaded from db)
   //List should be of type Supply[]
-  mySuppliesList = [
-    {
-      name: "tools",
-    },
-    {
-      name: "batteries"
-    },
-    {
-      name: "blanket"
-    }
-  ]
+ 
 
   //mock resources list (to be loaded from db)
   //List should be of type Supply[]
   //Para los supplies la lista es : food, water, blankets, clothes, medicine, batteries y tools
   // OJO - para que funcionen las fotos los names tienen que empezar con lowercase
-  myResourcesList: Supply[] = [
-    {
-      name: "water",
-      quantity: 17,
-      location: "Arecibo"
-    },
-    {
-      name: "food",
-      quantity: 23,
-      location: "Quebradillas"
-    },
-    {
-      name: "medicine",
-      quantity: 4,
-      location: "Naguabo"
-    },
-    {
-      name: "clothes",
-      quantity: 4,
-      location: "San Sebastian"
-    }
-  ]
+  incomingRequestsList: MyRequest[] = [];
 
   ngOnInit(): void {
 
@@ -138,6 +114,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       },
       error => console.log(error)
       );
+
+      this.getThisUsersDonations();
 
   }
 
@@ -161,6 +139,79 @@ export class HomeComponent implements OnInit, OnDestroy {
       }, error => console.error(error)
        )
     // Add this.auth.logout(); HERE
+  }
+
+  getThisUsersDonations(){
+    this.donationApi.getUserDonations(localStorage.getItem('loggedInUserID')).subscribe(
+      res=> {
+        this.mySuppliesList = res.donation;
+        this.numOfDonations = res.donation.length;
+        this.populateIncomingRequestList();
+      }, error=> console.error(error)
+    )
+  }
+
+  populateIncomingRequestList(){
+    this.mySuppliesList.forEach(supply =>
+      supply.requests.forEach(item =>  this.incomingRequestsList.push(item))
+      );
+      this.numOfRequests = this.incomingRequestsList.length;
+}
+
+
+ 
+  
+  acceptRequest(requestId: string){
+
+    console.log(requestId);
+     this.requestsApi.getRequestById(requestId).subscribe(
+       res => {
+         console.log(res)
+         const rte:MyRequest = {
+          rId: +requestId,
+          supplyName: res.requests.supplyName,
+          time: res.requests.time,
+          status: true,
+          description: res.requests.description,
+          donation: res.requests.donation,
+          user: res.requests.user,
+          uid: res.requests.uid,
+          did: res.requests.did
+         }
+
+         this.editDonationAmount(rte.did+'');
+         this.saveChangesRequest(rte);
+         
+       }, error => console.error(error)
+     )
+  }
+
+
+  private editDonationAmount(donationID:string){
+    this.donationApi.getDonationById(donationID).subscribe(
+      don=> {
+        const dte:Donation ={
+          did: +donationID,
+          supplyName: don.supplyName,
+          quantity: 0,
+          createdAt: don.createdAt,
+          unit: don.unit,
+          uid: don.uid,
+          user: don.user,
+          city: don.city
+        }
+        this.saveChangesDonation(dte);
+      }, error => console.error(error)
+    )
+  }
+
+  private saveChangesDonation(don: Donation){
+    this.donationApi.editDonation(don).subscribe(error=>console.error(error))
+  }
+
+  private saveChangesRequest(req: MyRequest){
+    console.log(req);
+    this.requestsApi.editRequest(req).subscribe(res=> console.log(res),error=>console.error(error))
   }
 
 }

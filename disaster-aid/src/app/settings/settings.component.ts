@@ -152,7 +152,7 @@ export class SettingsComponent implements OnInit {
     if(userData.username != '') this.myUser.username = userData.username;
     if(userData.password != '') this.myUser.password = userData.password;
   
-      this.userApi.editUser(this.myUser).subscribe(error => alert(error.message));
+      this.userApi.editUser(this.myUser).subscribe(res=> this.router.navigate(['/home']),error => alert(error.message));
     
   }
 

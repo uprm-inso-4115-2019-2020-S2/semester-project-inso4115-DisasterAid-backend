@@ -5,7 +5,7 @@ export interface Donation {
     supplyName: string;
     quantity: number;
     requests?: MyRequest[];
-    createdAt: Date; // not sure if this is correct type
+    createdAt: Date; 
     unit: string;
     uid: number;
     user: number;

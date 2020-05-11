@@ -3,6 +3,7 @@ import { Donation } from './donation';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { DonationResponse } from './donation-response';
 
 @Injectable({
   providedIn: 'root'
@@ -58,8 +59,7 @@ export class DonationsService {
   public editDonation(donation: Donation): Observable<any> {
     const httpOptions = { 
       headers: new HttpHeaders ({
-        'Content-Type': 'applications/json',
-        'Accept': 'application/json'
+        'Content-Type': 'applications/json'        
       })
     };
     return this.httpClient
@@ -67,9 +67,9 @@ export class DonationsService {
     .pipe(catchError (this._handleError))
   }
 
-  public getUserDonations(userID: String): Observable<Donation[]> {
+  public getUserDonations(userID: String): Observable<DonationResponse> {
     return this.httpClient
-    .get<Donation[]>(this.server + `DAD/donations/user/${userID}`)
+    .get<DonationResponse>(this.server + `DAD/donations/user/${userID}`)
     .pipe(catchError(this._handleError));
   }
 }

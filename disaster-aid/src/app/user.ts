@@ -1,3 +1,5 @@
+import { MyRequest } from './my-request';
+
 export interface User {
     uid?: Number;
     firstName: String;
@@ -11,7 +13,7 @@ export interface User {
     country: String;
     username: String;
     password: String;
-    requests?: Request[]; 
+    requests?: MyRequest[]; 
 }
 
 // Para test, BORRAR

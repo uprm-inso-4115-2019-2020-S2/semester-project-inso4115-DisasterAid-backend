@@ -8,7 +8,7 @@
 
 .top-bar {
     position: absolute;
-    width: 1920px;
+    width: 100%;
     height: 226px;
     left: 0px;
     top: 0px;
@@ -139,7 +139,7 @@ ul {
 
 .rectangle15 {
     position: inherit;
-    width: 135px;
+    width: 130px;
     height: 190px;
     left: 20px;
     top: 100px;
@@ -173,7 +173,7 @@ ul {
 
 .rectangle-user1 {
     position: absolute;
-    width: 350px;
+    width: 25%;
     height: 298px;
     left: 930px;
     top: 87px;
@@ -183,7 +183,7 @@ ul {
 
 .rectangle-user2 {
     position: absolute;
-    width: 350px;
+    width: 25%;
     height: 300px;
     left: 930px;
     top: 495px;
@@ -193,7 +193,7 @@ ul {
 
 .rectangle-user3 {
     position: absolute;
-    width: 170px;
+    width: 12%;
     height: 90px;
     left: 930px;
     top: 395px;
@@ -203,7 +203,7 @@ ul {
 
 .rectangle-user4 {
     position: absolute;
-    width: 350px;
+    width: 12%;
     height: 90px;
     left: 930px;
     top: 395px;

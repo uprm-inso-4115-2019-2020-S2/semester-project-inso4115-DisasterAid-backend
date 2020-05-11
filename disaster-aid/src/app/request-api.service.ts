@@ -4,6 +4,7 @@ import { throwError, Observable, from } from 'rxjs';
 import { RequestResponse } from './request-response';
 import {MyRequest } from './my-request'
 import { catchError } from 'rxjs/operators';
+import { RequestByIdResponse } from './request-by-id-response';
 
 @Injectable({
   providedIn: 'root'
@@ -24,9 +25,9 @@ constructor(private httpClient:HttpClient) { }
 
     public server:String = " http://localhost:5000/";
 
-   public getRequestByUserId(userId: String):Observable<RequestResponse> {
+   public getRequestById(rId: String):Observable<RequestByIdResponse> {
      return this.httpClient
-     .get<RequestResponse>(this.server + `DAD/request/${userId}`)
+     .get<RequestByIdResponse>(this.server + `DAD/requests/${rId}`)
      .pipe(catchError (this._handleError));
    }
    
@@ -51,10 +52,16 @@ constructor(private httpClient:HttpClient) { }
       })
     };
     return this.httpClient
-    .put(this.server + `DAD/users/${request.rId}`,request , httpOptions)
+    .put(this.server + `DAD/requests/${request.rId}`,request , httpOptions)
     .pipe(catchError (this._handleError));
   }
-  
+
+  public deleteRequest(requestID: String): Observable<any> {
+        return this.httpClient
+    .delete(this.server + `DAD/requests/${requestID}`)
+    .pipe(catchError (this._handleError));
+  }
+
   //DELETE REQUEST
      
 }

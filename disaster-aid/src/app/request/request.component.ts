@@ -1,77 +1,50 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Request} from '../request';
 import {FormBuilder} from '@angular/forms';
+import { UserApiService } from '../userapi.service';
+import { Router } from '@angular/router';
+import { MyRequest } from '../my-request';
+import { RequestApiService } from '../request-api.service';
 
 // @ts-ignore
 @Component({ selector: 'app-request',
   templateUrl: 'request.component.html',
   styleUrls: ['./request.component.css']
 })
-export class RequestComponent {
+export class RequestComponent implements OnInit {
 
   addRequestForm;
   showRequestForm = false;
+  loggedInUserID:String;
 
   // mock list. in reality it would get loaded with db donations (GET all donations)
-  public requestList: Request[] = [
-    {
-      did: 1,
-      supplyName: 'Water',
-      description: 'Pain',
-      quantity: 10,
-      time: {hours: 12, minutes: 12},
-      status: false,
-    },
-    {
-      did: 2,
-      supplyName: 'Paper',
-      description: 'Bloated',
-      quantity: 10,
-      time: {hours: 12, minutes: 12},
-      status: true,
-    },
-    {
-      did: 3,
-      supplyName: 'Granola ',
-      description: 'Chapstick',
-      quantity: 10,
-      time: {hours: 12, minutes: 12},
-      status: true,
-    }
-  ];
+  public requestList: MyRequest[] = [ ];
 
   location = 'Arecibo';  // only field that comes from user and not donation. (FETCH user.location)
 
-constructor( private formBuilder: FormBuilder, ) {
-  this.addRequestForm = this.formBuilder.group(
-    {
-      supplyName: '',
-      quantity: '',
-      status: '',
+constructor( private userApi: UserApiService, private router:Router, private requestApi: RequestApiService) {}
+
+  ngOnInit(): void {
+    if(localStorage.getItem('loggedInUserID') == null){ this.router.navigate(['/login'])}
+    this.loggedInUserID = localStorage.getItem('loggedInUserID');
+
+    this.userApi.getUserById(this.loggedInUserID).subscribe(res =>{
+      this.requestList = res.user.requests;
     }
-  );
+
+    )
+  }
+
+
+cancelRequest(rid: String){
+  
+  this.requestApi.deleteRequest(rid).subscribe(res=>
+     {console.log(res),
+      this.ngOnInit()
+  }, 
+  error=>console.error(error));
+  
 }
-  toggleAddRequest() {
-  console.log('Add button clicked');
-  this.showRequestForm = !this.showRequestForm;
-}
 
-onAddRequestSubmit(requestData) {
-  this.addRequestForm.reset();
-
-
-// here it is getting pushed to the array to be displayed but also needs to be pushed to db (POST new donation)
-  this.requestList.push({
-    did: this.requestList.length + 1,
-    supplyName: requestData.supplyName,
-    quantity: requestData.quantity,
-    description: requestData.description,
-    time: {hours: 12, minutes: 12},
-    status: requestData.status,
-  });
-
-  console.warn('donation added: ', requestData);
-
-}
 
 }

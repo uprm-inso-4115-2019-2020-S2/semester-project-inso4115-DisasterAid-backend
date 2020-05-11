@@ -49,11 +49,15 @@
 
   <section>
     <div class="box">
-      <p class="user-text ml-4 mt-1" style="text-align: justify;">My Supplies</p>
-      <ul class="resources" *ngFor="let supply of mySuppliesList">
-        <div class="rectangle-resource">
-          <img src="assets/{{supply.name}}.png" width="60%" style="margin-left: 20px; margin-top: 6px; margin-bottom: 12px;">
-          <span class="supply-text" style="text-transform: capitalize;">{{supply.name}}</span>
+      <div>
+        <label class="user-text ml-4 mt-1" style="text-align: justify;">My Supplies</label>
+        <a style="padding-left: 325px;" routerLink='/my-donations' routerLinkActive="true">See More</a>
+      </div>
+     
+      <ul class="resources" *ngFor="let supply of mySuppliesList; let i=index">
+        <div *ngIf="i < 4 && supply.quantity>0" class="rectangle-resource">
+          <img src="assets/{{supply.supplyName}}.png" width="60%" style="margin-left: 20px; margin-top: 6px; margin-bottom: 12px;">
+          <span class="supply-text" style="text-transform: capitalize;">{{supply.supplyName}} : {{supply.quantity}}</span>
         </div>      
       </ul>
 
@@ -65,19 +69,17 @@
 
   <section>
     <div class="box" style="top: 570px;">
-      <p class="user-text ml-4 mt-1" style="text-align: justify;">New Resources Available:</p>
+      <p class="user-text ml-4 mt-1" style="text-align: justify;">Incoming Requests</p>
 
       <!-- card -->
-      <ul class="resources" *ngFor="let resource of myResourcesList">
-        <div class="rectangle-resource">
-          <img src="assets/{{resource.name}}.png" width="60%" style="margin-top: 6px; margin-bottom: 18px;">
+      <ul class="resources" *ngFor="let item of incomingRequestsList; let i=index">
+        <div *ngIf="i<4 && item.status==false" class="rectangle-resource">
+          <img src="assets/{{item.supplyName}}.png" width="60%" style="margin-top: 6px; margin-bottom: 18px;">
           <p class="resource-text" style="white-space: pre; text-transform: capitalize;">
-            {{resource.name}} x{{resource.quantity}}
-            {{resource.location}}
-          </p>
+            {{item.supplyName}} (Status: Pending) </p>
           <!-- <span class="resource-text">x{{resource.quantity}} </span> -->
           <!-- <span class="resource-text">{{resource.location}}</span>  -->
-          <button class="get-btn">GET</button>
+          <button class="get-btn" (click)="acceptRequest(item.rid)">ACCEPT</button>
         </div>
       </ul>
 
@@ -105,7 +107,7 @@
       <p class="user-text m-2 mb-lg-n2">{{numOfDonations}}</p>
       <p class="user-text" style="font-size: 18px;">Donations</p>
     </div>
-    <div class="rectangle-user3" style="left: 1110px">
+    <div class="rectangle-user3" style="left: 1094px">
       <p class="user-text m-2 mb-lg-n2">{{numOfRequests}}</p>
       <p class="user-text" style="font-size: 18px;">Requests</p>
     </div>
@@ -120,8 +122,8 @@
           <li>{{person.firstName}} {{person.lastName}}</li>
         </ul>
       </div>
-      <p class="user-text" style="position: absolute; left: 230px; font-size: 22px;">Pending</p>
-      <div class="rectangle15 overflow-auto" style="left: 200px;">
+      <p class="user-text" style="position: absolute; left: 200px; font-size: 22px;">Pending</p>
+      <div class="rectangle15 overflow-auto" style="left: 170px;">
         <ul id="pending" style="list-style-type: none; color: white;" *ngFor="let person of pendingList">
           <li>{{person.firstName}} {{person.lastName}}</li>
         </ul>

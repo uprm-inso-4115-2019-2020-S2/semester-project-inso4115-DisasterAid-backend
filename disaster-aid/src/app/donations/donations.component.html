@@ -1,17 +1,18 @@
+<html>
 <nav class="navbar navbar-light" style="background-color: rgba(2, 163, 232, 0.4);">
     <a class="navbar-brand mr-1" href="#"><img src="/assets/DAD_logo.png" style="width: 50%;" /></a>
     <ul class="nav navbar-justified navbar-right ml-auto" style="margin-right: 3%;">
-        <li class="nav-item">
+        <!-- <li class="nav-item">
             <a class="nav-link menuItem" routerLink="/my-donations">DONATE</a>
+        </li> -->
+        <li class="nav-item">
+            <a class="nav-link menuItem" href="/request">MY REQUESTS</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link menuItem" href="#">LOCATE HELP</a>
+            <a class="nav-link menuItem" href="/seek-donations">SEEK DONATIONS</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link menuItem" href="#">SEEK DONATIONS</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link menuItem" routerLink="/register" routerLinkActive="active">SIGN-UP</a
+            <a class="nav-link menuItem" routerLink="/home" routerLinkActive="active">HOME</a
       >
     </li>
   </ul>
@@ -113,10 +114,11 @@
 
 <ul id="donations-list" >
   <div class="donation-box" *ngFor="let donation of donationsList">
+    <span><img src="../assets/{{donation.supplyName}}.png" width="40px"></span>
     <span>Supply: {{ donation.supplyName }}</span>
     <span>Quantity: {{ donation.quantity }} {{ donation.unit }}</span>
     <span>Location: {{ location }}</span>
-    <span><button id="edit-btn">Edit</button></span>
+    <span><button id="edit-btn" (click)="toggleEditDonation(donation.did)">Edit</button></span>
   </div>
 </ul>
 
@@ -212,14 +214,6 @@
             </form>
     
   </div>
- <ul id
-="donations-list">
-    <div class="donation-box" *ngFor="let donation of donationsList">
-        <span>Supply: {{donation.supplyName}}</span>
-        <span>Quantity: {{donation.quantity}} {{donation.unit}}</span>
-        <span>Location: {{location}}</span>
-        <span><button id="edit-btn" (click)="toggleEditDonation(donation.did);">Edit</button></span>
-    </div>
 
-</ul>
 
+</html>

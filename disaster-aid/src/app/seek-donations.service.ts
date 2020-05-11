@@ -7,6 +7,7 @@ import { LoginResult } from './login-result';
 import { User } from './user';
 import { DonationResponse } from './donation-response';
 import { Donation } from './donation';
+import { SeekResponse } from './seek-response';
 
 @Injectable({
   providedIn: 'root'
@@ -27,19 +28,13 @@ export class SeekDonationsService {
 
     public server:String = " http://localhost:5000/";
 
-   public seekDonations(mySearch?:String):Observable<DonationResponse> {
+   public seekDonations(mySearch?:String):Observable<SeekResponse> {
      if(mySearch==''){ mySearch = 'available';} 
      return this.httpClient
-     .get<DonationResponse>(this.server + `DAD/donations?search=${mySearch}`)
+     .get<SeekResponse>(this.server + `DAD/donations?search=${mySearch}`)
      .pipe(catchError (this._handleError));
    } 
 
-   public getDonationCity(donationId : number): Observable<DonationResponse> {
-    return this.httpClient
-    .get<DonationResponse>(this.server + `DAD/donations/${donationId}?property=city`)
-    .pipe(catchError (this._handleError));
-  }
-  
 
   public editDonationQuantity(donation: Donation): Observable<any> {
     const httpOptions = {
