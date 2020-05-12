@@ -1,58 +1,129 @@
 <html>
 <nav class="navbar navbar-light" style="background-color: rgba(2, 163, 232, 0.4);">
-    <a class="navbar-brand mr-1" href="#"><img src="/assets/DAD_logo.png" style="width: 50%;" /></a>
-    <ul class="nav navbar-justified navbar-right ml-auto" style="margin-right: 3%;">
-        <!-- <li class="nav-item">
+  <a class="navbar-brand mr-1" href="#"><img src="/assets/DAD_logo.png" style="width: 50%;" /></a>
+  <ul class="nav navbar-justified navbar-right ml-auto" style="margin-right: 3%;">
+    <!-- <li class="nav-item">
             <a class="nav-link menuItem" routerLink="/my-donations">DONATE</a>
         </li> -->
-        <li class="nav-item">
-            <a class="nav-link menuItem" href="/request">MY REQUESTS</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link menuItem" href="/seek-donations">SEEK DONATIONS</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link menuItem" routerLink="/home" routerLinkActive="active">HOME</a
-      >
+    <li class="nav-item">
+      <a class="nav-link menuItem" href="/request">MY REQUESTS</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link menuItem" href="/seek-donations">SEEK DONATIONS</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link menuItem" routerLink="/home" routerLinkActive="active">HOME</a>
     </li>
   </ul>
 </nav>
 
 
-
 <div class="main">
 
-    <div *ngIf="showAddDonationForm">
-        <form
-          [formGroup]="addDonationForm"
-          (ngSubmit)="onAddDonationSubmit(addDonationForm.value)"
-        >
-          <div class="donateBox">
-            <table style=" width: 100%; text-align: center;">
+
+
+  <h2>My Donations:</h2>
+
+  <button id="add-new" (click)="toggleAddDonation()">Add New Donation</button>
+  <table>
+    <tr>
+      <td style="vertical-align: top;">
+        <div id="myDonationBox" *ngIf="showAddDonationForm">
+          <form [formGroup]="addDonationForm" (ngSubmit)="onAddDonationSubmit(addDonationForm.value)">
+            <div class="donateBox">
+              <table style=" width: 100%; text-align: center;">
+                <tr>
+                  <td colspan="2">
+                    <p style="
+                            font-size: 60px;
+                            text-align: center;
+                            padding-top: 3%;
+                            color: white;
+                          ">
+                      Donate:
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label for="supplyName">Supply</label>
+                  </td>
+                  <td>
+                    <!-- <input id="supplyName" type="text" formControlName="supplyName"> -->
+                    <select class="select" id="supplyNameE" type="text" formControlName="supplyName">
+                      <option value="food">food</option>
+                      <option value="water">water</option>
+                      <option value="blankets">blankets</option>
+                      <option value="clothes">clothes</option>
+                      <option value="medicine">medicine</option>
+                      <option value="batteries">batteries</option>
+                      <option value="tools">tools</option>
+                    </select>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <label for="quantity" style=" text-align: left;">Quantity</label>
+                  </td>
+                  <td>
+                    <input class="select" id="quantityE" type="text" formControlName="quantity">
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <label for="unit" style=" text-align: left;">Units</label>
+                  </td>
+                  <td>
+                    <input class="select" id="unitE" type="text" formControlName="unit">
+                  </td>
+                </tr>
+
+                <!-- <div style="text-align: center; padding-top: 7px;"> -->
+                <tr>
+                  <td colspan="2">
+                    <br>
+                    <button class="donateButton" (click)="toggleAddDonation()">
+                      Cancel
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2">
+                    <button class="donateButton" type="submit">Donate</button>
+                  </td>
+                </tr>
+                <!-- </div> -->
+              </table>
+            </div>
+          </form>
+        </div>
+        <div class="donateBox" id="edit-form" *ngIf="showEditDonationForm">
+          <form [formGroup]="editDonationForm" (ngSubmit)="onEditDonationSubmit(editDonationForm.value)">
+            <table style="text-align: center; width: 100%;">
               <tr>
+
+
                 <td colspan="2">
-                  <p
-                    style="
-                      font-size: 80px;
-                      text-align: center;
-                      padding-top: 3%;
-                      color: white;
-                    "
-                  >
-                    Donate:
-                  </p>
+                  <h2 style="
+               font-size: 50px;
+               text-align: center;
+               margin-left: 0vw;
+               padding-top: 3%;
+               color: white;
+          "> Edit Donation:</h2>
                 </td>
               </tr>
               <tr>
                 <td>
-                  <label
-                    for="supplyName"
-                    >Supply</label
-                  >
+
+                  <label for="supplyName">
+                    Supply Name:
+                  </label>
                 </td>
                 <td>
-                  <!-- <input id="supplyName" type="text" formControlName="supplyName"> -->
-                  <select class="select" id="supplyNameE" type="text" formControlName="supplyName">
+                  <select id="supplyName" name="supply" class="select" formControlName="supplyName">
                     <option value="food">food</option>
                     <option value="water">water</option>
                     <option value="blankets">blankets</option>
@@ -63,157 +134,72 @@
                   </select>
                 </td>
               </tr>
-      
+
+              <tr>
+
+                <td>
+                  <label for="quantity">
+                    Quantity:
+                  </label>
+                </td>
+                <td>
+                  <input type="number" class="select" id="quantity" name="quantity" formControlName="quantity" min="1"
+                    max="1000">
+                </td>
+              </tr>
+
               <tr>
                 <td>
-                  <label for="quantity" style=" text-align: left;"
-                    >Quantity</label
-                  >
+                  <label for="unit">
+                    Unit:
+                  </label>
+
                 </td>
                 <td>
-                  <input class="select" id="quantityE" type="text" formControlName="quantity">
+                  <input class="select" id="unit" type="text" formControlName="unit">
                 </td>
               </tr>
-      
+
+
               <tr>
-                <td>
-                  <label for="unit" style=" text-align: left;"
-                    >Units</label
-                  >
+                <td colspan="2">
+                  <br>
+                  <button class="donateButton" type="submit">Save</button>
                 </td>
-                <td>
-                  <input class="select" id="unitE" type="text" formControlName="unit">
-                </td>
-              </tr>
-      
-              <!-- <div style="text-align: center; padding-top: 7px;"> -->
-                  <tr>
-                      <td colspan="2"> 
-                          <br>
-                <button class="donateButton" (click)="toggleAddDonation()">
-                  Cancel
-                </button>
-              </td>
               </tr>
               <tr>
-                  <td colspan="2">
-                <button class="donateButton" type="submit">Donate</button>
-              </td>
+                <td colspan="2">
+                  <button class="donateButton" (click)="toggleEditDonationCancel();">Cancel</button>
+                </td>
               </tr>
-              <!-- </div> -->
+
             </table>
+          </form>
+
+        </div>
+      </td>
+      <td>
+ 
+        <ul id="donations-list">
+          <div class="donation-box" *ngFor="let donation of donationsList">
+            <span><img src="../assets/{{donation.supplyName}}.png" width="40px"></span>
+            <span>Supply: {{ donation.supplyName }}</span>
+            <span>Quantity: {{ donation.quantity }} {{ donation.unit }}</span>
+            <span>Location: {{ location }}</span>
+            <span><button id="edit-btn" (click)="toggleEditDonation(donation.did)">Edit</button></span>
           </div>
-        </form>
-      </div>
-
-<h2>My Donations:</h2>
-
-<button id="add-new" (click)="toggleAddDonation()">Add New Donation</button>
+        </ul>
 
 
+      </td>
 
-<ul id="donations-list" >
-  <div class="donation-box" *ngFor="let donation of donationsList">
-    <span><img src="../assets/{{donation.supplyName}}.png" width="40px"></span>
-    <span>Supply: {{ donation.supplyName }}</span>
-    <span>Quantity: {{ donation.quantity }} {{ donation.unit }}</span>
-    <span>Location: {{ location }}</span>
-    <span><button id="edit-btn" (click)="toggleEditDonation(donation.did)">Edit</button></span>
-  </div>
-</ul>
+    </tr>
+
+  </table>
+
+
 
 </div>
-
-
-
-    
-  <div class="donateBox" id="edit-form" *ngIf="showEditDonationForm">
-    <form [formGroup]="editDonationForm" (ngSubmit)="onEditDonationSubmit(editDonationForm.value)">
-      <table style="text-align: center; width: 100%;">
-        <tr>
-          
-      
-        <td colspan="2">
-        <h2
-          style="
-               font-size: 50px;
-               text-align: center;
-               margin-left: 0vw;
-               padding-top: 3%;
-               color: white;
-          "
-
-        > Edit Donation:</h2>
-      </td>
-    </tr>
-    <tr>
-      <td>
-
-        <label for="supplyName">
-          Supply Name:
-        </label>
-      </td>
-      <td>
-        <select id="supplyName" name="supply" class="select" formControlName="supplyName" >
-          <option value="food">food</option>
-          <option value="water">water</option>
-          <option value="blankets">blankets</option>
-          <option value="clothes">clothes</option>
-          <option value="medicine">medicine</option>
-          <option value="batteries">batteries</option>
-          <option value="tools">tools</option> 
-      </select>
-      </td>
-      </tr>
-
-      <tr>
-
-    <td>
-        <label for="quantity">
-          Quantity:
-        </label>
-      </td>
-      <td>
-        <input type="number" class="select" id="quantity" name="quantity" formControlName="quantity" min="1" max="1000">
-      </td>
-      </tr>
-      
-<tr>
-      <td>
-        <label for="unit">
-          Unit:
-        </label>
-
-      </td>
-      <td>
-       <input class="select" id="unit" type="text" formControlName="unit">
-      </td>
-    </tr>
-   
-
-<tr>
-  <td colspan="2">
-    <br>
-      <button class="donateButton"
-
-
-
-              type="submit">Save</button>
-            </td>
-            </tr>
-<tr>
-  <td colspan="2">
-      <button class="donateButton"
-              
-
-              (click)="toggleEditDonationCancel();">Cancel</button>
-            </td>
-            </tr>
-
-            </table>
-            </form>
-    
-  </div>
 
 
 </html>

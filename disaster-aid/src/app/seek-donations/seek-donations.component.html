@@ -54,8 +54,9 @@
                     <div *ngFor="let item of checkoutItems">
                       Supply: {{item.supplyName}}  (   Quantity:{{item.quantity}}   ) </div>
                 </ul>
-                <div style="padding-top:55%;">
+                <div style="padding-top:45%;">
                   <button style="width: 80% !important; vertical-align:80%;" (click)="requestItems()">Request items</button>
+                  <button style="width: 80% !important; vertical-align:80%;" (click)="emptyCart()">Empty Cart</button>
                 </div>
               </div>
           </td>

@@ -127,6 +127,9 @@ h2 {
     /* background: url(/assests/triangle.png) no-repeat right #ddd; */
 }
 
+.hide {
+    display: block;
+}
 
 
 

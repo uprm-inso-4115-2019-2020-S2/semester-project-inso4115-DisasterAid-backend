@@ -61,4 +61,8 @@ export class SeekDonationsComponent implements OnInit {
       this.checkoutItems = [];
      
   }
+
+  emptyCart(){
+    window.location.reload();
+  }
 }

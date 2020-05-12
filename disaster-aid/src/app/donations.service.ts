@@ -65,7 +65,7 @@ export class DonationsService {
     };
     console.warn(donation);
     return this.httpClient
-    .put(this.server+ `DAD/donations/${did}`, donation, httpOptions)
+    .put(this.server+ `DAD/donations/${did}`, donation)
     .pipe(catchError (this._handleError))
   }
 

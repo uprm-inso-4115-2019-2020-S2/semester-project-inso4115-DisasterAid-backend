@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Gochi+Hand&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap');
 
 
 
@@ -7,27 +8,30 @@ a.menuItem:hover {
 }
 
 .map {
-    position: absolute;
-    width: 1450px;
+    text-align: center;
+    /* position: absolute;
+    width: 100%;
     height: 500px;
-    left: 300px;
-    top: 90px;
+    left: 320px;
+    top: 90px; */
 }
 
 .bestText{
-    position: absolute;
+    /* position: absolute; */
     font-size: 45px;
     color: white;
-    top: 370px;
-    left: 320px;
+    /* top: 370px;
+    left: 240px; */
+    font-family: 'Roboto Condensed', sans-serif;
     
 }
 .donateText{
-    position: absolute;
+    /* position: absolute; */
     font-size: 25px;
     color: white;
-    top: 435px;
-    left: 380px;
+    /* top: 435px;
+    left: 360px; */
+    font-family: 'Roboto Condensed', sans-serif;
 }
 .button {
     
@@ -35,12 +39,16 @@ a.menuItem:hover {
     background-color: #FFBC40;
     font-size: larger;
     text-align: center;
-    position: absolute;
+    /* position: absolute; */
     width: 130px;
     height: 30px;
-    left: 580px;
-    top: 500px;
-
+    /* left: 530px;
+    top: 500px; */
     
+
+}
+
+.button:hover{
+    background-color: rgb(231, 161, 31);
 }
 
