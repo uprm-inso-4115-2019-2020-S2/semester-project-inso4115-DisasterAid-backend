@@ -56,14 +56,16 @@ export class DonationsService {
     .pipe(catchError (this._handleError))
   }
 
-  public editDonation(donation: Donation): Observable<any> {
+  public editDonation(donation: Donation, did:string): Observable<any> {
     const httpOptions = { 
       headers: new HttpHeaders ({
-        'Content-Type': 'applications/json'        
+        'Content-Type': 'applications/json' ,
+        'Accept': 'application/json'    
       })
     };
+    console.warn(donation);
     return this.httpClient
-    .put(this.server+`DAD/donations/${donation.did}`, donation, httpOptions)
+    .put(this.server+ `DAD/donations/${did}`, donation, httpOptions)
     .pipe(catchError (this._handleError))
   }
 

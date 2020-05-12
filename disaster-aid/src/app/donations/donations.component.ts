@@ -64,7 +64,7 @@ export class DonationsComponent implements OnInit {
     }
 
     this.donationsService.addDonation(donationToAdd)
-    .subscribe(data => { this.donationsService.getDonations(), this.addDonationForm.reset(); },
+    .subscribe(data => { this.donationsService.getDonations(), this.addDonationForm.reset(); this.ngOnInit(); },
     error => console.error(error));
 
     console.warn('donation added: ', donationData);
@@ -126,7 +126,6 @@ export class DonationsComponent implements OnInit {
       supplyName: values.supplyName,
       quantity: values.quantity,
       unit: values.unit,
-      did: this.currentEditingID,
       uid: +this.currentUserID,
       user: +this.currentUserID,
       createdAt: new Date(Date.now())
@@ -143,7 +142,7 @@ export class DonationsComponent implements OnInit {
       }
     }
 
-    this.donationsService.editDonation(donationToEdit)
+    this.donationsService.editDonation(donationToEdit, this.currentEditingID)
     .subscribe(data => { 
       console.log(data);
       this.getDonations();

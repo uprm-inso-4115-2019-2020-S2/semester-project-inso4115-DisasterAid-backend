@@ -36,7 +36,8 @@
           <td style="vertical-align: top;">
             <ul id="donations-list" >
                 <div *ngFor="let donation of donationsList">
-                  <div  class="donation-box" *ngIf="donation.uid != loggedInUserID">
+                  <div  class="donation-box" 
+                  *ngIf="donation.uid != loggedInUserID && donation.requests.length == 0 && donation.quantity >0">
                     <span><img src="../assets/{{donation.supplyName}}.png" width="40px"></span>
                     <span>Supply: {{ donation.supplyName }}</span>
                     <span>Quantity: {{ donation.quantity }} {{ donation.unit }}</span>

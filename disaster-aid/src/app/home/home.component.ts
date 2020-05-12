@@ -10,6 +10,7 @@ import { DonationsService } from '../donations.service';
 import { Donation } from '../donation';
 import { MyRequest } from '../my-request';
 import { RequestApiService } from '../request-api.service';
+import { disableDebugTools } from '@angular/platform-browser';
 
 
 @Component({
@@ -161,7 +162,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
  
   
-  acceptRequest(requestId: string){
+  acceptRequest(requestId: string, donationId: string){
 
     console.log(requestId);
      this.requestsApi.getRequestById(requestId).subscribe(
@@ -178,35 +179,42 @@ export class HomeComponent implements OnInit, OnDestroy {
           uid: res.requests.uid,
           did: res.requests.did
          }
+         const dte:Donation ={
+          supplyName: res.requests.donation.supplyName,
+          quantity: 0,
+          unit: res.requests.donation.unit,
+          uid: res.requests.donation.uid
+         }
 
-         this.editDonationAmount(rte.did+'');
+         this.saveChangesDonation(dte, donationId);
          this.saveChangesRequest(rte);
          
-       }, error => console.error(error)
-     )
+         
+       }, error => console.error(error))
+    
+    //  this.editDonationAmount(donationId);
   }
 
 
-  private editDonationAmount(donationID:string){
-    this.donationApi.getDonationById(donationID).subscribe(
-      don=> {
-        const dte:Donation ={
-          did: +donationID,
-          supplyName: don.supplyName,
-          quantity: 0,
-          createdAt: don.createdAt,
-          unit: don.unit,
-          uid: don.uid,
-          user: don.user,
-          city: don.city
-        }
-        this.saveChangesDonation(dte);
-      }, error => console.error(error)
-    )
-  }
+  // private editDonationAmount(donationID:String){
+  //   this.donationApi.getDonationById(donationID).subscribe(
+  //     don=> {
+  //       const dte:Donation ={
+  //         did: +donationID,
+  //         supplyName: don.supplyName,
+  //         quantity: 0,
+  //         createdAt: don.createdAt,
+  //         unit: don.unit,
+  //         uid: don.uid,
+  //         user: don.user        }
+  //       this.saveChangesDonation(dte);
+  //     }, error => console.error(error)
+  //   )
+  // }
 
-  private saveChangesDonation(don: Donation){
-    this.donationApi.editDonation(don).subscribe(error=>console.error(error))
+  private saveChangesDonation(don: Donation, did:string){
+    console.log(don);
+    this.donationApi.editDonation(don, did).subscribe(res=> console.log(res),error=>console.error(error))
   }
 
   private saveChangesRequest(req: MyRequest){
