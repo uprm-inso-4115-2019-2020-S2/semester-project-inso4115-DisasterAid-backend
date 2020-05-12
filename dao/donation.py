@@ -60,7 +60,7 @@ class Donation(OutputMixin, db.Model):
 
     @staticmethod
     def get_donations_by_supply_name(supply_name):
-        return Donation.query.filter_by(Donation.supplyName.ilike(supply_name)).all()
+        return Donation.query.filter(Donation.supplyName.ilike(supply_name)).all()
 
     @staticmethod
     def get_donations_by_date():
