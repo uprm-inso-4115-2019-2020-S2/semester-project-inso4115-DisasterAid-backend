@@ -149,7 +149,7 @@ export class DonationsComponent implements OnInit {
     .subscribe(data => { 
       console.log(data);
       this.getDonations();
-      this.ngOnInit();
+      window.location.reload();
     }, error=> console.error(error));
 
     console.warn('Values did: ', values);

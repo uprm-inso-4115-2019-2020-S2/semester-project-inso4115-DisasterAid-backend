@@ -44,7 +44,7 @@ export class SeekDonationsService {
       })
     };
     return this.httpClient
-    .put(this.server + `DAD/donations/${donation.did}`, donation, httpOptions)
+    .put(this.server + `DAD/donations/${donation.did}`, donation)
     .pipe(catchError (this._handleError));
   }
 
@@ -53,13 +53,13 @@ export class SeekDonationsService {
     .pipe(catchError (this._handleError));
   }
 
-  public searchByCity(cityName: String):Observable<DonationResponse>{
-    return this.httpClient.get<DonationResponse>(this.server+`DAD/donations?city=${cityName}`)
+  public searchByCity(cityName: String):Observable<SeekResponse>{
+    return this.httpClient.get<SeekResponse>(this.server+`DAD/donations?city=${cityName}`)
     .pipe(catchError (this._handleError))
   }
 
-  public searchBySupplyName(supplyName: String):Observable<DonationResponse>{
-    return this.httpClient.get<DonationResponse>(this.server+`DAD/donations?supply=${supplyName}`)
+  public searchBySupplyName(supplyName: String):Observable<SeekResponse>{
+    return this.httpClient.get<SeekResponse>(this.server+`DAD/donations?supply=${supplyName}`)
     .pipe(catchError (this._handleError))
   }
 

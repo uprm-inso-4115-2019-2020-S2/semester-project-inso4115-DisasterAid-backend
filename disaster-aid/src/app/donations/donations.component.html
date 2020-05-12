@@ -180,13 +180,15 @@
       </td>
       <td>
  
-        <ul id="donations-list">
-          <div class="donation-box" *ngFor="let donation of donationsList">
-            <span><img src="../assets/{{donation.supplyName}}.png" width="40px"></span>
-            <span>Supply: {{ donation.supplyName }}</span>
-            <span>Quantity: {{ donation.quantity }} {{ donation.unit }}</span>
-            <span>Location: {{ location }}</span>
-            <span><button id="edit-btn" (click)="toggleEditDonation(donation.did)">Edit</button></span>
+        <ul id="donations-list" >
+          <div  *ngFor="let donation of donationsList">
+            <div class="donation-box" *ngIf="donation.quantity >0">
+              <span><img src="../assets/{{donation.supplyName}}.png" width="40px"></span>
+              <span>Supply: {{ donation.supplyName }}</span>
+              <span>Quantity: {{ donation.quantity }} {{ donation.unit }}</span>
+              <span>Location: {{ location }}</span>
+              <span><button id="edit-btn" (click)="toggleEditDonation(donation.did)">Edit</button></span>
+            </div>
           </div>
         </ul>
 

@@ -2,8 +2,8 @@
     position: absolute;
     width: 886px;
     height: 414px;
-    left: 300px;
-    top: 110px;
+    left: 22%;
+    /* top: 110px; */
 }
 
 .top-bar {
@@ -16,6 +16,8 @@
 
 .home-page {
     background: #8ACAE6;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .search-input {
@@ -36,15 +38,15 @@
     position: absolute;
     width: 413px;
     height: 880px;
-    left: 48px;
-    top: 150px;
+    left:10%;
+    /* top: 150px; */
 }
 
 .places-list {
     position: absolute;
     width: 200px;
     height: 620px;
-    left: 48px;
+    left: 4%;
     top: 180px;
     background: #B3E6FD;
     border-radius: 20px;
@@ -71,8 +73,8 @@ ul {
 /* Home (T2) */
 .home {
     position: relative;
-    width: 1920px;
-    height: 1080px;
+    width: 100%;
+    height: fit-content;
     background: #8ACAE6;
 }
 
@@ -81,7 +83,7 @@ ul {
     position: absolute;
     width: 280px;
     height: 68px;
-    left: 48px;
+    left: 5%;
     top: 100px;
     font-style: normal;
     font-weight: normal;
@@ -110,7 +112,7 @@ ul {
     position: absolute;
     width: 620px;
     height: 220px;
-    left: 280px;
+    left: 22%;
     top: 340px;
     background: #B3E6FD;
     border-radius: 30px;
@@ -132,17 +134,17 @@ ul {
     position: absolute;
     width: 350px;
     height: 640px;
-    left: 930px;
+    left: 80%;
     top: 87px;
     background: #B3E6FD;
 }
 
 .rectangle15 {
     position: inherit;
-    width: 130px;
-    height: 190px;
-    left: 20px;
-    top: 100px;
+    width: 80%;
+    height: 220px;
+    left: 10%;
+    top: 60px;
     background: #8ACAE6;
     border-radius: 15px;
 }
@@ -173,9 +175,9 @@ ul {
 
 .rectangle-user1 {
     position: absolute;
-    width: 25%;
+    width: 320px;
     height: 298px;
-    left: 930px;
+    left:73%;
     top: 87px;
     background: #B3E6FD;
     text-align: center;
@@ -183,9 +185,9 @@ ul {
 
 .rectangle-user2 {
     position: absolute;
-    width: 25%;
+    width: 320px;
     height: 300px;
-    left: 930px;
+    left: 73%;
     top: 495px;
     background: #B3E6FD;
     text-align: center;
@@ -193,9 +195,9 @@ ul {
 
 .rectangle-user3 {
     position: absolute;
-    width: 12%;
+    width: 155px;
     height: 90px;
-    left: 930px;
+    left: 73%;
     top: 395px;
     background: #B3E6FD;
     text-align: center;
@@ -203,9 +205,9 @@ ul {
 
 .rectangle-user4 {
     position: absolute;
-    width: 12%;
+    width: 155px;
     height: 90px;
-    left: 930px;
+    left:73%;
     top: 395px;
     background: #B3E6FD;
     text-align: center;
@@ -241,4 +243,47 @@ ul {
 .resources {
     display: inline-flex;
     padding-left: 28px;
+}
+
+.places-list::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+.places-list::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 2px grey; 
+    border-radius: 40px;
+}
+
+/* Handle */
+.places-list::-webkit-scrollbar-thumb {
+    background:  #FFBC40; 
+    border-radius: 40px;
+}
+
+/* Handle on hover */
+.places-list::-webkit-scrollbar-thumb:hover {
+    background: #009eb3; 
+}
+
+
+.rectangle15::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+.rectangle15::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 2px grey; 
+    border-radius: 40px;
+}
+
+/* Handle */
+.rectangle15::-webkit-scrollbar-thumb {
+    background:  #FFBC40; 
+    border-radius: 40px;
+}
+
+/* Handle on hover */
+.rectangle15::-webkit-scrollbar-thumb:hover {
+    background: #009eb3; 
 }

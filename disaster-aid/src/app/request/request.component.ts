@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {Request} from '../request';
 import {FormBuilder} from '@angular/forms';
 import { UserApiService } from '../userapi.service';
 import { Router } from '@angular/router';
@@ -28,8 +27,8 @@ constructor( private userApi: UserApiService, private router:Router, private req
     if(localStorage.getItem('loggedInUserID') == null){ this.router.navigate(['/login'])}
     this.loggedInUserID = localStorage.getItem('loggedInUserID');
 
-    this.userApi.getUserById(this.loggedInUserID).subscribe(res =>{
-      this.requestList = res.user.requests;
+    this.requestApi.getRequestByUserId(this.loggedInUserID).subscribe(res =>{
+      this.requestList = res.requests;
     }
 
     )

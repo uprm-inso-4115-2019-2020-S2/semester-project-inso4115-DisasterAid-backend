@@ -5,7 +5,7 @@ export interface MyRequest {
     rId?: Number;
     supplyName: String;
     time: Date;
-    status: boolean;
+    status: string;
     description: String;
     donation?: Donation;
     user?: User;

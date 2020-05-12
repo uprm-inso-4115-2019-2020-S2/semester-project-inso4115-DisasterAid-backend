@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { UserApiService } from '../userapi.service';
 import { Subscription } from 'rxjs/Subscription';
 import { User } from '../user';
@@ -27,6 +27,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   userList: User[];
   loggedInUser: User;
   mySuppliesList: Donation[] = [];
+  @Input() searchModel: string;  
 
 
   pending = [new User1(1, 'Carlos J. Ayala'), new User1(2, 'Javier'), new User1(2, 'Javier')
@@ -46,55 +47,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     lastName: this.loggedInUser ? this.loggedInUser.lastName : ''
   }
 
-  //mock pending list (should be loaded from db)
-  //List Type should be User
-  pendingList = [
-    {
-      firstName: "Juan",
-      lastName: "Vargas"
-    },
-    {
-      firstName: "Brian",
-      lastName: "Griffin"
-    },
-    {
-      firstName: "Julia",
-      lastName: "Belinski"
-    },
-    {
-      firstName: "Robert",
-      lastName: "Acar"
-    },
-    {
-      firstName: "Elon",
-      lastName: "Musk"
-    },
-    {
-      firstName: "Peter",
-      lastName: "Griffin"
-    }
-  ]
-
+ 
   //mock delivered list (should be loaded from db)
   //List Type should be User.
-  deliveredList = [
-    {
-      firstName: "Natalie",
-      lastName: "Cruz"
-    },
-    {
-      firstName: "Michael",
-      lastName: "Scott"
-    },
-    {
-      firstName: "Albert",
-      lastName: "Cruz"
-    },
-    {
-      firstName: "John",
-      lastName: "Doe"
-    }
-  ]
+  deliveredList: String[] = []
 
   //mock supplies list (to be loaded from db)
   //List should be of type Supply[]
@@ -120,6 +76,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       );
 
     this.getThisUsersDonations();
+    this.fillDeliveredDonationsList();
 
   }
 
@@ -130,8 +87,15 @@ export class HomeComponent implements OnInit, OnDestroy {
   onClickList(e) {
     console.log(e.target.id);
     //DO THE SEACH WITH e.target.id QUE ES EL NOMBRE DEL PUEBLO
-    window.location.href = '/donations/' + String(e.target.id)
-    //window.location.href = '/donations'
+    localStorage.setItem('search',String(e.target.id));
+    this.router.navigate(['/seek-donations'])
+    // window.location.href = '/donations/'  
+  }
+
+  makeSearch(){
+    console.log(this.searchModel);
+    localStorage.setItem('search',this.searchModel);
+    this.router.navigate(['/seek-donations'])
   }
 
   logout() {
@@ -148,8 +112,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   getThisUsersDonations() {
     this.donationApi.getUserDonations(localStorage.getItem('loggedInUserID')).subscribe(
       res => {
-        this.mySuppliesList = res.donation;
-        this.numOfDonations = res.donation.length;
+        res.donation.forEach(don =>
+          {if(don.quantity>0){
+            this.mySuppliesList.push(don);
+          }}
+        )
+        this.numOfDonations = this.mySuppliesList.length;
         this.populateIncomingRequestList();
       }, error => console.error(error)
     )
@@ -157,12 +125,12 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   populateIncomingRequestList() {
     this.mySuppliesList.forEach(supply =>
-      supply.requests.forEach(item => this.incomingRequestsList.push(item))
-    );
-    this.numOfRequests = this.incomingRequestsList.length;
+      {supply.requests.forEach(item => 
+        {if (item.status!="Delivered"){
+          this.incomingRequestsList.push(item);
+        }});
+    this.numOfRequests = this.incomingRequestsList.length});
   }
-
-
 
 
   acceptRequest(requestId: string, donationId: string) {
@@ -175,7 +143,42 @@ export class HomeComponent implements OnInit, OnDestroy {
           rId: +requestId,
           supplyName: res.requests.supplyName,
           time: res.requests.time,
-          status: true,
+          status: "Accepted",
+          description: res.requests.description,
+          donation: res.requests.donation,
+          user: res.requests.user,
+          uid: res.requests.uid,
+          did: res.requests.did
+        }
+        this.saveChangesRequest(rte);
+
+      }, error => console.error(error))
+
+    
+  }
+
+
+  private saveChangesDonation(don: Donation, did: string) {
+    console.log(don);
+    this.donationApi.editDonation(don, did).subscribe(res => console.log(res), error => console.error(error))
+  }
+
+  private saveChangesRequest(req: MyRequest) {
+    console.log(req);
+    this.requestsApi.editRequest(req).subscribe(res => {console.log(res); this.refreshPage();}, error => console.error(error))
+  }
+
+  deliverRequest(requestId: string, donationId: string) {
+
+    console.log(requestId);
+    this.requestsApi.getRequestById(requestId).subscribe(
+      res => {
+        console.log(res)
+        const rte: MyRequest = {
+          rId: +requestId,
+          supplyName: res.requests.supplyName,
+          time: res.requests.time,
+          status: "Delivered",
           description: res.requests.description,
           donation: res.requests.donation,
           user: res.requests.user,
@@ -191,39 +194,31 @@ export class HomeComponent implements OnInit, OnDestroy {
 
         this.saveChangesDonation(dte, donationId);
         this.saveChangesRequest(rte);
+        
 
       }, error => console.error(error))
 
     
-
-    //  this.editDonationAmount(donationId);
   }
 
-
-  // private editDonationAmount(donationID:String){
-  //   this.donationApi.getDonationById(donationID).subscribe(
-  //     don=> {
-  //       const dte:Donation ={
-  //         did: +donationID,
-  //         supplyName: don.supplyName,
-  //         quantity: 0,
-  //         createdAt: don.createdAt,
-  //         unit: don.unit,
-  //         uid: don.uid,
-  //         user: don.user        }
-  //       this.saveChangesDonation(dte);
-  //     }, error => console.error(error)
-  //   )
-  // }
-
-  private saveChangesDonation(don: Donation, did: string) {
-    console.log(don);
-    this.donationApi.editDonation(don, did).subscribe(res => console.log(res), error => console.error(error))
+  fillDeliveredDonationsList(){
+    this.requestsApi.getAllRequests().subscribe(
+      res => {
+        console.log(res);
+        console.log(+localStorage.getItem('loggedInUserID'));
+        res.requests.forEach(mr =>
+         { if(mr.status == "Delivered" && mr.donation.uid == +localStorage.getItem('loggedInUserID')){
+            this.deliveredList.push(mr.user.firstName +" "+ mr.user.lastName
+            + " : "+mr.supplyName +" ( "+ mr.description+" )");
+          }}
+        )
+      },error => console.error(error)
+      
+    )
   }
 
-  private saveChangesRequest(req: MyRequest) {
-    console.log(req);
-    this.requestsApi.editRequest(req).subscribe(res => console.log(res), error => console.error(error))
+  refreshPage(){
+    window.location.reload();
   }
 
 }

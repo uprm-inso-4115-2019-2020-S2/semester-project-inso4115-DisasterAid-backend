@@ -18,11 +18,10 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent},
   { path: 'landing_page', component: LandingPageComponent },
   { path: 'settings', component: SettingsComponent},
-  { path: 'seek-donations', component:SeekDonationsComponent},
-  {path: 'request', component: RequestComponent},
-  {path: 'request-modal', component: RequestModalComponent},
+  { path: 'request', component: RequestComponent},
+  { path: 'request-modal', component: RequestModalComponent},
   { path: 'my-donations', component: DonationsComponent },
-
+  { path: 'seek-donations', component:SeekDonationsComponent}
 ];
 
 @NgModule({

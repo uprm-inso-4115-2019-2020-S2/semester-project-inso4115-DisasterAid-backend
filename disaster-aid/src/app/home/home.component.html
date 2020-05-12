@@ -1,49 +1,56 @@
 <!DOCTYPE html>
-<html>
-  <title></title>
-  <head>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  </head>
-  <body class="home-page">
-    <nav class="navbar navbar-light" style="background-color: rgba(2, 163, 232, 0.4);">
-      <a class="navbar-brand mr-1" href="#"><img src="/assets/DAD_logo.png" style="width: 50%;"></a>
-      <ul class="nav navbar-justified navbar-right ml-auto" style="margin-right: 3%;">
-          <li class="nav-item">
-              <a class="nav-link menuItem" href="/my-donations">DONATE</a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link menuItem" href="/request">MY REQUESTS</a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link menuItem" href="/seek-donations">SEEK DONATIONS</a>
-          </li>
-          <li>
-            <input id="search" type="text" class="search-input border-0" placeholder="Search">
-          </li>
-          <li>
-            <span class="material-icons" style="padding-inline-start: 15px;">
-              notifications_none
-            </span>
-          </li>
-          <li>
-            <span class="material-icons" style="padding-inline-start: 15px;" onclick="window.location.href='/settings'">
-              settings
-            </span>
-          </li>
-          <li>
-            <svg class="bi bi-box-arrow-right ml-4" width="36px" height="36px" viewBox="0 0 16 16" 
-            fill="red" xmlns="http://www.w3.org/2000/svg" style="cursor: pointer;" (click)="logout()">
-              <path fill-rule="evenodd" d="M11.646 11.354a.5.5 0 010-.708L14.293 8l-2.647-2.646a.5.5 0 01.708-.708l3 3a.5.5 0 010 .708l-3 3a.5.5 0 01-.708 0z" clip-rule="evenodd"/>
-              <path fill-rule="evenodd" d="M4.5 8a.5.5 0 01.5-.5h9a.5.5 0 010 1H5a.5.5 0 01-.5-.5z" clip-rule="evenodd"/>
-              <path fill-rule="evenodd" d="M2 13.5A1.5 1.5 0 01.5 12V4A1.5 1.5 0 012 2.5h7A1.5 1.5 0 0110.5 4v1.5a.5.5 0 01-1 0V4a.5.5 0 00-.5-.5H2a.5.5 0 00-.5.5v8a.5.5 0 00.5.5h7a.5.5 0 00.5-.5v-1.5a.5.5 0 011 0V12A1.5 1.5 0 019 13.5H2z" clip-rule="evenodd"/>
-            </svg>
-          </li>
-      </ul>
+<html style="text-align: center;">
+<title></title>
+
+<head>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+
+<body class="home-page" >
+  <nav class="navbar navbar-light" style="background-color: rgba(2, 163, 232, 0.4);">
+    <a class="navbar-brand mr-1" href="#"><img src="/assets/DAD_logo.png" style="width: 50%;"></a>
+    <ul class="nav navbar-justified navbar-right ml-auto" style="margin-right: 3%;">
+      <li class="nav-item">
+        <a class="nav-link menuItem" href="/my-donations">DONATE</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link menuItem" href="/request">MY REQUESTS</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link menuItem" href="/seek-donations">SEEK DONATIONS</a>
+      </li>
+      <li>
+        <input id="searchBarInput" [(ngModel)]="searchModel" type="search" class="search-input border-0"
+          placeholder="Search">
+      </li>
+      <li>
+        <a class="material-icons" style="padding-inline-start: 15px;" (click)="makeSearch()">
+          search
+        </a>
+      </li>
+      <li>
+        <span class="material-icons" style="padding-inline-start: 15px;" onclick="window.location.href='/settings'">
+          settings
+        </span>
+      </li>
+      <li>
+        <svg class="bi bi-box-arrow-right ml-4" width="36px" height="36px" viewBox="0 0 16 16" fill="red"
+          xmlns="http://www.w3.org/2000/svg" style="cursor: pointer;" (click)="logout()">
+          <path fill-rule="evenodd"
+            d="M11.646 11.354a.5.5 0 010-.708L14.293 8l-2.647-2.646a.5.5 0 01.708-.708l3 3a.5.5 0 010 .708l-3 3a.5.5 0 01-.708 0z"
+            clip-rule="evenodd" />
+          <path fill-rule="evenodd" d="M4.5 8a.5.5 0 01.5-.5h9a.5.5 0 010 1H5a.5.5 0 01-.5-.5z" clip-rule="evenodd" />
+          <path fill-rule="evenodd"
+            d="M2 13.5A1.5 1.5 0 01.5 12V4A1.5 1.5 0 012 2.5h7A1.5 1.5 0 0110.5 4v1.5a.5.5 0 01-1 0V4a.5.5 0 00-.5-.5H2a.5.5 0 00-.5.5v8a.5.5 0 00.5.5h7a.5.5 0 00.5-.5v-1.5a.5.5 0 011 0V12A1.5 1.5 0 019 13.5H2z"
+            clip-rule="evenodd" />
+        </svg>
+      </li>
+    </ul>
   </nav>
 
   <section>
-    <div class="map" >
-        <img src="/assets/MAP-HOME.png" style="width: 70%;">
+    <div class="map">
+      <img src="/assets/MAP-HOME.png" style="width: 70%;">
     </div>
   </section>
 
@@ -53,15 +60,17 @@
         <label class="user-text ml-4 mt-1" style="text-align: justify;">My Supplies</label>
         <a style="padding-left: 325px;" routerLink='/my-donations' routerLinkActive="true">See More</a>
       </div>
-     
+
       <ul class="resources" *ngFor="let supply of mySuppliesList; let i=index">
         <div *ngIf="i < 4 && supply.quantity>0" class="rectangle-resource">
-          <img src="assets/{{supply.supplyName}}.png" width="60%" style="margin-left: 20px; margin-top: 6px; margin-bottom: 12px;">
-          <span class="supply-text" style="text-transform: capitalize;">{{supply.supplyName}} : {{supply.quantity}}</span>
-        </div>      
+          <img src="assets/{{supply.supplyName}}.png" width="60%"
+            style="margin-left: 20px; margin-top: 6px; margin-bottom: 12px;">
+          <span class="supply-text" style="text-transform: capitalize;">{{supply.supplyName}} :
+            {{supply.quantity}}</span>
+        </div>
       </ul>
 
-<!--       <div class="rectangle-resource" style="left: 180px;"></div>
+      <!--       <div class="rectangle-resource" style="left: 180px;"></div>
       <div class="rectangle-resource" style="left: 320px;"></div>
       <div class="rectangle-resource" style="left: 460px;"></div> -->
     </div>
@@ -73,18 +82,19 @@
 
       <!-- card -->
       <ul class="resources" *ngFor="let item of incomingRequestsList; let i=index">
-        <div *ngIf="i<4 && item.status==false" class="rectangle-resource">
+        <div *ngIf="i<4 && item.status!='Delivered'" class="rectangle-resource">
           <img src="assets/{{item.supplyName}}.png" width="60%" style="margin-top: 6px; margin-bottom: 18px;">
           <p class="resource-text" style="white-space: pre; text-transform: capitalize;">
-            {{item.supplyName}} (Status: Pending) </p>
-          <!-- <span class="resource-text">x{{resource.quantity}} </span> -->
-          <!-- <span class="resource-text">{{resource.location}}</span>  -->
-          <button class="get-btn" (click)="acceptRequest(item.rid, item.did)">ACCEPT</button>
+            {{item.supplyName}} (Status: {{item.status}}) </p>
+          <button *ngIf="item.status == 'Pending'" class="get-btn"
+            (click)="acceptRequest(item.rid, item.did)">ACCEPT</button>
+          <button *ngIf="item.status == 'Accepted'" class="get-btn"
+            (click)="deliverRequest(item.rid, item.did)">DELIVER</button>
         </div>
       </ul>
 
 
-<!--       <div class="rectangle-resource" style="left: 180px;">
+      <!--       <div class="rectangle-resource" style="left: 180px;">
         <img src="assets/Water-Bottle.png" width="60%" style="margin-left: 20px; margin-top: 6px;">
         <button class="get-btn">GET</button>
       </div>
@@ -99,130 +109,131 @@
     </div>
   </section>
 
-    <div class="rectangle-user1">
-      <img src="/assets/user.png" style="width: 50%; margin-top: 47px;">
-      <p class="user-text">{{user.firstName}} {{user.lastName}}</p>
-    </div>
-    <div class="rectangle-user3">
-      <p class="user-text m-2 mb-lg-n2">{{numOfDonations}}</p>
-      <p class="user-text" style="font-size: 18px;">Donations</p>
-    </div>
-    <div class="rectangle-user3" style="left: 1094px">
-      <p class="user-text m-2 mb-lg-n2">{{numOfRequests}}</p>
-      <p class="user-text" style="font-size: 18px;">Requests</p>
-    </div>
-    <!-- <div class="rectangle-user4">
+  <div class="rectangle-user1">
+    <img src="/assets/user.png" style="width: 50%; margin-top: 47px;">
+    <p class="user-text">{{user.firstName}} {{user.lastName}}</p>
+  </div>
+  <div class="rectangle-user3">
+    <p class="user-text m-2 mb-lg-n2">{{numOfDonations}}</p>
+    <p class="user-text" style="font-size: 18px;">Donations</p>
+  </div>
+  <div class="rectangle-user3" style="left: 86%">
+    <p class="user-text m-2 mb-lg-n2">{{numOfRequests}}</p>
+    <p class="user-text" style="font-size: 18px;">Requests</p>
+  </div>
+  <!-- <div class="rectangle-user4">
       <p class="user-text" style="font-size: 18px;">My Requests</p>
     </div> -->
-    <div class="rectangle-user2">
-      <p class="user-text">My Donations</p>
-      <p class="user-text" style="position: absolute; left: 40px; font-size: 22px;">Delivered</p>
-      <div class="rectangle15 overflow-auto">
-        <ul id="delivered" style="list-style-type: none; color: white;" *ngFor="let person of deliveredList">
-          <li>{{person.firstName}} {{person.lastName}}</li>
-        </ul>
-      </div>
-      <p class="user-text" style="position: absolute; left: 200px; font-size: 22px;">Pending</p>
+  <div class="rectangle-user2">
+    <p class="user-text">Delivered Donations</p>
+    <!-- <p class="user-text" style="position: absolute; left: 40px; font-size: 22px;">Delivered</p> -->
+    <div class="rectangle15 overflow-auto">
+      <ul id="delivered" style="list-style-type: none; color: white;" *ngFor="let person of deliveredList">
+        <li>{{person}}</li>
+      </ul>
+    </div>
+    <!-- <p class="user-text" style="position: absolute; left: 200px; font-size: 22px;">Pending</p>
       <div class="rectangle15 overflow-auto" style="left: 170px;">
         <ul id="pending" style="list-style-type: none; color: white;" *ngFor="let person of pendingList">
           <li>{{person.firstName}} {{person.lastName}}</li>
         </ul>
-      </div>
-    </div>
+      </div> -->
+  </div>
   <section>
 
   </section>
 
   <section>
     <!-- <div class="places" style="font-size: xx-large; text-align: center; padding-top: 2%; color: white;"> -->
-      <!-- <p style="font-size: xx-large; text-align: center; padding-top: 2%; color: white;">Places</p> -->
-      <p class="locate-help">LOCATE HELP</p>
-      <div class="places-list overflow-auto">
-        <a class="cities-txt">CITIES</a>
-        <ul (click)="onClickList($event)" id="pueblos" style="list-style-type:none;" class="pointer">
-          <li id=	Adjuntas	>	Adjuntas	</li>
-          <li id=	Aguada	>	Aguada	</li>
-          <li id=	Aguadilla	>	Aguadilla	</li>
-          <li id=	AguasBuenas	>	Aguas Buenas	</li>
-          <li id=	Aibonito	>	Aibonito	</li>
-          <li id=	Añasco	>	Añasco	</li>
-          <li id=	Arecibo	>	Arecibo	</li>
-          <li id=	Arroyo	>	Arroyo	</li>
-          <li id=	Barceloneta	>	Barceloneta	</li>
-          <li id=	Barranquitas	>	Barranquitas	</li>
-          <li id=	Bayamón	>	Bayamón	</li>
-          <li id=	CaboRojo	>	Cabo Rojo	</li>
-          <li id=	Caguas	>	Caguas	</li>
-          <li id=	Camuy	>	Camuy	</li>
-          <li id=	Canovanas	>	Canovanas	</li>
-          <li id=	Carolina	>	Carolina	</li>
-          <li id=	Cataño	>	Cataño	</li>
-          <li id=	Cayey	>	Cayey	</li>
-          <li id=	Ceiba	>	Ceiba	</li>
-          <li id=	Ciales	>	Ciales	</li>
-          <li id=	Cidra	>	Cidra	</li>
-          <li id=	Coamo	>	Coamo	</li>
-          <li id=	Comerío	>	Comerío	</li>
-          <li id=	Corozal	>	Corozal	</li>
-          <li id=	Culebra	>	Culebra	</li>
-          <li id=	Dorado	>	Dorado	</li>
-          <li id=	Fajardo	>	Fajardo	</li>
-          <li id=	Florida	>	Florida	</li>
-          <li id=	Guayama	>	Guayama	</li>
-          <li id=	Guayanilla	>	Guayanilla	</li>
-          <li id=	Guaynabo	>	Guaynabo	</li>
-          <li id=	Gurabo	>	Gurabo	</li>
-          <li id=	Guánica	>	Guánica	</li>
-          <li id=	Hatillo	>	Hatillo	</li>
-          <li id=	Hormigueros	>	Hormigueros	</li>
-          <li id=	Humacao	>	Humacao	</li>
-          <li id=	Isabela	>	Isabela	</li>
-          <li id=	Jayuya	>	Jayuya	</li>
-          <li id=	JuanaDíaz	>	Juana Díaz	</li>
-          <li id=	Juncos	>	Juncos	</li>
-          <li id=	Lajas	>	Lajas	</li>
-          <li id=	Lares	>	Lares	</li>
-          <li id=	LasMarías	>	Las Marías	</li>
-          <li id=	LasPiedras	>	Las Piedras	</li>
-          <li id=	Loiza	>	Loiza	</li>
-          <li id=	Luquillo	>	Luquillo	</li>
-          <li id=	Manatí	>	Manatí	</li>
-          <li id=	Maricao	>	Maricao	</li>
-          <li id=	Maunabo	>	Maunabo	</li>
-          <li id=	Mayagüez	>	Mayagüez	</li>
-          <li id=	Moca	>	Moca	</li>
-          <li id=	Morovis	>	Morovis	</li>
-          <li id=	Naguabo	>	Naguabo	</li>
-          <li id=	Naranjito	>	Naranjito	</li>
-          <li id=	Orocovis	>	Orocovis	</li>
-          <li id=	Patillas	>	Patillas	</li>
-          <li id=	Peñuelas	>	Peñuelas	</li>
-          <li id=	Ponce	>	Ponce	</li>
-          <li id=	Quebradillas	>	Quebradillas	</li>
-          <li id=	Rincón	>	Rincón	</li>
-          <li id=	RioGrande	>	Rio Grande	</li>
-          <li id=	SabanaGrande	>	Sabana Grande	</li>
-          <li id=	Salinas	>	Salinas	</li>
-          <li id=	SanGermán	>	San Germán	</li>
-          <li id=	SanJuan	>	San Juan	</li>
-          <li id=	SanLorenzo	>	San Lorenzo	</li>
-          <li id=	SanSebastián	>	San Sebastián	</li>
-          <li id=	SantaIsabel	>	Santa Isabel	</li>
-          <li id=	ToaAlta	>	Toa Alta	</li>
-          <li id=	ToaBaja	>	Toa Baja	</li>
-          <li id=	TrujilloAlto	>	Trujillo Alto	</li>
-          <li id=	Utuado	>	Utuado	</li>
-          <li id=	VegaAlta	>	Vega Alta	</li>
-          <li id=	VegaBaja	>	Vega Baja	</li>
-          <li id=	Vieques	>	Vieques	</li>
-          <li id=	Villalba	>	Villalba	</li>
-          <li id=	Yabucoa	>	Yabucoa	</li>
-          <li id=	Yauco	>	Yauco	</li>
-        </ul>
-      </div>
+    <!-- <p style="font-size: xx-large; text-align: center; padding-top: 2%; color: white;">Places</p> -->
+    <p class="locate-help">LOCATE HELP</p>
+    <div class="places-list overflow-auto">
+      <a class="cities-txt">CITIES</a>
+      <ul (click)="onClickList($event)" id="pueblos" style="list-style-type:none;" class="pointer">
+        <li id="Adjuntas"> Adjuntas </li>
+        <li id="Aguada"> Aguada </li>
+        <li id="Aguadilla"> Aguadilla </li>
+        <li id="AguasBuenas"> Aguas Buenas </li>
+        <li id="Aibonito"> Aibonito </li>
+        <li id="Añasco"> Añasco </li>
+        <li id="Arecibo"> Arecibo </li>
+        <li id="Arroyo"> Arroyo </li>
+        <li id="Barceloneta"> Barceloneta </li>
+        <li id="Barranquitas"> Barranquitas </li>
+        <li id="Bayamón"> Bayamón </li>
+        <li id="CaboRojo"> Cabo Rojo </li>
+        <li id="Caguas"> Caguas </li>
+        <li id="Camuy"> Camuy </li>
+        <li id="Canovanas"> Canovanas </li>
+        <li id="Carolina"> Carolina </li>
+        <li id="Cataño"> Cataño </li>
+        <li id="Cayey"> Cayey </li>
+        <li id="Ceiba"> Ceiba </li>
+        <li id="Ciales"> Ciales </li>
+        <li id="Cidra"> Cidra </li>
+        <li id="Coamo"> Coamo </li>
+        <li id="Comerío"> Comerío </li>
+        <li id="Corozal"> Corozal </li>
+        <li id="Culebra"> Culebra </li>
+        <li id="Dorado"> Dorado </li>
+        <li id="Fajardo"> Fajardo </li>
+        <li id="Florida"> Florida </li>
+        <li id="Guayama"> Guayama </li>
+        <li id="Guayanilla"> Guayanilla </li>
+        <li id="Guaynabo"> Guaynabo </li>
+        <li id="Gurabo"> Gurabo </li>
+        <li id="Guánica"> Guánica </li>
+        <li id="Hatillo"> Hatillo </li>
+        <li id="Hormigueros"> Hormigueros </li>
+        <li id="Humacao"> Humacao </li>
+        <li id="Isabela"> Isabela </li>
+        <li id="Jayuya"> Jayuya </li>
+        <li id="JuanaDíaz"> Juana Díaz </li>
+        <li id="Juncos"> Juncos </li>
+        <li id="Lajas"> Lajas </li>
+        <li id="Lares"> Lares </li>
+        <li id="LasMarías"> Las Marías </li>
+        <li id="LasPiedras"> Las Piedras </li>
+        <li id="Loiza"> Loiza </li>
+        <li id="Luquillo"> Luquillo </li>
+        <li id="Manatí"> Manatí </li>
+        <li id="Maricao"> Maricao </li>
+        <li id="Maunabo"> Maunabo </li>
+        <li id="Mayagüez"> Mayagüez </li>
+        <li id="Moca"> Moca </li>
+        <li id="Morovis"> Morovis </li>
+        <li id="Naguabo"> Naguabo </li>
+        <li id="Naranjito"> Naranjito </li>
+        <li id="Orocovis"> Orocovis </li>
+        <li id="Patillas"> Patillas </li>
+        <li id="Peñuelas"> Peñuelas </li>
+        <li id="Ponce"> Ponce </li>
+        <li id="Quebradillas"> Quebradillas </li>
+        <li id="Rincón"> Rincón </li>
+        <li id="RioGrande"> Rio Grande </li>
+        <li id="SabanaGrande"> Sabana Grande </li>
+        <li id="Salinas"> Salinas </li>
+        <li id="SanGermán"> San Germán </li>
+        <li id="SanJuan"> San Juan </li>
+        <li id="SanLorenzo"> San Lorenzo </li>
+        <li id="SanSebastián"> San Sebastián </li>
+        <li id="SantaIsabel"> Santa Isabel </li>
+        <li id="ToaAlta"> Toa Alta </li>
+        <li id="ToaBaja"> Toa Baja </li>
+        <li id="TrujilloAlto"> Trujillo Alto </li>
+        <li id="Utuado"> Utuado </li>
+        <li id="VegaAlta"> Vega Alta </li>
+        <li id="VegaBaja"> Vega Baja </li>
+        <li id="Vieques"> Vieques </li>
+        <li id="Villalba"> Villalba </li>
+        <li id="Yabucoa"> Yabucoa </li>
+        <li id="Yauco"> Yauco </li>
+      </ul>
+    </div>
     <!-- </div> -->
   </section>
 
 
-  </body>
+</body>
+
 </html>

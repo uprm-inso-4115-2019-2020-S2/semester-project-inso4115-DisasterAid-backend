@@ -24,11 +24,10 @@
   <div class="request-box" *ngFor="let request of requestList">
     <span><img src="../assets/{{request.supplyName}}.png" width="40px"></span>
     <span>Supply: {{request.supplyName}}</span>
-    <span> Quantity: {{request.quantity}}</span>
-    <span>Location: {{location}} </span>
-    <span *ngIf="request.status">Status: Delivered</span>
-    <span *ngIf="!request.status">Status: Pending</span>
-    <span *ngIf="!request.status">
+    <span> Quantity: {{request.donation.quantity}}</span>
+    <span>Requested: {{request.time.substring(0,16)}} </span>
+    <span>Status: {{request.status}}</span>
+    <span *ngIf="request.status != 'Delivered'">
       <button id="edit-btn" (click)="cancelRequest(request.rid)">Cancel</button>
     </span>
   </div>
