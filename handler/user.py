@@ -112,7 +112,8 @@ class UserHandler(BaseHandler):
                 if user_to_update:
                     for key, value in valid_params.items():
                         if key == "password":
-                            user_to_update.update_password(value)
+                            if not bcrypt.checkpw(value.enconde('utf-8'), user_to_update.password.encode('utf-8')):
+                                user_to_update.update_password(value)
                         else:
                             setattr(user_to_update, key, value)
                     user_to_update.update()
